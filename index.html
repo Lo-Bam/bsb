@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diamond Life 8 - 10 Club Career</title>
+<title>Diamond Life 9 - 10 Club Career</title>
 <style>
 :root{
   --team:#4f8cff; --team2:#dbe7ff; --bg:#101217; --panel:#1c2028; --panel2:#242b35;
@@ -35,6 +35,50 @@ button,input,select{font:inherit}
 .btn.red{background:var(--bad)}.btn.dark{background:#2c3440;color:#fff}.btn.small{padding:6px 8px;font-size:12px}
 .panel{background:var(--panel);border:4px solid #000;box-shadow:0 0 0 4px var(--line),8px 8px 0 #000;padding:15px;margin-bottom:18px}
 .panel h2,.panel h3{margin:0 0 10px}.sub{color:var(--muted);font-size:13px;line-height:1.6}
+
+
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
 
 .onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
 .steps{display:flex;flex-direction:column;gap:8px}
@@ -71,7 +115,51 @@ button,input,select{font:inherit}
 .creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
 .club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
 .club.create{min-height:118px}.club.create .club-name{font-size:13px}
-@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
+
+.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
 
 .setup-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -160,6 +248,50 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 .military-ok{color:var(--good);font-weight:900}.military-warn{color:var(--bad);font-weight:900}
 
 @media(max-width:950px){.game-grid{grid-template-columns:1fr}.club-grid{grid-template-columns:repeat(2,1fr)}
+
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
+
 .onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
 .steps{display:flex;flex-direction:column;gap:8px}
 .stepnav{border:3px solid #000;background:#141920;padding:10px;display:flex;gap:9px;align-items:center;opacity:.55}
@@ -195,11 +327,99 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 .creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
 .club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
 .club.create{min-height:118px}.club.create .club-name{font-size:13px}
-@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
+
+.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
 
 .setup-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){
+
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
+
 .onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
 .steps{display:flex;flex-direction:column;gap:8px}
 .stepnav{border:3px solid #000;background:#141920;padding:10px;display:flex;gap:9px;align-items:center;opacity:.55}
@@ -235,7 +455,51 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 .creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
 .club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
 .club.create{min-height:118px}.club.create .club-name{font-size:13px}
-@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+.amateur-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+.pixel-stadium{position:relative;height:300px;border:4px solid #000;overflow:hidden;background:linear-gradient(#7fc7ff 0 42%,#4b9a5d 42% 100%)}
+.sky-cloud{position:absolute;width:44px;height:16px;background:#fff;top:28px;left:50px;box-shadow:18px -8px 0 #fff,34px 0 0 #fff;opacity:.9}
+.sky-cloud.c2{left:auto;right:80px;top:50px;transform:scale(.75)}
+.crowd{position:absolute;left:0;right:0;top:110px;height:48px;background:
+ repeating-linear-gradient(90deg,#e35a5a 0 8px,#f4d45f 8px 16px,#5ba9e8 16px 24px,#fff 24px 32px);
+ border-top:4px solid #000;border-bottom:4px solid #000;image-rendering:pixelated}
+.dugout{position:absolute;left:18px;bottom:12px;width:118px;height:58px;background:#334151;border:4px solid #000}
+.dugout:before{content:"";position:absolute;left:9px;right:9px;top:10px;height:18px;background:#0e1115;border:3px solid #000}
+.scoreboard{position:absolute;right:16px;top:72px;width:142px;background:#10151b;border:4px solid #000;box-shadow:6px 6px 0 rgba(0,0,0,.4);padding:8px;z-index:4}
+.scoreboard .led{color:#9aff85;font-size:12px;letter-spacing:1px}.scoreboard .big{font-size:20px;color:#fff;font-weight:900}
+.field-diamond{position:absolute;width:150px;height:150px;left:50%;bottom:-5px;transform:translateX(-50%) rotate(45deg);background:#c89458;border:4px solid #000}
+.grass-cut{position:absolute;left:0;right:0;bottom:0;height:125px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,rgba(0,0,0,.025) 28px 56px)}
+.sprite-pro{width:168px;height:176px;position:relative;margin:auto;image-rendering:pixelated;filter:drop-shadow(7px 7px 0 rgba(0,0,0,.38))}
+.sp-head{position:absolute;left:64px;top:30px;width:40px;height:36px;background:#eab98d;border:4px solid #000}
+.sp-hair{position:absolute;left:60px;top:22px;width:48px;height:16px;background:#20242b;border:4px solid #000}
+.sp-cap{position:absolute;left:56px;top:12px;width:56px;height:14px;background:var(--team);border:4px solid #000;box-shadow:18px 10px 0 -4px var(--team)}
+.sp-body{position:absolute;left:52px;top:68px;width:64px;height:54px;background:var(--team2);border:4px solid #000}
+.sp-number{position:absolute;left:75px;top:79px;font-weight:900;color:var(--team);font-size:22px;z-index:3}
+.sp-arm-l,.sp-arm-r{position:absolute;top:73px;width:18px;height:50px;background:#eab98d;border:4px solid #000}.sp-arm-l{left:32px;transform:rotate(12deg)}.sp-arm-r{right:30px;transform:rotate(-18deg)}
+.sp-leg-l,.sp-leg-r{position:absolute;top:118px;width:24px;height:44px;background:#e8e8e8;border:4px solid #000}.sp-leg-l{left:53px}.sp-leg-r{right:52px}
+.sp-shoe-l,.sp-shoe-r{position:absolute;top:158px;width:34px;height:12px;background:#151515;border:4px solid #000}.sp-shoe-l{left:44px}.sp-shoe-r{right:43px}
+.sp-bat{position:absolute;right:8px;top:45px;width:10px;height:92px;background:#b8783f;border:3px solid #000;transform:rotate(-22deg)}
+.sp-glove{position:absolute;left:17px;top:88px;width:28px;height:24px;background:#8b572f;border:4px solid #000}
+.stage-badge{display:inline-flex;align-items:center;gap:7px;border:3px solid #000;background:#11161d;padding:7px 10px}
+.amateur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.am-stat{border:3px solid #000;background:#12171d;padding:10px;text-align:center}.am-stat b{display:block;color:var(--gold);font-size:18px;margin-top:3px}
+.amateur-log{max-height:290px;overflow:auto}.am-log-item{padding:9px;border-left:6px solid var(--team);background:#141920;margin:7px 0;border-top:3px solid #000;border-right:3px solid #000;border-bottom:3px solid #000;font-size:11px}
+.school-card{border:4px solid #000;background:#141920;padding:13px}.school-card h3{margin:0 0 6px}.school-seal{width:54px;height:54px;border:4px solid #000;background:#eee;color:#111;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;float:left;margin-right:10px}
+.draft-night{min-height:420px;background:radial-gradient(circle at 50% 20%,#263348,#0b0e13 58%);border:4px solid #000;position:relative;overflow:hidden;padding:18px}
+.draft-lights{position:absolute;inset:0;background:
+ radial-gradient(circle at 14% 10%,rgba(255,255,255,.18),transparent 20%),
+ radial-gradient(circle at 86% 10%,rgba(255,255,255,.18),transparent 20%);pointer-events:none}
+.draft-stage-title{text-align:center;font-size:13px;letter-spacing:4px;color:var(--muted)}
+.draft-clock{width:108px;height:108px;border-radius:50%;border:6px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:16px auto;background:#0e1319;box-shadow:0 0 0 5px #000,0 0 28px rgba(255,214,90,.28);font-size:34px;font-weight:900}
+.draft-clock.pulse{animation:heartbeat .7s infinite}@keyframes heartbeat{50%{transform:scale(1.06);box-shadow:0 0 0 5px #000,0 0 45px rgba(255,214,90,.6)}}
+.team-roll{display:flex;gap:7px;overflow:hidden;padding:10px 0}.roll-team{min-width:92px;border:3px solid #000;background:#141a22;padding:9px;text-align:center;transition:.15s}.roll-team.hot{background:var(--team);transform:translateY(-5px);outline:3px solid var(--gold)}
+.draft-message{text-align:center;font-size:22px;font-weight:900;min-height:64px;margin-top:10px;text-shadow:3px 3px 0 #000}
+.draft-sub{text-align:center;color:var(--muted);font-size:12px;min-height:38px}
+.draft-pick-card{border:4px solid #000;background:#11161c;padding:15px;margin-top:12px;animation:reveal .45s steps(3,end)}@keyframes reveal{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.draft-fail{border-color:var(--bad)!important}.draft-success{border-color:var(--good)!important}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.decision{border:4px solid #000;background:#141920;padding:15px;cursor:pointer;min-height:145px;box-shadow:5px 5px 0 #000}.decision:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #000}.decision h3{margin:4px 0 6px}.decision .emoji{font-size:34px}
+@media(max-width:900px){.amateur-grid{grid-template-columns:1fr}.pixel-stadium{height:260px}}
+
+.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
 
 .setup-grid{grid-template-columns:1fr}.club-grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.attrs{grid-template-columns:1fr}.draft-board{grid-template-columns:repeat(2,1fr)}}
@@ -244,7 +508,7 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><div class="badge" id="topBadge">DL</div><div><h1>DIAMOND LIFE 8</h1><small id="topSub">프로의 문이 열립니다</small></div></div>
+    <div class="brand"><div class="badge" id="topBadge">DL</div><div><h1>DIAMOND LIFE 9</h1><small id="topSub">프로의 문이 열립니다</small></div></div>
     <div class="top-actions">
       <button class="btn dark small" onclick="saveGame()">저장</button>
       <button class="btn dark small" onclick="loadGame()">불러오기</button>
@@ -280,12 +544,84 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
   </div>
 </section>
 
-  <section id="draftScreen" class="screen">
+  
+<section id="amateurScreen" class="screen">
+  <div class="amateur-grid">
+    <div>
+      <div class="panel">
+        <div class="creator-head">
+          <div>
+            <div class="stage-badge"><span id="amStageIcon">⚾</span><b id="amStage">고교야구</b></div>
+            <h2 id="amTitle" style="margin-top:12px">첫 시즌이 시작됩니다</h2>
+            <div id="amSub" class="sub">프로 스카우트의 눈에 들기 전, 먼저 그라운드에서 자신의 이름을 알려야 합니다.</div>
+          </div>
+          <div class="chip">나이 <strong id="amAge">16</strong></div>
+        </div>
+        <div class="pixel-stadium">
+          <div class="sky-cloud"></div><div class="sky-cloud c2"></div>
+          <div class="crowd"></div><div class="grass-cut"></div><div class="field-diamond"></div><div class="dugout"></div>
+          <div class="scoreboard"><div class="led" id="amBoardStage">HIGH SCHOOL</div><div class="big" id="amBoardName">ROOKIE</div><div class="tiny" id="amBoardLine">SCOUTS WATCHING</div></div>
+        </div>
+        <div class="amateur-stats" style="margin-top:12px">
+          <div class="am-stat"><span class="tiny">스카우트 평가</span><b id="amRep">20</b></div>
+          <div class="am-stat"><span class="tiny">전국 인지도</span><b id="amFame">10</b></div>
+          <div class="am-stat"><span class="tiny">현재 평가</span><b id="amOvr">60</b></div>
+        </div>
+        <div class="btnrow" style="margin-top:12px">
+          <button id="amAdvanceBtn" class="btn green" onclick="advanceAmateur()">다음 일정</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>이번 시즌 이야기</h3>
+        <div id="amEvent" class="notice">시즌이 시작되면 학교와 경기장에서 이야기가 생깁니다.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="school-card">
+          <div class="school-seal" id="schoolSeal">高</div>
+          <h3 id="schoolName">한빛고등학교</h3>
+          <div class="sub" id="schoolDesc">전국대회를 노리는 전통의 야구부</div>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>선수 능력</h3>
+        <div id="amAttrs" class="attrs"></div>
+      </div>
+
+      <div class="panel">
+        <h3>커리어 기록</h3>
+        <div id="amLog" class="amateur-log"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="amDecisionScreen" class="screen">
+  <div class="panel">
+    <div class="major-wrap">
+      <span class="major-kicker" id="decisionKicker">고교 3학년</span>
+      <h2 class="major-title" id="decisionTitle">진로를 결정할 시간입니다</h2>
+      <div class="major-desc" id="decisionDesc">프로의 문을 두드릴지, 대학에서 더 성장할지 결정합니다.</div>
+    </div>
+    <div id="decisionChoices" class="decision-grid" style="margin-top:16px"></div>
+  </div>
+</section>
+
+<section id="draftScreen" class="screen">
     <div class="panel">
       <h2>신인 드래프트</h2>
-      <div class="draft-stage">
-        <div class="sub">10개 구단이 선수의 포지션 수요, 잠재력, 구단 성향을 바탕으로 지명합니다.</div>
-        <div id="draftBoard" class="draft-board"></div>
+      <div class="draft-night">
+        <div class="draft-lights"></div>
+        <div class="draft-stage-title">PRO BASEBALL ROOKIE DRAFT</div>
+        <div id="draftClock" class="draft-clock pulse">10</div>
+        <div id="draftMessage" class="draft-message">구단들이 마지막 회의를 진행하고 있습니다</div>
+        <div id="draftSub" class="draft-sub">당신의 이름이 언제 불릴지는 아무도 모릅니다.</div>
+        <div id="draftBoard" class="team-roll"></div>
         <div id="draftResult"></div>
       </div>
     </div>
@@ -668,14 +1004,14 @@ function startFromCreator(){
   const tempName=C.name||"김민준";
   // 기존 initPlayer가 DOM select를 읽으므로, 동일한 구조를 직접 만들어준다.
   G={name:tempName,type:C.type,pace:C.pace,throws:C.throws,bats:C.bats,position:C.position,role:C.role,build:C.build,
-    favorite:C.favorite,club:null,age:18,season:1,block:0,level:"신인",service:0,salary:3000,contractYears:1,trust:45,history:[],training:"balanced",lastChangeAge:-99,
+    favorite:C.favorite,club:null,age:16,season:1,block:0,level:"고교",service:0,salary:3000,contractYears:1,trust:45,history:[],training:"balanced",lastChangeAge:-99,
     attrs:C.type==="hitter"?{contact:56,power:62,discipline:48,speed:71,fielding:66,arm:73}:{velocity:68,stuff:64,control:56,command:53,breaking:61,stamina:70,hold:55,pitchIQ:58},
     preference:Object.fromEntries(TEAMS.map(t=>[t.id,t.id===C.favorite?82:Math.round(rand(35,62))])),standings:[],
     nationalCaps:0,nationalMedals:[],nationalHistory:[],militaryStatus:"미필",militaryResolved:false,sangmu:false,sangmuYears:0,originalClub:null,internationalReputation:20,
     awards:[],championships:0,postseasonApps:0,careerScore:0,retired:false,draftRound:1,draftPick:0,extensionDeclined:false,nextFAService:7,
-    pitches:C.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[],eventMemory:{},lastEventCat:null,agentAggressive:false
+    pitches:C.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[],amateurStage:"high",amateurYear:1,amateurBlock:0,scoutRep:18,amateurFame:8,amateurLog:[],draftAttempts:0,collegeName:null,eventMemory:{},lastEventCat:null,agentAggressive:false
   };
-  showScreen("draftScreen");runDraft()
+  startAmateur()
 }
 
 function renderFavorite(){
@@ -700,26 +1036,175 @@ function initPlayer(){
  ]:[]
  };
 }
-function goDraft(){initPlayer();showScreen("draftScreen");runDraft()}
-function runDraft(){
- const key=G.type==="hitter"?G.position:(G.role==="SP"?"SP":"RP"); let scores=TEAMS.map(t=>{
-   let s=t.need[key]*.6+t.dev*.22+rand(0,28)+(t.id===G.favorite?6:0);
-   return {t,s}
- }).sort((a,b)=>b.s-a.s);
- let selected=scores[Math.floor(Math.random()*Math.min(5,scores.length))].t;
- $("draftBoard").innerHTML=TEAMS.map(t=>`<div class="pick" id="pick_${t.id}"><div class="mini-badge" style="margin:auto;background:${t.c1}">${t.abbr}</div><div style="margin-top:5px">${t.name}</div></div>`).join("");
- let i=0; const order=[...TEAMS].sort(()=>Math.random()-.5);
- clearInterval(draftTimer); draftTimer=setInterval(()=>{
-   document.querySelectorAll(".pick").forEach(x=>x.classList.remove("on"));
-   if(i<order.length){$("pick_"+order[i].id).classList.add("on");i++}
-   else{clearInterval(draftTimer);finishDraft(selected)}
- },220)
+function goDraft(){initPlayer();startAmateur()}
+
+function startAmateur(){
+  showScreen("amateurScreen");
+  G.amateurStage??="high";G.amateurYear??=1;G.amateurBlock??=0;G.scoutRep??=18;G.amateurFame??=8;G.amateurLog??=[];
+  renderAmateur();
+}
+function schoolInfo(){
+  if(G.amateurStage==="college"){
+    let names=["동해대학교","성문대학교","한강대학교","중앙체육대학교","백운대학교"];
+    if(!G.collegeName)G.collegeName=pick(names);
+    return {name:G.collegeName,seal:"大",desc:"전국 대학리그와 프로 진출을 노리는 야구부"};
+  }
+  return {name:"한빛고등학교",seal:"高",desc:"전국대회를 노리는 전통의 야구부"};
+}
+function amateurOverall(){return overall()}
+function renderAmateur(){
+  let college=G.amateurStage==="college",s=schoolInfo();
+  $("amStage").textContent=college?"대학야구":"고교야구";$("amStageIcon").textContent=college?"🎓":"⚾";
+  $("amAge").textContent=G.age;$("schoolName").textContent=s.name;$("schoolSeal").textContent=s.seal;$("schoolDesc").textContent=s.desc;
+  $("amBoardStage").textContent=college?"COLLEGE LEAGUE":"HIGH SCHOOL";$("amBoardName").textContent=G.name.toUpperCase();
+  $("amBoardLine").textContent=college?`YEAR ${G.amateurYear} · PRO SCOUTS`:`YEAR ${G.amateurYear} · SCOUT REPORT`;
+  $("amRep").textContent=Math.round(G.scoutRep);$("amFame").textContent=Math.round(G.amateurFame);$("amOvr").textContent=overall().toFixed(1);
+  $("amTitle").textContent=college?`${G.amateurYear}학년 시즌`:`고교 ${G.amateurYear}학년 시즌`;
+  $("amSub").textContent=college?"대학리그 성적과 성장세가 다시 프로 스카우트의 평가를 바꿉니다.":"전국대회, 연습경기, 스카우트 평가가 차곡차곡 쌓입니다.";
+  let attrs=G.type==="hitter"?HATTR:PATTR;
+  $("amAttrs").innerHTML=attrs.map(k=>`<div class="attr"><div class="attr-head"><span>${LAB[k]}</span><strong>${Math.round(G.attrs[k])}</strong></div><div class="bar"><div class="fill" style="width:${G.attrs[k]}%"></div></div></div>`).join("");
+  $("amLog").innerHTML=(G.amateurLog||[]).slice().reverse().map(x=>`<div class="am-log-item">${x}</div>`).join("")||'<div class="notice">아직 기록이 없습니다.</div>';
+}
+function amateurEvent(){
+  let college=G.amateurStage==="college",r=Math.random(),msg="";
+  let keys=G.type==="hitter"?HATTR:PATTR;
+  if(r<.20){
+    let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+rand(.35,.75),20,99);G.scoutRep+=rand(1,3);
+    msg=`특별 타격·투구 훈련에서 ${LAB[k]}가 눈에 띄게 좋아졌습니다.`;
+  }else if(r<.38){
+    let boost=rand(2,5);G.scoutRep+=boost;G.amateurFame+=rand(1,4);
+    msg=college?"전국 대학리그 중계 경기에서 좋은 모습을 보여 스카우트 평가가 올랐습니다.":"전국대회에서 인상적인 활약을 펼쳐 여러 구단 스카우트가 이름을 기록했습니다.";
+  }else if(r<.53){
+    msg="팀 내 경쟁자가 좋은 모습을 보이며 주전 경쟁이 치열해졌습니다.";
+    if(Math.random()<.55){let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+.25,20,99);msg+=" 훈련으로 자리를 지켜냈습니다."}
+  }else if(r<.67){
+    G.scoutRep=clamp(G.scoutRep+rand(-2,2),0,100);
+    msg=college?"프로 스카우트가 직접 경기장을 찾아 장단점을 세밀하게 체크했습니다.":"프로 구단 스카우트가 학교를 방문해 선수의 훈련을 지켜봤습니다.";
+  }else if(r<.80){
+    let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+rand(.2,.45),20,99);
+    msg=college?"대학 코치의 조언으로 플레이가 한층 안정됐습니다.":"감독의 집중 지도로 기본기가 조금 더 단단해졌습니다.";
+  }else if(r<.90){
+    G.amateurFame+=rand(3,6);
+    msg=college?"라이벌 대학과의 경기에서 결승 장면의 주인공이 됐습니다.":"지역 라이벌전에서 결정적인 활약을 펼쳐 학교 안에서 이름이 알려졌습니다.";
+  }else{
+    msg="몸 상태가 좋지 않아 며칠간 훈련 강도를 낮췄습니다. 큰 부상 없이 복귀했습니다.";
+  }
+  G.scoutRep=clamp(G.scoutRep,0,100);G.amateurFame=clamp(G.amateurFame,0,100);
+  G.amateurLog.push(`${G.age}세 · ${msg}`);
+  $("amEvent").className="event";$("amEvent").innerHTML=`<strong>${college?"대학리그 소식":"고교야구 소식"}</strong><div class="sub" style="margin-top:5px">${msg}</div>`;
+}
+function amateurSeasonGrowth(){
+  let keys=G.type==="hitter"?HATTR:PATTR;
+  let growth=G.amateurStage==="college"?.42:.48;
+  for(let i=0;i<2;i++){let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+rand(.2,growth),20,99)}
+}
+function advanceAmateur(){
+  amateurEvent();amateurSeasonGrowth();G.amateurBlock++;
+  if(G.amateurBlock<3){renderAmateur();return}
+  G.amateurBlock=0;
+  if(G.amateurStage==="high"){
+    if(G.amateurYear<3){G.amateurYear++;G.age++;G.amateurLog.push(`${G.age}세 · 새 학년이 시작됐습니다.`);renderAmateur();return}
+    showAmateurDecision("high");
+  }else{
+    if(G.amateurYear<4){G.amateurYear++;G.age++;G.scoutRep=clamp(G.scoutRep+rand(1,4),0,100);G.amateurLog.push(`${G.age}세 · 대학 ${G.amateurYear}학년 시즌을 준비합니다.`);renderAmateur();return}
+    showAmateurDecision("college");
+  }
+}
+function showAmateurDecision(stage){
+  showScreen("amDecisionScreen");
+  if(stage==="high"){
+    $("decisionKicker").textContent="고교 3학년 · 진로 선택";
+    $("decisionTitle").textContent="프로의 문을 두드릴까요?";
+    $("decisionDesc").textContent=`현재 스카우트 평가 ${Math.round(G.scoutRep)}. 바로 드래프트에 도전하거나 대학에서 더 성장할 수 있습니다.`;
+    $("decisionChoices").innerHTML=`
+      <div class="decision" onclick="declareDraft('high')"><div class="emoji">🎤</div><h3>신인 드래프트 참가</h3><div class="sub">지금 프로에 도전합니다. 지명되지 않으면 대학 진학을 선택할 수 있습니다.</div></div>
+      <div class="decision" onclick="enterCollege()"><div class="emoji">🎓</div><h3>대학 진학</h3><div class="sub">4년 동안 더 성장한 뒤 다시 프로의 문을 두드립니다.</div></div>`;
+  }else{
+    $("decisionKicker").textContent="대학 4학년 · 마지막 시즌";
+    $("decisionTitle").textContent="다시 프로의 문 앞에 섰습니다";
+    $("decisionDesc").textContent=`대학에서 쌓은 스카우트 평가 ${Math.round(G.scoutRep)}. 이제 신인 드래프트에 참가합니다.`;
+    $("decisionChoices").innerHTML=`<div class="decision" style="grid-column:1/-1" onclick="declareDraft('college')"><div class="emoji">🏟️</div><h3>프로 드래프트 참가</h3><div class="sub">대학야구에서 쌓은 모든 평가를 들고 프로에 도전합니다.</div></div>`;
+  }
+}
+function enterCollege(){
+  G.amateurStage="college";G.amateurYear=1;G.amateurBlock=0;G.age=19;G.level="대학";
+  G.scoutRep=clamp(G.scoutRep+4,0,100);G.amateurLog.push("19세 · 대학 야구부에 입학했습니다.");
+  startAmateur();
+}
+function declareDraft(origin){
+  G.draftOrigin=origin;G.draftAttempts=(G.draftAttempts||0)+1;
+  showScreen("draftScreen");runDraft();
+}
+function draftChance(){
+  let o=overall(),rep=G.scoutRep||20,fame=G.amateurFame||10;
+  let college=G.draftOrigin==="college";
+  return clamp(.20+(o-57)*.055+rep*.006+fame*.002+(college?.08:0),.12,.97);
+}
+function handleUndrafted(){
+  if(G.draftOrigin==="high"){
+    majorEvent("신인 드래프트","끝내 이름이 불리지 않았습니다",
+      "아직 프로의 문은 닫히지 않았습니다. 대학에서 더 성장한 뒤 다시 도전할 수 있습니다.","card",
+      [["스카우트 평가",Math.round(G.scoutRep)],["현재 평가",overall().toFixed(1)],["나이",G.age+"세"]],
+      [["대학에서 다시 도전",()=>enterCollege()]],false);
+  }else{
+    majorEvent("신인 드래프트","대학 졸업 후에도 지명되지 않았습니다",
+      "프로 구단의 선택을 받지 못했습니다. 독립야구와 추가 테스트를 거치는 길이 남아 있습니다.","card",
+      [["스카우트 평가",Math.round(G.scoutRep)],["현재 평가",overall().toFixed(1)],["도전",G.draftAttempts+"회"]],
+      [["프로 테스트 도전",()=>{G.scoutRep+=5;setTimeout(()=>{showScreen("draftScreen");runDraft(true)},250)}],
+       ["커리어 종료",()=>{G.retired=true;showLegacyFinal(18,"프로 문턱에서 멈춘 도전")}]],false);
+  }
+}
+
+function runDraft(testMode=false){
+  let key=G.type==="hitter"?G.position:(G.role==="SP"?"SP":"RP");
+  let scores=TEAMS.map(t=>{
+    let s=(t.need[key]||70)*.52+t.dev*.18+G.scoutRep*.20+overall()*.10+rand(-8,12)+(t.id===G.favorite?3:0);
+    return {t,s}
+  }).sort((a,b)=>b.s-a.s);
+
+  $("draftResult").innerHTML="";
+  $("draftMessage").textContent=testMode?"프로 테스트 결과를 구단들이 검토하고 있습니다":"10개 구단의 최종 지명 회의가 진행 중입니다";
+  $("draftSub").textContent="한 팀씩 선택이 지나갈 때마다 가능성은 줄어듭니다.";
+  $("draftBoard").innerHTML=TEAMS.map(t=>`<div class="roll-team" id="pick_${t.id}"><div class="mini-badge" style="margin:auto;background:${t.c1}">${t.abbr}</div><div class="tiny" style="margin-top:5px">${t.abbr}</div></div>`).join("");
+
+  let selected=scores[Math.floor(rand(0,Math.min(4,scores.length)))].t;
+  let success=Math.random()<draftChance();
+  if(testMode)success=Math.random()<clamp(draftChance()+.12,.2,.99);
+
+  let order=[...TEAMS].sort(()=>Math.random()-.5);
+  let count=10,idx=0;
+  $("draftClock").textContent=count;$("draftClock").classList.add("pulse");
+  clearInterval(draftTimer);
+  draftTimer=setInterval(()=>{
+    document.querySelectorAll(".roll-team").forEach(x=>x.classList.remove("hot"));
+    if(idx<order.length){
+      let t=order[idx];$("pick_"+t.id).classList.add("hot");
+      $("draftMessage").textContent=`${t.name}, 지명 선수 검토 중`;
+      $("draftSub").textContent=idx<3?"아직 많은 구단이 남아 있습니다.":idx<7?"몇몇 구단이 당신의 자료를 다시 펼쳐보고 있습니다.":"마지막 선택들이 다가옵니다.";
+      count=Math.max(1,10-idx);$("draftClock").textContent=count;idx++;
+    }else{
+      clearInterval(draftTimer);$("draftClock").classList.remove("pulse");$("draftClock").textContent="…";
+      $("draftMessage").textContent="최종 결과를 확인합니다";
+      $("draftSub").textContent="";
+      setTimeout(()=>success?finishDraft(selected):draftFailed(),900);
+    }
+  },620);
 }
 function finishDraft(t){
- G.club=t.id;G.preference[t.id]=Math.max(G.preference[t.id],68);
- let talent=overall()+rand(-7,7);G.draftRound=talent>=66?1:talent>=61?2:talent>=57?3:4;G.draftPick=Math.floor(rand(1,11));
- applyTheme();
- $("draftResult").innerHTML=`<div class="result-card flash"><h3>${G.draftRound}라운드 ${G.draftPick}순위 · ${t.name}</h3><div class="sub">${G.favorite===t.id?"희망 구단이 실제로 지명했습니다.":"희망 구단은 "+team(G.favorite).name+"였지만, "+t.name+"이 먼저 선택했습니다."}</div><div class="chips" style="margin-top:10px"><div class="chip">계약금 <strong>${Math.round(rand(80,180))*100}만원</strong></div><div class="chip">초봉 <strong>3,000만원</strong></div></div><button class="btn green" style="margin-top:12px" onclick="draftCeremony()">지명 무대로</button></div>`;
+  G.club=t.id;G.preference[t.id]=Math.max(G.preference[t.id],68);
+  let talent=overall()+G.scoutRep*.05+rand(-5,6);
+  G.draftRound=talent>=69?1:talent>=65?2:talent>=61?3:talent>=58?4:5;
+  G.draftPick=Math.floor(rand(1,11));applyTheme();
+  $("draftClock").textContent=G.draftRound+"R";
+  $("draftMessage").textContent=`${G.name}, ${t.name}의 선택을 받았습니다!`;
+  $("draftSub").textContent=G.favorite===t.id?"마음속에 품었던 팀이 당신의 이름을 불렀습니다.":`${team(G.favorite).name}을 바라봤지만, 프로의 첫 유니폼은 ${t.name}입니다.`;
+  $("draftResult").innerHTML=`<div class="draft-pick-card draft-success"><div class="chips"><div class="chip">지명 <strong>${G.draftRound}라운드 ${G.draftPick}순위</strong></div><div class="chip">구단 <strong>${t.name}</strong></div></div><button class="btn green" style="width:100%;margin-top:12px" onclick="draftCeremony()">지명 무대로</button></div>`;
+}
+function draftFailed(){
+  $("draftClock").textContent="—";
+  $("draftMessage").textContent="모든 구단의 지명이 끝났습니다";
+  $("draftSub").textContent="끝까지 기다렸지만 이번에는 이름이 불리지 않았습니다.";
+  $("draftResult").innerHTML=`<div class="draft-pick-card draft-fail"><h3>미지명</h3><div class="sub">${G.draftOrigin==="high"?"프로의 문은 아직 닫히지 않았습니다. 대학에서 다시 성장할 수 있습니다.":"대학 커리어를 마쳤지만 이번 드래프트에서는 선택받지 못했습니다."}</div><button class="btn blue" style="width:100%;margin-top:12px" onclick="handleUndrafted()">다음 선택</button></div>`;
 }
 
 function majorArt(kind){
@@ -745,7 +1230,7 @@ function draftCeremony(){
   let t=team(G.club);
   majorEvent("신인 드래프트",`${G.name}, ${t.name} 지명`,
     `${G.draftRound}라운드 ${G.draftPick}순위. ${G.favorite===G.club?"어릴 적 바라던 팀의 유니폼을 입게 됐습니다.":"희망 구단과는 달랐지만, 이제 이 팀에서 프로 커리어가 시작됩니다."}`,
-    "card",[["지명",`${G.draftRound}R ${G.draftPick}순위`],["구단",t.abbr],["나이","18세"]],[["프로 커리어 시작",()=>enterCareer()]],true)
+    "card",[["지명",`${G.draftRound}R ${G.draftPick}순위`],["구단",t.abbr],["나이",G.age+"세"]],[["프로 커리어 시작",()=>enterCareer()]],true)
 }
 
 function enterCareer(){showScreen("careerScreen");buildTraining();newStandings();render()}
@@ -1057,9 +1542,9 @@ function closeModal(){
  $("modal").classList.remove("show");
  if(window._modalQueue&&window._modalQueue.length){let next=window._modalQueue.shift();setTimeout(next,120)}
 }
-function saveGame(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife7",JSON.stringify(G));alert("저장했습니다.")}
-function loadGame(){let s=localStorage.getItem("diamondLife7")||localStorage.getItem("diamondLife6")||localStorage.getItem("diamondLife5")||localStorage.getItem("diamondLife4")||localStorage.getItem("diamondLife3")||localStorage.getItem("diamondLife2");if(!s)return alert("저장된 게임이 없습니다.");G=JSON.parse(s);G.nationalCaps??=0;G.nationalMedals??=[];G.nationalHistory??=[];G.militaryStatus??="미필";G.militaryResolved??=false;G.sangmu??=false;G.sangmuYears??=0;G.originalClub??=null;G.internationalReputation??=20;G.awards??=[];G.championships??=0;G.postseasonApps??=0;G.careerScore??=0;G.retired??=false;G.nextFAService??=7;G.contractYears??=0;G.pitches??=(G.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[]);G.eventMemory??={};G.lastEventCat??=null;G.agentAggressive??=false;showScreen("careerScreen");applyTheme();buildTraining();render()}
-function resetGame(){if(confirm("새 게임을 시작할까요?")){localStorage.removeItem("diamondLife7");localStorage.removeItem("diamondLife6");localStorage.removeItem("diamondLife5");localStorage.removeItem("diamondLife4");localStorage.removeItem("diamondLife3");localStorage.removeItem("diamondLife2");location.reload()}}
+function saveGame(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife9",JSON.stringify(G));alert("저장했습니다.")}
+function loadGame(){let s=localStorage.getItem("diamondLife9")||localStorage.getItem("diamondLife7")||localStorage.getItem("diamondLife6")||localStorage.getItem("diamondLife5")||localStorage.getItem("diamondLife4")||localStorage.getItem("diamondLife3")||localStorage.getItem("diamondLife2");if(!s)return alert("저장된 게임이 없습니다.");G=JSON.parse(s);G.nationalCaps??=0;G.nationalMedals??=[];G.nationalHistory??=[];G.militaryStatus??="미필";G.militaryResolved??=false;G.sangmu??=false;G.sangmuYears??=0;G.originalClub??=null;G.internationalReputation??=20;G.awards??=[];G.championships??=0;G.postseasonApps??=0;G.careerScore??=0;G.retired??=false;G.nextFAService??=7;G.contractYears??=0;G.pitches??=(G.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[]);G.amateurStage??="high";G.amateurYear??=1;G.amateurBlock??=0;G.scoutRep??=18;G.amateurFame??=8;G.amateurLog??=[];G.draftAttempts??=0;G.eventMemory??={};G.lastEventCat??=null;G.agentAggressive??=false;showScreen("careerScreen");applyTheme();buildTraining();render()}
+function resetGame(){if(confirm("새 게임을 시작할까요?")){localStorage.removeItem("diamondLife9");localStorage.removeItem("diamondLife7");localStorage.removeItem("diamondLife6");localStorage.removeItem("diamondLife5");localStorage.removeItem("diamondLife4");localStorage.removeItem("diamondLife3");localStorage.removeItem("diamondLife2");location.reload()}}
 function render(){
  if(!G)return;applyTheme();$("pname").textContent=G.name;$("age").textContent=G.age;$("ovr").textContent=overall().toFixed(1);$("clubName").textContent=clubLabel(G.club);$("salary").textContent=formatWon(G.salary);$("service").textContent=G.service;$("trust").textContent=Math.round(G.trust);
  $("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]} · ${G.level}`;$("bat").style.display=G.type==="hitter"?"block":"none";
