@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Diamond Life 16</title>
+<title>Diamond Life 17</title>
 <style>
 :root{
   --team:#3f6fff;--team2:#dbe6ff;--bg:#0e1116;--panel:#1a2028;--panel2:#232b35;
@@ -88,12 +88,59 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
   .field{height:220px}.board,.banner{transform:scale(.82)}.board{transform-origin:top left}.banner{transform-origin:top right}
   .top .actions .btn{padding:6px;font-size:9px}.brand h1{font-size:16px}
 }
+
+/* Diamond Life 17 — mobile safety */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+img,svg,canvas{max-width:100%}
+.panel,.two,.creator-layout,.grid2,.grid4,.club-grid,.attrs,.offer{min-width:0}
+@media(max-width:760px){
+  .app{width:100%;max-width:100%;padding:8px}
+  .panel{width:100%;max-width:100%;padding:11px;margin-bottom:11px;overflow:hidden}
+  .two{display:block}
+  .creator-layout{display:block}
+  .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+  .step{min-width:0;padding:5px 3px}
+  .step b{font-size:9px;white-space:normal;word-break:keep-all}
+  .grid2,.grid4,.club-grid,.attrs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .choice,.club,.attr{min-width:0}
+  .club b,.choice b{word-break:keep-all}
+  .field{height:205px;width:100%}
+  .board{max-width:54%;transform:scale(.78);transform-origin:top left}
+  .banner{max-width:42%;transform:scale(.78);transform-origin:top right}
+  .modal{padding:8px;align-items:flex-end}
+  .modal-box{
+    width:100%;max-width:100%;max-height:82dvh;
+    padding:12px 10px calc(14px + env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;
+  }
+  .modal-box .btn{width:100%;min-height:46px;margin-top:7px}
+  .offer{display:block}
+  .top{padding:8px}
+  .brand h1{font-size:15px}
+  .brand small{font-size:9px}
+  .actions .btn{font-size:9px;padding:6px 7px}
+  .auto{grid-template-columns:1fr;gap:6px}
+  .auto .btn{width:100%}
+  .chips{gap:5px}
+  .chip{font-size:9px;padding:5px 6px}
+}
+
+
+.gain{color:var(--good)!important}.loss{color:var(--bad)!important}
+.event-card{
+  border:3px solid #000;border-left:7px solid var(--team);
+  background:#11161d;padding:10px;margin-top:8px
+}
+.event-card b{display:block;margin-bottom:4px}
+.event-card .effects{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.effect{border:2px solid #000;background:#0b1015;padding:4px 6px;font-size:9px}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 16</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
+    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 17</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
     <div class="actions"><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
   </header>
 
@@ -123,7 +170,11 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
           </div>
           <div class="auto"><div class="status"><span id="amDot" class="dot"></span><span id="amStatus"></span></div><button class="btn blue" onclick="toggleAm()">일시정지</button></div>
         </div>
-        <div class="panel"><h3>학교 소식</h3><div id="amEvent" class="sub">시즌이 시작됩니다.</div></div>
+        <div class="panel">
+  <h3>학교 소식</h3>
+  <div id="amEvent" class="sub">시즌이 시작됩니다.</div>
+  <div id="growthSummary" class="chips" style="margin-top:10px"></div>
+</div>
       </div>
       <div>
         <div class="panel"><h3>선수 능력</h3><div id="amAttrs" class="attrs"></div></div>
@@ -222,23 +273,146 @@ function renderAm(){
  $("amDot").classList.toggle("on",amRun);$("amStatus").textContent=amRun?"시즌이 자동으로 흐르고 있습니다":"시즌이 멈춰 있습니다";animateField("a")
 }
 function startAm(){if(amRun)return;amRun=true;renderAm();amTimer=setTimeout(amStep,900)}function pauseAm(){amRun=false;clearTimeout(amTimer);renderAm()}function toggleAm(){amRun?pauseAm():startAm()}
+
+function addAttr(k,amt){
+  let before=G.attrs[k];
+  G.attrs[k]=clamp(G.attrs[k]+amt,20,99);
+  return G.attrs[k]-before;
+}
+function effectChip(label,val){
+  let cls=val>0?"gain":val<0?"loss":"";
+  return `<span class="effect ${cls}">${label} ${val>0?"+":""}${val.toFixed?val.toFixed(1):val}</span>`;
+}
+function showGrowth(effects){
+  if(!$("growthSummary"))return;
+  $("growthSummary").innerHTML=effects.map(e=>`<div class="chip ${e[1]>0?"gain":e[1]<0?"loss":""}">${e[0]} ${e[1]>0?"+":""}${typeof e[1]==="number"?e[1].toFixed(1):e[1]}</div>`).join("");
+}
+function amateurChoice(title,desc,choices,done){
+  pauseAm();
+  modal(`<h2>${title}</h2><div class="sub">${desc}</div>${choices.map((c,i)=>`<button class="btn ${i===0?"green":"blue"}" onclick="amateurChoicePick(${i})">${c[0]}</button>`).join("")}`);
+  window._amChoices=choices;window._amDone=done;
+}
+function amateurChoicePick(i){
+  let c=window._amChoices[i];
+  let effects=c[1]();
+  closeM();
+  if(effects)showGrowth(effects);
+  if(window._amDone)window._amDone();
+  setTimeout(startAm,650);
+}
+function runAmateurEvent(done){
+  let college=G.stage==="college";
+  let keys=G.type==="hitter"?H:P;
+  let r=Math.random();
+
+  // Guaranteed meaningful choice roughly once per season.
+  let choiceBlock=(G.block===1 && Math.random()<.72);
+
+  if(choiceBlock){
+    if(G.type==="hitter"){
+      amateurChoice(
+        college?"대학 코치의 훈련 제안":"감독의 집중 훈련 제안",
+        "이번 기간 어떤 부분을 가장 집중해서 다듬을지 정합니다.",
+        [
+          ["컨택과 선구안",()=>{let a=addAttr("contact",.7),b=addAttr("discipline",.45);G.scout+=1.5;G.logs.push(`${G.age}세 · 타격 정확도 훈련에 집중했습니다.`);return [["컨택",a],["선구안",b],["스카우트",1.5]]}],
+          ["장타와 피지컬",()=>{let a=addAttr("power",.75),b=addAttr("speed",.25);G.scout+=1;G.logs.push(`${G.age}세 · 장타 훈련에 집중했습니다.`);return [["파워",a],["주력",b],["스카우트",1]]}],
+          ["수비 기본기",()=>{let a=addAttr("fielding",.7),b=addAttr("arm",.45);G.logs.push(`${G.age}세 · 수비 훈련에 집중했습니다.`);return [["수비",a],["송구",b]]}]
+        ],done
+      );
+    }else{
+      amateurChoice(
+        college?"투수코치의 집중 프로그램":"투수코치의 집중 프로그램",
+        "이번 기간 투구의 어떤 부분을 가장 많이 다듬을지 선택합니다.",
+        [
+          ["구속과 구위",()=>{let a=addAttr("velocity",.7),b=addAttr("stuff",.55);G.scout+=1.5;G.logs.push(`${G.age}세 · 빠른 공 훈련에 집중했습니다.`);return [["구속",a],["구위",b],["스카우트",1.5]]}],
+          ["제구와 커맨드",()=>{let a=addAttr("control",.7),b=addAttr("command",.55);G.scout+=1;G.logs.push(`${G.age}세 · 제구 훈련에 집중했습니다.`);return [["제구",a],["커맨드",b],["스카우트",1]]}],
+          ["변화구와 체력",()=>{let a=addAttr("breaking",.7),b=addAttr("stamina",.45);G.logs.push(`${G.age}세 · 변화구와 체력 훈련을 병행했습니다.`);return [["변화구",a],["체력",b]]}]
+        ],done
+      );
+    }
+    return;
+  }
+
+  let effects=[],msg="";
+  if(r<.20){
+    let k=pick(keys),g=addAttr(k,rand(.35,.65));G.scout=clamp(G.scout+rand(1,2.5),0,100);
+    msg=`${LAB[k]} 훈련에서 눈에 띄는 성과가 있었습니다.`;
+    effects=[[LAB[k],g],["스카우트",1.5]];
+  }else if(r<.40){
+    let s=rand(2,5);G.scout=clamp(G.scout+s,0,100);G.fame=clamp(G.fame+rand(1,3),0,100);
+    msg=college?"전국 대학리그 경기에서 프로 스카우트의 주목을 받았습니다.":"전국대회에서 좋은 활약으로 스카우트 평가가 올랐습니다.";
+    effects=[["스카우트",s],["인지도",2]];
+  }else if(r<.56){
+    let k=pick(keys),g=addAttr(k,.3);
+    msg="주전 경쟁이 치열해졌지만 훈련에서 좋은 평가를 받았습니다.";
+    effects=[[LAB[k],g],["감독평가",1]];
+  }else if(r<.72){
+    let k=pick(keys),g=addAttr(k,rand(.25,.45));
+    msg="코치의 개인 지도를 통해 기본기가 조금 더 단단해졌습니다.";
+    effects=[[LAB[k],g]];
+  }else if(r<.87){
+    let f=rand(2,5);G.fame=clamp(G.fame+f,0,100);G.scout=clamp(G.scout+1,0,100);
+    msg="라이벌전에서 결정적인 장면을 만들며 이름을 알렸습니다.";
+    effects=[["인지도",f],["스카우트",1]];
+  }else{
+    msg="몸 상태가 좋지 않아 훈련 강도를 조절했습니다. 큰 부상 없이 회복했습니다.";
+    effects=[["컨디션",0]];
+  }
+
+  G.logs.push(`${G.age}세 · ${msg}`);
+  $("amEvent").innerHTML=`<div class="event-card"><b>${msg}</b><div class="effects">${effects.map(e=>effectChip(e[0],typeof e[1]==="number"?e[1]:0)).join("")}</div></div>`;
+  showGrowth(effects.filter(e=>typeof e[1]==="number"));
+  renderAm();
+  setTimeout(done,900);
+}
+
 function amStep(){
- if(!amRun)return;let keys=G.type==="hitter"?H:P,r=Math.random(),msg="";
- if(r<.23){let k=pick(keys);G.attrs[k]+=rand(.3,.65);G.scout+=rand(1,3);msg=`${LAB[k]} 훈련 성과가 좋았습니다.`}
- else if(r<.45){G.scout+=rand(2,5);G.fame+=rand(1,4);msg=G.stage==="high"?"전국대회에서 스카우트의 눈에 띄었습니다.":"대학리그 중계 경기에서 좋은 모습을 보였습니다."}
- else if(r<.63){msg="주전 경쟁이 치열해졌지만 꾸준히 기회를 얻고 있습니다."}
- else if(r<.78){let k=pick(keys);G.attrs[k]+=rand(.2,.4);msg="코치의 조언으로 기본기가 조금 더 단단해졌습니다."}
- else if(r<.9){G.fame+=3;msg="라이벌전에서 결정적인 장면의 주인공이 됐습니다."}
- else msg="몸 상태를 관리하며 훈련 강도를 잠시 낮췄습니다.";
- G.scout=clamp(G.scout,0,100);G.logs.push(`${G.age}세 · ${msg}`);$("amEvent").innerHTML=`<b>${msg}</b>`;G.block++;renderAm();
- if(G.block>=3){G.block=0;pauseAm();if(G.stage==="high"){if(G.year<3){G.year++;G.age++;setTimeout(startAm,900)}else decision("high")}else{if(G.year<4){G.year++;G.age++;G.scout+=2;setTimeout(startAm,900)}else decision("college")}}else amTimer=setTimeout(amStep,1200)
+  if(!amRun)return;
+
+  // Each block always creates a visible development event.
+  runAmateurEvent(()=>{
+    if(!amRun)return;
+    G.block++;
+    renderAm();
+
+    if(G.block>=3){
+      G.block=0;pauseAm();
+      if(G.stage==="high"){
+        if(G.year<3){
+          G.year++;G.age++;
+          G.logs.push(`${G.age}세 · 고교 ${G.year}학년 시즌을 준비합니다.`);
+          renderAm();
+          setTimeout(startAm,900);
+        }else{
+          decision("high");
+        }
+      }else{
+        if(G.year<4){
+          G.year++;G.age++;G.scout=clamp(G.scout+2,0,100);
+          G.logs.push(`${G.age}세 · 대학 ${G.year}학년 시즌을 준비합니다.`);
+          renderAm();
+          setTimeout(startAm,900);
+        }else{
+          decision("college");
+        }
+      }
+    }else{
+      amTimer=setTimeout(amStep,1450);
+    }
+  });
 }
 function modal(html){$("modalBody").innerHTML=html;$("modal").classList.add("show")}function closeM(){$("modal").classList.remove("show")}
 function decision(stage){
  if(stage==="high")modal(`<h2>고교 3학년, 진로 선택</h2><div class="sub">현재 스카우트 평가 ${Math.round(G.scout)}. 프로에 바로 도전하거나 대학에서 더 성장할 수 있습니다.</div><button class="btn green" style="width:100%;margin-top:12px" onclick="closeM();draftStart('high')">신인 드래프트 참가</button><button class="btn blue" style="width:100%;margin-top:8px" onclick="college()">대학 진학</button>`);
  else modal(`<h2>대학 4학년, 프로 도전</h2><div class="sub">대학리그에서 쌓은 평가를 들고 다시 드래프트에 참가합니다.</div><button class="btn green" style="width:100%;margin-top:12px" onclick="closeM();draftStart('college')">신인 드래프트 참가</button>`)
 }
-function college(){closeM();G.stage="college";G.year=1;G.block=0;G.age=19;G.scout+=4;G.logs.push("19세 · 대학 야구부에 입학했습니다.");renderAm();setTimeout(startAm,700)}
+function college(){
+  closeM();pauseAm();
+  G.stage="college";G.year=1;G.block=0;G.age=Math.max(G.age,19);G.scout=clamp(G.scout+4,0,100);
+  G.logs.push(`${G.age}세 · 대학 야구부에 입학했습니다.`);
+  show("amateur");renderAm();
+  setTimeout(startAm,700);
+}
 function draftChance(origin){return clamp(.18+(ovr()-56)*.055+G.scout*.006+G.fame*.002+(origin==="college"?.09:0),.12,.97)}
 function draftStart(origin){
  pauseAm();G.origin=origin;show("draft");$("draftResult").innerHTML="";$("roll").innerHTML=TEAMS.map(t=>`<div class="roll-card" id="d${t.id}"><div class="mini" style="margin:auto;background:${t.c1}">${t.abbr}</div></div>`).join("");
@@ -254,21 +428,108 @@ function testAgain(){closeM();G.scout+=5;draftStart("college")}
 function enterPro(){show("pro");newStandings();renderPro();setTimeout(startPro,700)}
 function newStandings(){G.standings=TEAMS.map(t=>({id:t.id,s:t.power+rand(-10,10)})).sort((a,b)=>b.s-a.s)}
 function renderPro(){
- $("pname").textContent=G.name;$("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]}`;$("age").textContent=G.age;$("ovr").textContent=ovr().toFixed(1);$("club").textContent=team(G.club).name;$("salary").textContent=G.salary.toLocaleString()+"만";
- let rank=G.standings.findIndex(x=>x.id===G.club)+1;$("pBoard").textContent=["SPRING CAMP","OPENING","FIRST HALF","ALL STAR","SECOND HALF","FINAL"][G.block]||"SEASON";$("pBoard2").textContent=`${team(G.club).abbr} · ${rank}위`;$("pBoard3").textContent=`신뢰 ${Math.round(G.trust)} · OVR ${ovr().toFixed(1)}`;$("pBanner").textContent=["CAMP","OPEN","JUNE","BREAK","AUG","FINAL"][G.block]||"SEASON";
+ $("pname").textContent=G.name;$("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]}`;$("age").textContent=G.age;$("ovr").textContent=ovr().toFixed(1);$("club").textContent=G.stage==="sangmu"?"상무 야구단":team(G.club).name;$("salary").textContent=G.salary.toLocaleString()+"만";
+ let rank=G.stage==="sangmu"?"-":G.standings.findIndex(x=>x.id===G.club)+1;$("pBoard").textContent=["SPRING CAMP","OPENING","FIRST HALF","ALL STAR","SECOND HALF","FINAL"][G.block]||"SEASON";$("pBoard2").textContent=G.stage==="sangmu"?`상무 · 군 복무 시즌`:`${team(G.club).abbr} · ${rank}위`;$("pBoard3").textContent=`신뢰 ${Math.round(G.trust)} · OVR ${ovr().toFixed(1)}`;$("pBanner").textContent=["CAMP","OPEN","JUNE","BREAK","AUG","FINAL"][G.block]||"SEASON";
  renderAttrs("pAttrs");$("history").innerHTML=G.history.slice(-8).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 프로 시즌입니다.</div>';
  $("standings").innerHTML=G.standings.map((x,i)=>`<tr><td>${i+1}</td><td>${team(x.id).name}</td><td>${Math.round(x.s)}</td></tr>`).join("");$("nat").innerHTML=`<div class="review-row"><span>병역</span><b>${G.military}</b></div><div class="review-row"><span>대표팀</span><b>${G.caps}회</b></div>`;
  $("pDot").classList.toggle("on",proRun);$("pStatus").textContent=proRun?"시즌이 자동으로 흐르고 있습니다":"시즌이 멈춰 있습니다";animateField("p")
 }
 function startPro(){if(proRun||G.retired)return;proRun=true;renderPro();proTimer=setTimeout(proStep,1000)}function pausePro(){proRun=false;clearTimeout(proTimer);renderPro()}function togglePro(){proRun?pausePro():startPro()}
+
+function proChoicePick(i){
+  let effects=window._proChoices[i][1]();
+  closeM();
+  $("proEvent").innerHTML=`<div class="event-card"><b>집중 훈련을 마쳤습니다.</b><div class="effects">${effects.map(e=>effectChip(e[0],e[1])).join("")}</div></div>`;
+  renderPro();
+  setTimeout(startPro,550);
+}
+function applySangmu(){
+  closeM();
+  let chance=clamp(.55+(ovr()-62)*.035+G.trust*.002,.35,.9);
+  if(Math.random()>chance){
+    modal(`<h2>상무 지원 결과</h2><div class="sub">최종 선발 명단에 들지 못했습니다.</div><button class="btn blue" onclick="closeM();setTimeout(startPro,500)">팀으로 복귀</button>`);
+    return;
+  }
+  G.preSangmuClub=G.club;
+  G.stage="sangmu";G.sangmuYears=0;G.military="상무 복무 중";
+  modal(`<h2>상무 최종 합격</h2><div class="sub">군 복무와 선수 생활을 함께 이어갑니다. 2시즌 동안 상무에서 뛰게 됩니다.</div><button class="btn green" onclick="closeM();enterSangmuSeason()">입대</button>`);
+}
+function enterSangmuSeason(){
+  G.sangmuYears++;
+  G.club=G.preSangmuClub; // theme remains original club colors for simplicity
+  $("club").textContent="상무 야구단";
+  G.block=0;newStandings();renderPro();setTimeout(startPro,600);
+}
+function finishSangmuIfNeeded(){
+  if(G.stage!=="sangmu")return false;
+  if(G.sangmuYears>=2){
+    G.stage="pro";G.military="병역 완료";G.resolved=true;G.club=G.preSangmuClub;
+    modal(`<h2>상무 전역</h2><div class="sub">${team(G.club).name}으로 복귀합니다. 병역을 마쳤습니다.</div><button class="btn green" onclick="closeM();newStandings();renderPro();setTimeout(startPro,650)">팀 복귀</button>`);
+    return true;
+  }else{
+    G.sangmuYears++;
+  }
+  return false;
+}
+function playInternational(ev){
+  closeM();
+  G.caps++;
+  let strength=ovr()+rand(-8,10)+G.trust*.08;
+  let result=strength>78?"우승":strength>72?"준우승":strength>66?"4강":"예선 탈락";
+  let militarySolved=false;
+  if(!G.resolved){
+    if(ev==="아시안게임" && result==="우승"){G.resolved=true;G.military="병역 해결";militarySolved=true}
+    if(ev==="올림픽" && ["우승","준우승","4강"].includes(result) && strength>74){G.resolved=true;G.military="병역 해결";militarySolved=true}
+  }
+  modal(`<h2>${ev} ${result}</h2><div class="sub">대표팀 경력이 추가됐습니다.${militarySolved?" 병역 문제도 해결됐습니다.":""}</div><button class="btn green" onclick="closeM();renderPro();setTimeout(startPro,550)">소속팀 복귀</button>`);
+}
+
 function proEvent(){
- let r=Math.random(),msg="";if(r<.22){let k=pick(G.type==="hitter"?H:P);G.attrs[k]+=rand(.25,.55);msg=`${LAB[k]} 훈련 성과가 나타났습니다.`}
- else if(r<.38){G.trust+=2;msg="감독이 최근 경기 태도를 긍정적으로 평가했습니다."}
- else if(r<.52){msg="주전 경쟁이 치열해졌습니다. 다음 몇 주가 중요합니다."}
- else if(r<.65&&G.age>=22&&!G.resolved){pausePro();modal(`<h2>병역 계획</h2><div class="sub">상무 지원과 대표팀 도전 사이에서 선택할 시기입니다.</div><button class="btn green" style="width:100%;margin-top:10px" onclick="G.military='상무 준비';closeM();setTimeout(startPro,500)">상무 지원 준비</button><button class="btn blue" style="width:100%;margin-top:8px" onclick="closeM();setTimeout(startPro,500)">대표팀 기회를 노린다</button>`);return}
- else if(r<.78&&G.age<=32){msg="대표팀 예비 명단에 이름이 거론되고 있습니다.";if(Math.random()<.25){G.caps++;msg="대한민국 대표팀에 최종 선발됐습니다.";if(G.age<=28&&Math.random()<.2){G.resolved=true;G.military="병역 해결";msg+=" 국제대회 성과로 병역 문제도 해결됐습니다."}}}
- else msg="지역 팬 행사에 참가해 구단과의 유대가 깊어졌습니다.";
- $("proEvent").innerHTML=`<b>${msg}</b>`
+  let r=Math.random();
+
+  // Player-development choice event
+  if(r<.22){
+    pausePro();
+    let choices=G.type==="hitter"?[
+      ["타격 훈련",()=>{let a=addAttr("contact",.45),b=addAttr("discipline",.25);return [["컨택",a],["선구안",b]]}],
+      ["장타 훈련",()=>{let a=addAttr("power",.5);return [["파워",a]]}],
+      ["수비 훈련",()=>{let a=addAttr("fielding",.45),b=addAttr("arm",.25);return [["수비",a],["송구",b]]}]
+    ]:[
+      ["빠른 공",()=>{let a=addAttr("velocity",.4),b=addAttr("stuff",.35);return [["구속",a],["구위",b]]}],
+      ["제구",()=>{let a=addAttr("control",.45),b=addAttr("command",.35);return [["제구",a],["커맨드",b]]}],
+      ["변화구",()=>{let a=addAttr("breaking",.5);return [["변화구",a]]}]
+    ];
+    window._proChoices=choices;
+    modal(`<h2>이번 달 개인 훈련</h2><div class="sub">현재 역할과 시즌 상황을 고려해 집중 훈련을 선택합니다.</div>${choices.map((c,i)=>`<button class="btn ${i===0?"green":"blue"}" onclick="proChoicePick(${i})">${c[0]}</button>`).join("")}`);
+    return;
+  }
+
+  // Military / Sangmu
+  if(r<.36 && G.age>=22 && G.age<=28 && !G.resolved && G.military==="미필"){
+    pausePro();
+    modal(`<h2>병역 계획</h2><div class="sub">선수 생활을 이어가면서 병역 문제를 해결할 시점이 다가왔습니다.</div>
+      <button class="btn green" onclick="applySangmu()">상무 지원</button>
+      <button class="btn blue" onclick="closeM();setTimeout(startPro,500)">대표팀 기회를 기다린다</button>`);
+    return;
+  }
+
+  // International tournament
+  if(r<.52 && G.age>=20 && G.age<=34 && Math.random()<.48){
+    pausePro();
+    let events=["아시안게임","WBC","프리미어12","올림픽"];
+    let ev=pick(events);
+    modal(`<h2>대한민국 대표팀</h2><div class="sub">${ev} 대표팀 후보 명단에 포함됐습니다.</div>
+      <button class="btn green" onclick="playInternational('${ev}')">대표팀 합류</button>
+      <button class="btn dark" onclick="closeM();setTimeout(startPro,500)">이번에는 고사</button>`);
+    return;
+  }
+
+  let msg="";
+  if(r<.66){G.trust=clamp(G.trust+2,0,100);msg="감독이 최근 경기 태도와 준비 과정을 긍정적으로 평가했습니다."}
+  else if(r<.79){msg="팀 내 주전 경쟁이 다시 치열해졌습니다. 다음 몇 주의 활약이 중요합니다."}
+  else if(r<.9){G.pref[G.club]=clamp((G.pref[G.club]||50)+3,0,100);msg="지역 팬 행사에 참가하며 소속팀과의 유대가 깊어졌습니다."}
+  else{msg="언론이 최근 활약을 집중 조명하면서 리그 내 인지도가 높아졌습니다."}
+  $("proEvent").innerHTML=`<div class="event-card"><b>${msg}</b></div>`;
 }
 function proStep(){
  if(!proRun)return;G.block++;if(Math.random()<.55)proEvent();renderPro();
@@ -277,20 +538,43 @@ function proStep(){
  proTimer=setTimeout(proStep,1350)
 }
 function finishSeason(){
- let a=G.attrs,summary;if(G.type==="hitter"){let avg=clamp(.235+(a.contact-55)*.002+rand(-.02,.02),.19,.36),ops=avg+.35+(a.power-55)*.005+(a.discipline-55)*.001+rand(-.04,.04);summary=`${G.age}세 · ${team(G.club).abbr} · OPS ${ops.toFixed(3)} · ${Math.max(1,Math.round(8+(a.power-55)*.75+rand(-4,5)))} HR`}
- else{let era=clamp(5.2-(a.stuff-55)*.045-(a.control-55)*.025+rand(-.45,.45),1.8,6.7);summary=`${G.age}세 · ${team(G.club).abbr} · ERA ${era.toFixed(2)}`}
- G.history.push(summary);G.service++;G.salary=Math.round((3000+Math.max(0,ovr()-60)*600+G.service*450)/100)*100;G.age++;G.block=0;newStandings();
- // FA at service 7, then periodic
- if(G.service>=7&&((G.service-7)%4===0)){fa();return}
- renderPro();setTimeout(startPro,900)
+  let a=G.attrs,summary;
+  if(G.type==="hitter"){
+    let avg=clamp(.235+(a.contact-55)*.002+rand(-.02,.02),.19,.36);
+    let ops=avg+.35+(a.power-55)*.005+(a.discipline-55)*.001+rand(-.04,.04);
+    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · OPS ${ops.toFixed(3)} · ${Math.max(1,Math.round(8+(a.power-55)*.75+rand(-4,5)))} HR`;
+  }else{
+    let era=clamp(5.2-(a.stuff-55)*.045-(a.control-55)*.025+rand(-.45,.45),1.8,6.7);
+    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · ERA ${era.toFixed(2)}`;
+  }
+  G.history.push(summary);
+
+  if(G.stage!=="sangmu"){
+    G.service++;
+    G.salary=Math.round((3000+Math.max(0,ovr()-60)*600+G.service*450)/100)*100;
+  }else{
+    // Sangmu seasons emphasize development
+    let keys=G.type==="hitter"?H:P;
+    addAttr(pick(keys),.4);addAttr(pick(keys),.35);
+  }
+
+  G.age++;G.block=0;newStandings();
+
+  if(G.stage==="sangmu"){
+    if(finishSangmuIfNeeded())return;
+    renderPro();setTimeout(startPro,850);return;
+  }
+
+  if(G.service>=7&&((G.service-7)%4===0)){fa();return}
+  renderPro();setTimeout(startPro,900);
 }
 function fa(){
  let offers=[...TEAMS].map(t=>({t,score:t.budget*.3+t.power*.2+(G.pref[t.id]||50)*.25+rand(-10,10),money:Math.round((1.5+ovr()/50+t.budget/100)*10000/100)*100})).sort((a,b)=>b.score-a.score).slice(0,4);
  modal(`<h2>FA 시장</h2><div class="sub">여러 구단이 서로 다른 조건으로 손을 내밀었습니다.</div>${offers.map(o=>`<div class="offer"><b>${o.t.name}</b><div class="tiny">팀 전력 ${o.t.power} · 선호도 ${G.pref[o.t.id]}</div><div style="color:var(--gold);margin:5px 0">연 ${o.money.toLocaleString()}만</div><button class="btn blue" onclick="sign('${o.t.id}',${o.money})">계약</button></div>`).join("")}`)
 }
 function sign(id,m){G.club=id;G.salary=m;G.trust=55;theme(id);closeM();newStandings();renderPro();setTimeout(startPro,700)}
-function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife16",JSON.stringify(G));alert("저장했습니다.")}
-function load(){let s=localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
+function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife17",JSON.stringify(G));alert("저장했습니다.")}
+function load(){let s=localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
 creator();
 </script>
 </body>
