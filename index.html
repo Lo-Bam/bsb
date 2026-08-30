@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diamond Life 14 - 10 Club Career</title>
+<title>Diamond Life 15 - 10 Club Career</title>
 <style>
 :root{
   --team:#4f8cff; --team2:#dbe7ff; --bg:#101217; --panel:#1c2028; --panel2:#242b35;
@@ -631,7 +631,7 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 }
 
 
-/* Diamond Life 14 — richer pixel presentation */
+/* Diamond Life 15 — richer pixel presentation */
 .pixel-stadium{
   height:320px;
   background:
@@ -754,7 +754,7 @@ input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inse
 }
 
 
-/* Diamond Life 14 — career field scene */
+/* Diamond Life 15 — career field scene */
 .career-scene{
   position:relative;height:260px;overflow:hidden;border:4px solid #000;
   background:linear-gradient(#71bdf0 0 34%,#d7edf9 34% 38%,#2f7f47 38% 100%);
@@ -872,12 +872,95 @@ button,.btn,.seg,.choice-card,.pos-card,.role-card,.club{
   }
 }
 
+
+/* Diamond Life 15 — unified mobile navigation */
+.creator-actions{
+  position:static !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  margin:12px 0 0 !important;
+  padding:0 !important;
+  min-height:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+}
+body{padding-bottom:0 !important}
+#setupScreen .panel{padding-bottom:12px !important}
+.creator-actions .btn{min-height:44px}
+@media(max-width:620px){
+  .creator-actions{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:8px;
+    position:static !important;
+  }
+  .creator-actions #nextBtn{
+    min-width:0 !important;
+    width:100%;
+  }
+  .creator-actions #prevBtn{
+    min-width:0 !important;
+    width:100%;
+  }
+  .creator-head{
+    position:static !important;
+    top:auto !important;
+  }
+}
+
+
+/* Amateur career scene: no person sprite, only the game field */
+.am-field-ball{
+  position:absolute;width:10px;height:10px;background:#fff;border:2px solid #000;border-radius:50%;
+  left:49%;bottom:35%;z-index:10;opacity:0
+}
+.am-field-ball.fly{animation:amFieldBall 1.15s steps(6,end)}
+@keyframes amFieldBall{
+  0%{opacity:1;transform:translate(0,0)}
+  40%{opacity:1;transform:translate(48px,-54px)}
+  100%{opacity:0;transform:translate(100px,-12px)}
+}
+.am-runner{
+  position:absolute;width:10px;height:10px;background:var(--gold);border:3px solid #000;z-index:10;display:none
+}
+.am-runner.on{display:block}
+.am-r1{left:calc(50% + 52px);bottom:62px}
+.am-r2{left:calc(50% - 5px);bottom:112px}
+.am-r3{left:calc(50% - 62px);bottom:62px}
+.am-season-banner{
+  position:absolute;right:12px;bottom:12px;z-index:12;background:var(--team);border:4px solid #000;
+  padding:7px 9px;font-size:10px;font-weight:900;box-shadow:4px 4px 0 #000
+}
+.am-auto-control,.season-control{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px
+}
+.am-auto-status,.season-status{
+  flex:1;min-width:160px;border:3px solid #000;background:#11161d;padding:9px 10px;font-size:11px;color:var(--muted)
+}
+@media(max-width:620px){
+  .am-auto-control,.season-control{display:grid;grid-template-columns:1fr auto}
+  .am-auto-status,.season-status{min-width:0}
+}
+
+
+/* Final no-overlay guarantee */
+@media(max-width:620px){
+  .creator-actions,.season-control,.am-auto-control{
+    position:static !important;
+    inset:auto !important;
+  }
+  body{padding-bottom:0 !important}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><div class="badge" id="topBadge">DL</div><div><h1>DIAMOND LIFE 14</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
+    <div class="brand"><div class="badge" id="topBadge">DL</div><div><h1>DIAMOND LIFE 15</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
     <div class="top-actions">
       <button class="btn dark small" onclick="saveGame()">저장</button>
       <button class="btn dark small" onclick="loadGame()">불러오기</button>
@@ -903,11 +986,11 @@ button,.btn,.seg,.choice-card,.pos-card,.role-card,.club{
           <div class="chip">준비 <strong id="stepLabel">1/5</strong></div>
         </div>
         <div class="progressbar"><div id="creatorProgress" class="progressfill" style="width:20%"></div></div>
-        <div id="creatorBody"></div>
-        <div class="creator-actions">
+<div class="creator-actions">
           <button id="prevBtn" class="btn dark" onclick="creatorPrev()" style="visibility:hidden">이전</button>
           <button id="nextBtn" class="btn green" onclick="creatorNext()">다음</button>
         </div>
+<div id="creatorBody"></div>
       </div>
     </div>
   </div>
@@ -930,19 +1013,21 @@ button,.btn,.seg,.choice-card,.pos-card,.role-card,.club{
           <div class="sky-cloud"></div><div class="sky-cloud c2"></div>
           <div class="crowd"></div><div class="grass-cut"></div><div class="field-diamond"></div><div class="dugout"></div>
           <div class="px-ball"></div><div class="scoreboard"><div class="led" id="amBoardStage">HIGH SCHOOL</div><div class="big" id="amBoardName">ROOKIE</div><div class="tiny" id="amBoardLine">SCOUTS WATCHING</div></div>
-        <div class="sprite-pro" style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:7">
-      <div class="sp-hair"></div><div class="sp-cap"></div><div class="sp-head"></div>
-      <div class="sp-arm-l"></div><div class="sp-arm-r"></div><div class="sp-body"></div><div class="sp-number">18</div>
-      <div class="sp-leg-l"></div><div class="sp-leg-r"></div><div class="sp-shoe-l"></div><div class="sp-shoe-r"></div>
-      <div class="sp-glove"></div><div class="sp-bat"></div>
-    </div></div>
+        </div>
+          <div class="am-field-ball" id="amFieldBall"></div>
+          <div class="am-runner am-r1" id="amRunner1"></div>
+          <div class="am-runner am-r2" id="amRunner2"></div>
+          <div class="am-runner am-r3" id="amRunner3"></div>
+          <div class="am-season-banner" id="amSeasonBanner">PREP</div>
+    </div>
         <div class="amateur-stats" style="margin-top:12px">
           <div class="am-stat"><span class="tiny">스카우트 평가</span><b id="amRep">20</b></div>
           <div class="am-stat"><span class="tiny">전국 인지도</span><b id="amFame">10</b></div>
           <div class="am-stat"><span class="tiny">현재 평가</span><b id="amOvr">60</b></div>
         </div>
-        <div class="btnrow" style="margin-top:12px">
-          <button id="amAdvanceBtn" class="btn green" onclick="advanceAmateur()">다음 일정</button>
+        <div class="am-auto-control">
+          <div class="am-auto-status"><span id="amAutoDot" class="auto-dot"></span><span id="amAutoStatus">시즌이 멈춰 있습니다</span></div>
+          <button id="amSeasonBtn" class="btn green" onclick="toggleAmateurAuto()">시즌 시작</button>
         </div>
       </div>
 
@@ -1428,7 +1513,8 @@ function goDraft(){initPlayer();startAmateur()}
 function startAmateur(){
   showScreen("amateurScreen");
   G.amateurStage??="high";G.amateurYear??=1;G.amateurBlock??=0;G.scoutRep??=18;G.amateurFame??=8;G.amateurLog??=[];
-  renderAmateur();
+  renderAmateur();setAmateurAutoUI();updateAmateurField();
+  setTimeout(startAmateurAuto,700);
 }
 function schoolInfo(){
   if(G.amateurStage==="college"){
@@ -1451,6 +1537,8 @@ function renderAmateur(){
   let attrs=G.type==="hitter"?HATTR:PATTR;
   $("amAttrs").innerHTML=attrs.map(k=>`<div class="attr"><div class="attr-head"><span>${LAB[k]}</span><strong>${Math.round(G.attrs[k])}</strong></div><div class="bar"><div class="fill" style="width:${G.attrs[k]}%"></div></div></div>`).join("");
   $("amLog").innerHTML=(G.amateurLog||[]).slice().reverse().map(x=>`<div class="am-log-item">${x}</div>`).join("")||'<div class="notice">아직 기록이 없습니다.</div>';
+
+  updateAmateurField();setAmateurAutoUI();
 }
 function amateurEvent(){
   let college=G.amateurStage==="college",r=Math.random(),msg="";
@@ -1485,19 +1573,98 @@ function amateurSeasonGrowth(){
   let growth=G.amateurStage==="college"?.42:.48;
   for(let i=0;i<2;i++){let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+rand(.2,growth),20,99)}
 }
-function advanceAmateur(){
-  amateurEvent();amateurSeasonGrowth();G.amateurBlock++;
-  if(G.amateurBlock<3){renderAmateur();return}
-  G.amateurBlock=0;
-  if(G.amateurStage==="high"){
-    if(G.amateurYear<3){G.amateurYear++;G.age++;G.amateurLog.push(`${G.age}세 · 새 학년이 시작됐습니다.`);renderAmateur();return}
-    showAmateurDecision("high");
-  }else{
-    if(G.amateurYear<4){G.amateurYear++;G.age++;G.scoutRep=clamp(G.scoutRep+rand(1,4),0,100);G.amateurLog.push(`${G.age}세 · 대학 ${G.amateurYear}학년 시즌을 준비합니다.`);renderAmateur();return}
-    showAmateurDecision("college");
+
+let amateurAutoRunning=false;
+let amateurAutoTimer=null;
+let amateurResumeAfterModal=false;
+
+function setAmateurAutoUI(){
+  if(!$("amAutoStatus"))return;
+  $("amAutoDot").classList.toggle("on",amateurAutoRunning);
+  $("amAutoStatus").textContent=amateurAutoRunning?"시즌이 흐르고 있습니다":"시즌이 멈춰 있습니다";
+  $("amSeasonBtn").textContent=amateurAutoRunning?"일시정지":"시즌 시작";
+}
+function updateAmateurField(){
+  if(!$("amSeasonBanner"))return;
+  let college=G.amateurStage==="college";
+  let labels=college?["개막","대학리그","전국대회"]:["연습경기","지역대회","전국대회"];
+  $("amSeasonBanner").textContent=labels[Math.min(G.amateurBlock,2)]||"SEASON";
+  ["amRunner1","amRunner2","amRunner3"].forEach(id=>$(id)?.classList.remove("on"));
+  if(G.amateurBlock>0){
+    if(Math.random()<.58)$("amRunner1")?.classList.add("on");
+    if(Math.random()<.30)$("amRunner2")?.classList.add("on");
+    if(Math.random()<.16)$("amRunner3")?.classList.add("on");
+  }
+  if($("amFieldBall")){
+    $("amFieldBall").classList.remove("fly");
+    void $("amFieldBall").offsetWidth;
+    if(Math.random()<.74)$("amFieldBall").classList.add("fly");
   }
 }
+function toggleAmateurAuto(){
+  if(amateurAutoRunning){pauseAmateurAuto();return}
+  startAmateurAuto();
+}
+function startAmateurAuto(){
+  if(amateurAutoRunning)return;
+  amateurAutoRunning=true;setAmateurAutoUI();updateAmateurField();
+  scheduleAmateurStep(650);
+}
+function pauseAmateurAuto(){
+  amateurAutoRunning=false;
+  if(amateurAutoTimer)clearTimeout(amateurAutoTimer);
+  amateurAutoTimer=null;setAmateurAutoUI();
+}
+function scheduleAmateurStep(delay=1500){
+  if(!amateurAutoRunning)return;
+  if(amateurAutoTimer)clearTimeout(amateurAutoTimer);
+  amateurAutoTimer=setTimeout(amateurAutoStep,delay);
+}
+function amateurAutoStep(){
+  if(!amateurAutoRunning)return;
+  amateurEvent();
+  amateurSeasonGrowth();
+  G.amateurBlock++;
+  updateAmateurField();
+  renderAmateur();
+
+  // End of a school year: transition automatically.
+  if(G.amateurBlock>=3){
+    G.amateurBlock=0;
+    pauseAmateurAuto();
+
+    if(G.amateurStage==="high"){
+      if(G.amateurYear<3){
+        G.amateurYear++;G.age++;
+        G.amateurLog.push(`${G.age}세 · 새 학년이 시작됐습니다.`);
+        renderAmateur();
+        setTimeout(startAmateurAuto,850);
+        return;
+      }
+      showAmateurDecision("high");
+      return;
+    }else{
+      if(G.amateurYear<4){
+        G.amateurYear++;G.age++;G.scoutRep=clamp(G.scoutRep+rand(1,4),0,100);
+        G.amateurLog.push(`${G.age}세 · 대학 ${G.amateurYear}학년 시즌을 준비합니다.`);
+        renderAmateur();
+        setTimeout(startAmateurAuto,850);
+        return;
+      }
+      showAmateurDecision("college");
+      return;
+    }
+  }
+
+  // Keep flowing unless a modal/event stopped it.
+  if(amateurAutoRunning)scheduleAmateurStep(G.pace==="fast"?1150:1650);
+}
+
+function advanceAmateur(){
+  if(!amateurAutoRunning)startAmateurAuto();
+}
 function showAmateurDecision(stage){
+  pauseAmateurAuto();
   showScreen("amDecisionScreen");
   if(stage==="high"){
     $("decisionKicker").textContent="고교 3학년 · 진로 선택";
@@ -1514,11 +1681,13 @@ function showAmateurDecision(stage){
   }
 }
 function enterCollege(){
+  pauseAmateurAuto();
   G.amateurStage="college";G.amateurYear=1;G.amateurBlock=0;G.age=19;G.level="대학";
   G.scoutRep=clamp(G.scoutRep+4,0,100);G.amateurLog.push("19세 · 대학 야구부에 입학했습니다.");
   startAmateur();
 }
 function declareDraft(origin){
+  pauseAmateurAuto();
   G.draftOrigin=origin;G.draftAttempts=(G.draftAttempts||0)+1;
   showScreen("draftScreen");runDraft();
 }
@@ -1604,7 +1773,7 @@ function confetti(){
   return '<div class="confetti">'+Array.from({length:18},(_,i)=>`<i style="left:${(i*37)%100}%;animation-duration:${1.8+(i%5)*.3}s"></i>`).join('')+'</div>';
 }
 function majorEvent(kicker,title,desc,kind="card",stats=[],buttons=[["계속",()=>closeModal()]],celebrate=false){
-  if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();}
+  if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();} if(amateurAutoRunning){amateurResumeAfterModal=true;pauseAmateurAuto();}
   window._modalQueue??=[];
   if($("modal").classList.contains("show")){window._modalQueue.push(()=>majorEvent(kicker,title,desc,kind,stats,buttons,celebrate));return;}
   let html=`<div class="major-wrap">${celebrate?confetti():""}<span class="major-kicker">${kicker}</span><h2 class="major-title">${title}</h2>${majorArt(kind)}<div class="major-desc">${desc}</div>`;
@@ -1613,7 +1782,7 @@ function majorEvent(kicker,title,desc,kind="card",stats=[],buttons=[["계속",()
   buttons.forEach((b,i)=>html+=`<button class="btn ${i===0?"green":"blue"}" style="width:100%;margin:5px 0" onclick="majorChoose(${i})">${b[0]}</button>`);
   html+='</div></div>';window._majorButtons=buttons;$("modalContent").innerHTML=html;$("modal").classList.add("show")
 }
-function majorChoose(i){let fn=window._majorButtons[i][1];closeModal();if(fn)fn();render();if(autoResumeAfterModal&&!G.retired){autoResumeAfterModal=false;setTimeout(startAutoSeason,500)}}
+function majorChoose(i){let fn=window._majorButtons[i][1];closeModal();if(fn)fn();render();if(autoResumeAfterModal&&!G.retired){autoResumeAfterModal=false;setTimeout(startAutoSeason,500)} if(amateurResumeAfterModal){amateurResumeAfterModal=false;setTimeout(startAmateurAuto,500)}}
 function draftCeremony(){
   let t=team(G.club);
   majorEvent("신인 드래프트",`${G.name}, ${t.name} 지명`,
@@ -1621,12 +1790,11 @@ function draftCeremony(){
     "card",[["지명",`${G.draftRound}R ${G.draftPick}순위`],["구단",t.abbr],["나이",G.age+"세"]],[["프로 커리어 시작",()=>enterCareer()]],true)
 }
 
-function enterCareer(){showScreen("careerScreen");buildTraining();newStandings();render()}
-function applyTheme(){
- if(G && G.club==="ARM"){
-   document.documentElement.style.setProperty("--team","#3e6b3e");document.documentElement.style.setProperty("--team2","#dfeadf");$("topBadge").textContent="ARM";$("topSub").textContent="상무 야구단";return;
- }
- const t=team(G.club||G.favorite);document.documentElement.style.setProperty("--team",t.c1);document.documentElement.style.setProperty("--team2",t.c2);$("topBadge").textContent=t.abbr;$("topSub").textContent=t.name
+function enterCareer(){
+  showScreen("careerScreen");
+  buildTraining();newStandings();render();
+  updateCareerField();setAutoUI();
+  setTimeout(startAutoSeason,800);
 }
 function overall(){let a=G.attrs;if(G.type==="hitter")return a.contact*.24+a.power*.20+a.discipline*.17+a.speed*.11+a.fielding*.18+a.arm*.10;return a.velocity*.13+a.stuff*.18+a.control*.16+a.command*.15+a.breaking*.14+a.stamina*.10+a.hold*.05+a.pitchIQ*.09}
 function buildTraining(){
@@ -1831,7 +1999,7 @@ function finishSeason(){
  postseasonAndAwards(rec);
  maybeExtension();
  G.age++;G.season++;G.block=0;ageing();newStandings();
- if(!retirementCheck() && !G.sangmu && G.service>=G.nextFAService && G.contractYears<=0)setTimeout(startFA,780);render()
+ if(!retirementCheck() && !G.sangmu && G.service>=G.nextFAService && G.contractYears<=0)setTimeout(startFA,780);render();maybeResumeNextProSeason();
 }
 
 function currentIntlEvents(){
@@ -1974,9 +2142,19 @@ function showLegacyFinal(score,tier){
   $("modalContent").innerHTML=html;$("modal").classList.add("show")
 }
 
+
+function maybeResumeNextProSeason(){
+  if(G.retired||G.sangmu&&G.club!=="ARM")return;
+  setTimeout(()=>{
+    if(!$("modal").classList.contains("show") && document.getElementById("careerScreen").classList.contains("active")){
+      startAutoSeason();
+    }
+  },1100);
+}
+
 function ageing(){if(G.age<31)return;let c=.06+(G.age-31)*.045;if(Math.random()<c){let k=pick(G.type==="hitter"?["speed","fielding","contact","power"]:["velocity","stamina","control","stuff"]);G.attrs[k]=clamp(G.attrs[k]-.5,20,99)}}
 function startFA(){
- if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();}
+ if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();} if(amateurAutoRunning){amateurResumeAfterModal=true;pauseAmateurAuto();}
  window._modalQueue??=[];if($("modal").classList.contains("show")){window._modalQueue.push(()=>startFA());return;}
  if(G.sangmu||G.club==="ARM"||G.service<G.nextFAService||G.contractYears>0)return;
  let pos=G.type==="hitter"?G.position:"SP",o=overall();let ranked=TEAMS.map(t=>{
@@ -2000,13 +2178,13 @@ function formatWon(x){return x>=10000?(x/10000).toFixed(1)+"억":x.toLocaleStrin
 function newStandings(){G.standings=TEAMS.map(t=>({id:t.id,score:t.power+rand(-10,10)})).sort((a,b)=>b.score-a.score)}
 function eventBox(title,desc,cls){$("eventBox").className="event "+(cls||"");$("eventBox").innerHTML=`<strong>${title}</strong><div class="sub" style="margin-top:5px">${desc}</div>`}
 function choiceModal(title,desc,choices){
-  if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();}
+  if(autoSeasonRunning){autoResumeAfterModal=true;pauseAutoSeason();} if(amateurAutoRunning){amateurResumeAfterModal=true;pauseAmateurAuto();}
  window._modalQueue??=[];
  if($("modal").classList.contains("show")){window._modalQueue.push(()=>choiceModal(title,desc,choices));return;}
  let html=`<h2>${title}</h2><div class="sub">${desc}</div><div style="margin-top:12px">`;choices.forEach((c,i)=>html+=`<button class="btn blue" style="width:100%;margin:5px 0" onclick="chooseModal(${i})">${c[0]}</button>`);html+="</div>";
  window._choices=choices;$("modalContent").innerHTML=html;$("modal").classList.add("show")
 }
-function chooseModal(i){window._choices[i][1]();closeModal();render();if(autoResumeAfterModal&&!G.retired){autoResumeAfterModal=false;setTimeout(startAutoSeason,500)}}
+function chooseModal(i){window._choices[i][1]();closeModal();render();if(autoResumeAfterModal&&!G.retired){autoResumeAfterModal=false;setTimeout(startAutoSeason,500)} if(amateurResumeAfterModal){amateurResumeAfterModal=false;setTimeout(startAmateurAuto,500)}}
 function closeModal(){
  $("modal").classList.remove("show");
  if(window._modalQueue&&window._modalQueue.length){let next=window._modalQueue.shift();setTimeout(next,120)}
