@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Diamond Life 28</title>
+<title>Diamond Life 30</title>
 <style>
 :root{
   --team:#3f6fff;--team2:#dbe6ff;--bg:#0e1116;--panel:#1a2028;--panel2:#232b35;
@@ -92,7 +92,7 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
   .top .actions .btn{padding:6px;font-size:9px}.brand h1{font-size:16px}
 }
 
-/* Diamond Life 28 — mobile safety */
+/* Diamond Life 30 — mobile safety */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 img,svg,canvas{max-width:100%}
 .panel,.two,.creator-layout,.grid2,.grid4,.club-grid,.attrs,.offer{min-width:0}
@@ -139,7 +139,7 @@ img,svg,canvas{max-width:100%}
 .effect{border:2px solid #000;background:#0b1015;padding:4px 6px;font-size:9px}
 
 
-/* Diamond Life 28 — visible progression */
+/* Diamond Life 30 — visible progression */
 .season-track{margin-top:10px;border:3px solid #000;background:#0b1015;padding:8px}
 .season-track-head{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
 .season-track-bar{height:12px;background:#050709;border:3px solid #000;margin-top:6px}
@@ -155,7 +155,7 @@ img,svg,canvas{max-width:100%}
 .timeline-note{margin-top:7px;font-size:10px;color:var(--muted)}
 
 
-/* Diamond Life 28 — mobile audit fixes */
+/* Diamond Life 30 — mobile audit fixes */
 .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .table{min-width:0;width:100%;table-layout:fixed}
 .table td,.table th{word-break:keep-all;overflow-wrap:anywhere}
@@ -180,7 +180,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* Diamond Life 28 — event-first career flow */
+/* Diamond Life 30 — event-first career flow */
 .story-card{
   border:4px solid #000;background:#10161d;padding:14px;margin-top:10px;
   box-shadow:5px 5px 0 rgba(0,0,0,.35);min-height:128px
@@ -219,7 +219,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* Diamond Life 28 — result-first UI */
+/* Diamond Life 30 — result-first UI */
 .field{display:none!important}
 .result-dashboard{
   display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin-top:10px
@@ -269,7 +269,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* Diamond Life 28 — season recap & agency */
+/* Diamond Life 30 — season recap & agency */
 .pro-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .pro-tab{border:3px solid #000;background:#12171e;color:#fff;padding:8px 10px;font-weight:900;cursor:pointer}
 .pro-tab.on{background:var(--team);outline:2px solid var(--gold)}
@@ -296,7 +296,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* BUILD 28 — season review tabs, evaluations & honors */
+/* BUILD 30 — season review tabs, evaluations & honors */
 .recap-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px}
 .recap-tab{border:3px solid #000;background:#11161d;color:#fff;padding:8px 10px;font-weight:900;cursor:pointer}
 .recap-tab.on{background:var(--team);outline:2px solid var(--gold)}
@@ -320,13 +320,41 @@ img,svg,canvas{max-width:100%}
  .recap-tab{padding:8px 4px;font-size:9px}
 }
 
+
+/* BUILD 30 — focused recap flow */
+.recap-flow{position:relative}
+.recap-page{display:none}
+.recap-page.on{display:block}
+.recap-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0 12px}
+.recap-step{border:3px solid #000;background:#11161d;padding:7px 4px;text-align:center;font-size:9px;color:var(--muted)}
+.recap-step.on{background:var(--team);color:#fff;outline:2px solid var(--gold)}
+.recap-nav{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.recap-nav .btn{width:100%}
+.focus-card{border:4px solid #000;background:#0f151c;padding:12px}
+.focus-number{font-size:30px;font-weight:900;color:var(--gold);line-height:1}
+.focus-label{font-size:9px;color:var(--muted);margin-top:3px}
+.focus-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}
+.focus-item{border:3px solid #000;background:#0a0f14;padding:9px;min-width:0}
+.focus-item span{display:block;font-size:8px;color:var(--muted)}
+.focus-item b{display:block;font-size:15px;margin-top:4px}
+.eval-card,.honor-card{margin-bottom:7px}
+@media(max-width:760px){
+  .modal-box{max-height:80dvh}
+  .recap-title{font-size:19px}
+  .recap-grid{grid-template-columns:1fr 1fr}
+  .recap-box{padding:7px}
+  .recap-box b{font-size:13px;line-height:1.35}
+  .recap-deltas{grid-template-columns:1fr 1fr}
+  .recap-nav{position:sticky;bottom:0;background:var(--panel);padding-top:8px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 28</h1><small><b style="color:var(--gold)">BUILD 28</b> · <span id="topSub">고교야구에서 시작되는 커리어</span></small></div></div>
-    <div class="actions"><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
+    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 30</h1><small><b style="color:var(--gold)">BUILD 30</b> · <span id="topSub">고교야구에서 시작되는 커리어</span></small></div></div>
+    <div class="actions"><button class="btn dark" onclick="openCareerRecords()">기록·수상</button><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
   </header>
 
   <section id="creator" class="screen active">
@@ -405,7 +433,7 @@ img,svg,canvas{max-width:100%}
         <button id="tabCareerBtn" class="pro-tab on" onclick="showProTab('career')">커리어</button>
         <button id="tabAgencyBtn" class="pro-tab" onclick="showProTab('agency')">에이전시 연락</button>
       </div>
-      <div class="tiny">시즌 중에는 커리어를 확인하고, 시즌 종료 후에는 에이전시와 다음 행보를 정할 수 있습니다.</div>
+      <div class="tiny">시즌 화면에서는 현재 시즌의 성적과 팀 상황에 집중합니다.</div>
     </div>
     <div id="proCareerPane" class="tab-pane on">
     <div class="two">
@@ -707,6 +735,101 @@ function pauseAm(){
 function toggleAm(){amRun?pauseAm():startAm()}
 
 
+
+const CURATED_EVENTS={
+ high:[
+  {id:"h_tryout",title:"주전 경쟁 마지막 평가전",desc:"감독이 이번 경기 결과로 선발 출전 명단을 정하겠다고 했습니다.",kind:"competition",min:16,max:18},
+  {id:"h_scout",title:"프로 스카우트가 백네트 뒤에 앉았다",desc:"두 구단 스카우트가 오늘 경기를 직접 보러 왔습니다.",kind:"scout",min:17,max:18},
+  {id:"h_exam",title:"중간고사와 원정 일정이 겹쳤다",desc:"학교 일정과 야구를 모두 챙겨야 하는 한 주가 됐습니다.",kind:"balance",min:16,max:18},
+  {id:"h_elbow",title:"팔꿈치에 묘한 뻐근함이 느껴진다",desc:"심한 통증은 아니지만 무리하면 시즌 전체가 흔들릴 수 있습니다.",kind:"injury",min:16,max:18},
+  {id:"h_captain",title:"감독이 주장 완장을 건넸다",desc:"동료들을 이끌 책임과 개인 성적 사이에서 균형이 필요합니다.",kind:"leadership",min:17,max:18},
+  {id:"h_mechanics",title:"타격·투구 폼을 크게 바꾸자는 제안",desc:"코치는 장기적으로 더 높은 수준에 가려면 지금 변화를 시도해야 한다고 말합니다.",kind:"mechanics",min:16,max:18},
+  {id:"h_rival",title:"지역 라이벌과의 전국대회 단두대 매치",desc:"이 경기는 지역 언론과 스카우트 모두가 주목하고 있습니다.",kind:"clutch",min:16,max:18},
+  {id:"h_position",title:"팀 사정으로 다른 포지션 테스트",desc:"현재 자리보다 프로 진출 가능성이 높은 역할을 시험해보자는 제안입니다.",kind:"role",min:17,max:18},
+  {id:"h_slump",title:"최근 5경기 연속 부진",desc:"잘 맞던 루틴이 흔들리고 있습니다. 대응 방식이 자신감에 영향을 줍니다.",kind:"slump",min:16,max:18},
+  {id:"h_showcase",title:"전국 유망주 쇼케이스 초청",desc:"짧은 시간 안에 자신의 가장 강한 무기를 보여줘야 합니다.",kind:"showcase",min:17,max:18},
+  {id:"h_friend",title:"친한 동료가 주전 경쟁에서 밀렸다",desc:"개인 경쟁과 팀 분위기 사이에서 행동을 정해야 합니다.",kind:"peer",min:16,max:18},
+  {id:"h_draftbuzz",title:"드래프트 상위 지명 예상 기사",desc:"처음으로 이름이 전국 기사에 등장했습니다. 기대가 커진 만큼 부담도 커졌습니다.",kind:"media",min:18,max:18}
+ ],
+ college:[
+  {id:"c_fresh",title:"대학 첫 주전 경쟁",desc:"고교 스타였던 경력은 여기서 아무 의미가 없습니다. 다시 자리를 따내야 합니다.",kind:"competition"},
+  {id:"c_scoutday",title:"프로 스카우트 데이",desc:"여러 구단이 한 경기에서 구속·타구질·수비 범위를 집중 측정합니다.",kind:"scout"},
+  {id:"c_class",title:"학업 경고가 들어왔다",desc:"출석과 성적을 관리하지 않으면 원정 참가에 제약이 생길 수 있습니다.",kind:"balance"},
+  {id:"c_transfer",title:"다른 대학에서 출전 기회를 제안",desc:"현재 팀에 남아 경쟁할지, 더 많은 출장 기회를 찾아 움직일지 고민됩니다.",kind:"career"},
+  {id:"c_weight",title:"겨울 웨이트 프로그램",desc:"큰 피지컬 향상을 노릴 수 있지만 부상 위험과 기술 감각 저하 가능성도 있습니다.",kind:"risk"},
+  {id:"c_draft",title:"에이전트의 조기 드래프트 상담",desc:"현재 평가로도 프로 도전이 가능하다는 이야기를 들었습니다.",kind:"career"},
+  {id:"c_captain",title:"주장단 합류 제안",desc:"프로 준비와 팀 리더 역할을 동시에 수행해야 합니다.",kind:"leadership"},
+  {id:"c_injury",title:"전국대회 직전 햄스트링 불편",desc:"참가하면 스카우트 앞에서 뛸 수 있지만 상태가 악화될 위험도 있습니다.",kind:"injury"},
+  {id:"c_mech",title:"프로식 메커니즘으로 교정 제안",desc:"대학 코치는 지금이 큰 변화를 시도할 마지막 시기라고 말합니다.",kind:"mechanics"},
+  {id:"c_biggame",title:"전국대회 8강, 프로 스카우트 총집결",desc:"큰 경기에서의 성과가 드래프트 평가를 바꿀 수 있습니다.",kind:"clutch"},
+  {id:"c_role",title:"프로를 위한 역할 전환",desc:"프로 구단들이 더 선호하는 포지션·보직으로 전환해보자는 제안입니다.",kind:"role"},
+  {id:"c_media",title:"대학야구 최고 유망주 기사",desc:"평가가 오른 만큼 다음 경기부터 상대의 견제도 강해집니다.",kind:"media"}
+ ],
+ minors:[
+  {id:"m_call",title:"1군 콜업 후보 3인에 포함",desc:"이번 주 성적과 준비 상태로 마지막 한 자리가 결정됩니다.",kind:"competition"},
+  {id:"m_option",title:"1군 백업과 2군 주전 중 선택",desc:"출장 시간을 택할지 1군 경험을 택할지 코치가 의견을 물었습니다.",kind:"career"},
+  {id:"m_position",title:"멀티 포지션 훈련 제안",desc:"수비 위치나 보직을 하나 더 익히면 1군 엔트리 가능성이 높아집니다.",kind:"role"},
+  {id:"m_vet",title:"재활 중인 베테랑과 합동 훈련",desc:"경기 준비 루틴을 가까이서 배울 기회가 생겼습니다.",kind:"mentor"},
+  {id:"m_release",title:"시즌 중 선수단 정리 소문",desc:"구단이 몇몇 2군 선수를 정리할 것이라는 이야기가 돌고 있습니다.",kind:"pressure"},
+  {id:"m_hot",title:"퓨처스리그 10경기 연속 좋은 흐름",desc:"코치진이 1군 콜업을 진지하게 검토하기 시작했습니다.",kind:"hot"},
+  {id:"m_slump",title:"콜업 직전 찾아온 부진",desc:"가장 중요한 시점에 결과가 나오지 않고 있습니다.",kind:"slump"},
+  {id:"m_trade",title:"다른 팀 스카우트가 2군 경기를 지켜봤다",desc:"트레이드 시장에서 이름이 오르고 있다는 소문이 들립니다.",kind:"market"},
+  {id:"m_coach",title:"2군 코치의 집중 개조 프로그램",desc:"한 가지 무기를 확실히 만들면 1군에서 역할이 생길 수 있습니다.",kind:"mechanics"},
+  {id:"m_injury",title:"콜업 경쟁 중 작은 부상",desc:"며칠 쉬면 기회를 놓칠 수 있지만 무리하면 더 큰 문제가 될 수 있습니다.",kind:"injury"}
+ ],
+ pro:[
+  {id:"p_lineup",title:"타순·보직 변경 통보",desc:"감독이 최근 성적을 이유로 역할을 조정했습니다.",kind:"role"},
+  {id:"p_trade",title:"트레이드 마감일, 이름이 시장에 올랐다",desc:"구단이 공식적으로 부인했지만 여러 팀이 문의하고 있다는 소식입니다.",kind:"market"},
+  {id:"p_extension",title:"구단의 비FA 다년계약 제안",desc:"안정성을 얻는 대신 향후 FA 시장의 가능성을 포기할 수 있습니다.",kind:"contract"},
+  {id:"p_rest",title:"코치진의 휴식일 확대 제안",desc:"성적을 이어가고 싶지만 시즌 후반 체력 저하도 걱정됩니다.",kind:"injury"},
+  {id:"p_media",title:"연패 후 인터뷰 요청",desc:"팀 분위기가 좋지 않은 상황에서 당신의 말 한마디가 크게 받아들여질 수 있습니다.",kind:"media"},
+  {id:"p_clutch",title:"순위 경쟁팀과의 시즌 최대 시리즈",desc:"포스트시즌 진출 가능성을 크게 좌우할 3연전입니다.",kind:"clutch"},
+  {id:"p_vet",title:"베테랑이 개인 루틴을 공유했다",desc:"오래 살아남은 선수의 준비 방식을 따라볼 기회입니다.",kind:"mentor"},
+  {id:"p_slump",title:"홈 팬들의 야유가 시작됐다",desc:"길어진 부진 때문에 경기장 분위기까지 무거워졌습니다.",kind:"slump"},
+  {id:"p_role",title:"새 포지션·보직 전환 제안",desc:"팀 전력상 지금 역할보다 다른 자리에서 더 큰 기회가 열릴 수 있습니다.",kind:"role"},
+  {id:"p_award",title:"올스타·개인 타이틀 경쟁",desc:"커리어 첫 개인 타이틀이 눈앞에 보이기 시작했습니다.",kind:"pressure"},
+  {id:"p_team",title:"주장단 비공개 미팅",desc:"라커룸 분위기와 감독의 운영 방식을 두고 선수들이 의견을 나눕니다.",kind:"leadership"},
+  {id:"p_fan",title:"프랜차이즈 스타라는 팬들의 기대",desc:"좋은 성적이 이어지며 팀을 대표하는 선수라는 이야기가 나오고 있습니다.",kind:"media"}
+ ],
+ sangmu:[
+  {id:"s_adapt",title:"상무 생활 첫 체력 측정",desc:"규칙적인 군 생활과 선수 훈련을 동시에 맞춰야 합니다.",kind:"balance"},
+  {id:"s_role",title:"상무에서 새로운 보직 제안",desc:"원소속팀과 다른 역할을 경험해볼 기회입니다.",kind:"role"},
+  {id:"s_rep",title:"국가대표 후보 합동 훈련",desc:"상무 선수 신분으로도 대표팀 관계자들의 평가를 받고 있습니다.",kind:"showcase"},
+  {id:"s_return",title:"원소속팀 코치가 직접 찾아왔다",desc:"전역 후 어떤 역할을 맡길지 현재 모습을 확인하러 왔습니다.",kind:"scout"},
+  {id:"s_body",title:"군 체력 훈련에서 큰 변화",desc:"피지컬을 한 단계 올릴 기회지만 기술 훈련 시간은 줄어듭니다.",kind:"risk"},
+  {id:"s_injury",title:"전역을 앞두고 작은 통증",desc:"복귀 시즌을 생각하면 무리하지 않는 것이 중요합니다.",kind:"injury"},
+  {id:"s_leader",title:"후임 선수들의 리더 역할",desc:"팀 내 책임이 늘어나며 개인 훈련 시간을 조정해야 합니다.",kind:"leadership"},
+  {id:"s_returnrole",title:"전역 후 1군 역할 사전 협의",desc:"원소속팀이 복귀 후 포지션과 보직에 대한 의견을 물었습니다.",kind:"career"}
+ ],
+ international:[
+  {id:"i_roster",title:"최종 엔트리 마지막 한 자리",desc:"대표팀 코치진이 당신과 경쟁자 중 한 명을 선택하려 합니다.",kind:"competition"},
+  {id:"i_ball",title:"국제 공인구 적응 문제",desc:"평소와 다른 공의 감각 때문에 제구와 타구 감각이 흔들립니다.",kind:"mechanics"},
+  {id:"i_role",title:"소속팀과 다른 대표팀 역할",desc:"대표팀에서는 평소보다 작은 역할을 맡게 될 가능성이 있습니다.",kind:"role"},
+  {id:"i_japan",title:"한일전 선발 출전 통보",desc:"대회에서 가장 많은 관심이 쏠리는 경기에 나서게 됐습니다.",kind:"clutch"},
+  {id:"i_rest",title:"소속팀이 컨디션 관리를 요청",desc:"국가대표 출전과 시즌 후반 컨디션 사이에서 균형이 필요합니다.",kind:"injury"},
+  {id:"i_media",title:"대표팀 공식 기자회견",desc:"국가대표 선수로서의 발언이 소속팀 때보다 더 크게 보도됩니다.",kind:"media"},
+  {id:"i_final",title:"결승전 직전 미팅",desc:"대표팀 전체가 긴장한 상황에서 코치가 선수들에게 역할을 주문했습니다.",kind:"leadership"},
+  {id:"i_military",title:"병역 문제가 걸린 중요한 경기",desc:"개인 커리어와 국가대표 성적이 동시에 걸린 경기입니다.",kind:"pressure"}
+ ]
+};
+
+function curatedEligible(stage){
+  let pool=CURATED_EVENTS[stage]||[];
+  return pool.filter(e=>(!e.min||G.age>=e.min)&&(!e.max||G.age<=e.max));
+}
+function pickCareerEvent(stage){
+  G.curatedRecent??={};
+  let recent=(G.curatedRecent[stage]||[]).slice(-8);
+  let curated=curatedEligible(stage).filter(e=>!recent.includes(e.id));
+  let useCurated=curated.length && Math.random()<.78;
+  let e=useCurated?pick(curated):uniqueContextEvent(stage);
+  if(useCurated){
+    G.curatedRecent[stage]=[...recent,e.id].slice(-10);
+    e.type=e.kind||e.type;
+  }
+  return e;
+}
+
 function contextualStage(){
   if(G.stage==="high")return "high";
   if(G.stage==="college")return "college";
@@ -768,6 +891,61 @@ function eventChoiceTemplate(e,stage){
       [`${LAB[secondary]} 보완 훈련`,()=>{let g=addAttr(secondary,.95);return [[LAB[secondary],g]]}],
       ["컨디션을 우선한다",()=>{G.durability=clamp((G.durability||65)+.5,0,100);return [["내구성",.5]]}]
     ],
+    balance:()=>[
+      ["야구 일정을 우선한다",()=>{G.scout=clamp((G.scout||20)+2,0,100);G.confidence+=1;return [["스카우트",2],["자신감",1]]}],
+      ["둘 다 놓치지 않게 일정을 조정한다",()=>{G.workEthic=clamp((G.workEthic||60)+2,0,100);return [["프로의식",2]]}],
+      ["잠시 야구 강도를 줄인다",()=>{G.durability=clamp((G.durability||65)+1,0,100);return [["내구성",1]]}]
+    ],
+    leadership:()=>[
+      ["먼저 동료들을 챙긴다",()=>{G.workEthic+=2;G.trust+=2;return [["프로의식",2],["신뢰",2]]}],
+      ["경기에서 모범을 보인다",()=>{let g=addAttr(primary,.7);G.confidence+=1;return [[LAB[primary],g],["자신감",1]]}],
+      ["개인 준비를 우선한다",()=>{let g=addAttr(secondary,1.0);return [[LAB[secondary],g]]}]
+    ],
+    clutch:()=>[
+      ["과감하게 승부한다",()=>{if(Math.random()<.58){G.confidence+=4;G.fame+=3;return [["자신감",4],["인지도",3]]}G.confidence-=2;return [["자신감",-2]]}],
+      ["평소 루틴대로 간다",()=>{G.confidence+=1;return [["자신감",1]]}],
+      ["상대 분석에 시간을 더 쓴다",()=>{let g=addAttr(secondary,.65);G.workEthic+=1;return [[LAB[secondary],g],["프로의식",1]]}]
+    ],
+    career:()=>[
+      ["기회를 적극적으로 알아본다",()=>{G.adaptability=clamp((G.adaptability||60)+2,0,100);G.confidence+=1;return [["적응력",2],["자신감",1]]}],
+      ["현재 팀에서 경쟁한다",()=>{G.trust+=2;G.workEthic+=1;return [["신뢰",2],["프로의식",1]]}],
+      ["일단 정보만 듣는다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
+    contract:()=>[
+      ["안정적인 계약을 선호한다",()=>{G.pref[G.club]=clamp((G.pref[G.club]||50)+4,0,100);return [["구단 선호",4]]}],
+      ["시장 가치를 더 확인한다",()=>{G.fame+=2;return [["인지도",2]]}],
+      ["에이전트와만 상담한다",()=>{G.lastAgencyMessage="구단 제안에 답하기 전에 에이전트와 시장 상황을 점검했습니다.";return [["커리어 판단",1]]}]
+    ],
+    pressure:()=>[
+      ["부담을 동력으로 삼는다",()=>{G.confidence+=3;G.clutch=clamp((G.clutch||60)+1,0,100);return [["자신감",3],["클러치",1]]}],
+      ["평소와 똑같이 준비한다",()=>{G.workEthic+=1;return [["프로의식",1]]}],
+      ["주변 기대와 거리를 둔다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
+    showcase:()=>[
+      ["가장 자신 있는 무기를 보여준다",()=>{let g=addAttr(primary,.75);G.scout=clamp((G.scout||20)+3,0,100);return [[LAB[primary],g],["스카우트",3]]}],
+      ["약점 없는 모습을 보여준다",()=>{let g=addAttr(secondary,.55);G.scout=clamp((G.scout||20)+2,0,100);return [[LAB[secondary],g],["스카우트",2]]}],
+      ["결과보다 루틴을 유지한다",()=>{G.workEthic+=1;return [["프로의식",1]]}]
+    ],
+    market:()=>[
+      ["관심 구단의 분위기를 알아본다",()=>{G.fame+=1;G.confidence+=1;return [["인지도",1],["자신감",1]]}],
+      ["현재 팀에 집중한다",()=>{G.trust+=2;return [["신뢰",2]]}],
+      ["에이전트에게만 확인한다",()=>{G.lastAgencyMessage="시장에 이름이 거론되는지 에이전트에게 비공개로 확인했습니다.";return [["시장 정보",1]]}]
+    ],
+    hot:()=>[
+      ["좋은 루틴을 그대로 유지한다",()=>{G.confidence+=2;G.momentum=.8;return [["자신감",2],["흐름",2]]}],
+      ["지금 더 밀어붙인다",()=>{let g=addAttr(primary,.8);return [[LAB[primary],g]]}],
+      ["체력 관리를 시작한다",()=>{G.durability+=1;return [["내구성",1]]}]
+    ],
+    peer:()=>[
+      ["동료를 먼저 돕는다",()=>{G.workEthic+=1;G.confidence+=1;return [["프로의식",1],["자신감",1]]}],
+      ["경쟁은 경쟁이라고 선을 긋는다",()=>{G.confidence+=2;return [["자신감",2]]}],
+      ["감독에게 팀 분위기를 이야기한다",()=>{G.trust+=1;return [["신뢰",1]]}]
+    ],
+    mechanics:()=>[
+      ["과감하게 폼을 바꾼다",()=>{if(Math.random()<.62){let g=addAttr(primary,1.7);return [[LAB[primary],g]]}G.confidence-=3;return [["자신감",-3]]}],
+      ["핵심 부분만 수정한다",()=>{let g=addAttr(secondary,.85);return [[LAB[secondary],g]]}],
+      ["현재 폼을 유지한다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
     risk:()=>[
       ["큰 변화를 선택한다",()=>{if(Math.random()<.58){let g=addAttr(primary,1.8);G.momentum=.8;return [[LAB[primary],g],["흐름",2]]}G.confidence-=3;return [["자신감",-3]]}],
       ["안정적인 선택을 한다",()=>{let g=addAttr(secondary,.7);return [[LAB[secondary],g]]}],
@@ -785,6 +963,7 @@ function eventChoiceTemplate(e,stage){
   else if(e.type==="mentor"||txt.includes("선배")||txt.includes("베테랑"))key="mentor";
   else if(e.type==="role"||txt.includes("역할")||txt.includes("포지션")||txt.includes("보직"))key="role";
   else if(e.type==="confidence"||txt.includes("멘탈")||txt.includes("슬럼프"))key="confidence";
+  else if(["balance","leadership","clutch","career","contract","pressure","showcase","market","hot","peer","mechanics"].includes(e.type))key=e.type;
   else if(e.type==="choice_risk")key="risk";
   return (templates[key]||templates.growth)();
 }
@@ -866,7 +1045,7 @@ function stageEventEffect(e,stage){
   return effects;
 }
 function runContextualEvent(stage,done){
-  let e=uniqueContextEvent(stage);
+  let e=pickCareerEvent(stage);
   // Roughly 25% of contextual events become player choices.
   if(["choice_risk","choice_safe"].includes(e.type) || Math.random()<.17){
     let keys=G.type==="hitter"?H:P;
@@ -951,11 +1130,11 @@ function chooseAmEvent(){
 }
 function runAmateurEvent(done){
   let stage=G.stage==="college"?"college":"high";
-  let e=uniqueContextEvent(stage);
+  let e=pickCareerEvent(stage);
   let month=(stage==="college"?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌";
 
   // Exactly one event per month.
-  let choiceRequired=["choice_risk","choice_safe","injury","role"].includes(e.type) || Math.random()<.24;
+  let choiceRequired=["choice_risk","choice_safe","injury","role","balance","leadership","clutch","career","contract","pressure","showcase","market","mechanics"].includes(e.type) || Math.random()<.12;
   if(choiceRequired){
     runEventChoice(e,stage,done);
     return;
@@ -969,38 +1148,67 @@ function runAmateurEvent(done){
   renderAm();
 
   // Do not fire any second event in this month.
-  setTimeout(done,Math.round(2900/amSpeed));
+  setTimeout(done,Math.round(3600/amSpeed));
 }
 function amStoryChoice(stage,key,opt){}
 
 
 function showAmateurSeasonRecap(){
   pauseAm();
-  let stats=generateAmSeasonStats(),deltas=buildAmSeasonDelta(),evals=buildAmEvaluations(stats),honors=generateAmHonors(stats);
+  let stats=generateAmSeasonStats(),deltas=buildAmSeasonDelta(),evals=buildAmEvaluations(stats);
+  let honors=generateAmHonors(stats); // saved to career records only
   let events=(G.logs||[]).slice(G.amSeasonStartLogIndex||0);
   let stageName=G.stage==="college"?"대학":"고교";
   G.lastAmSeasonStats=stats;
-  let nextLabel=G.stage==="high"?(G.year<3?"다음 학년":"진로 선택"):(G.year<4?"다음 학년":"프로 드래프트");
-  $("modalBody").innerHTML=`<div class="season-recap">
-    <div class="recap-head"><div><div class="recap-title">${stageName} ${G.year}학년 결산</div><div class="recap-sub">${G.age}세 · ${G.name}</div></div><div class="chip">OVR <strong>${ovr().toFixed(1)}</strong></div></div>
-    <div class="recap-tabs">
-      <button class="recap-tab on" data-recap="summary" onclick="recapSwitch('summary')">시즌 결산</button>
-      <button class="recap-tab" data-recap="evaluation" onclick="recapSwitch('evaluation')">평가</button>
-      <button class="recap-tab" data-recap="honors" onclick="recapSwitch('honors')">기록·수상</button>
+  recapPageIndex=0;
+
+  $("modalBody").innerHTML=`<div class="season-recap recap-flow">
+    <div class="recap-head">
+      <div><div class="recap-title">${stageName} ${G.year}학년 결산</div><div class="recap-sub">${G.age}세 · ${G.name}</div></div>
+      <div class="chip">OVR <strong>${ovr().toFixed(1)}</strong></div>
     </div>
-    <div class="recap-pane on" data-recap-pane="summary">
-      <div class="recap-grid">
-        <div class="recap-box"><span>시즌 성적</span><b>${stats.text}</b></div>
-        <div class="recap-box"><span>스카우트 평가</span><b>${Math.round(G.scout)}</b></div>
-        <div class="recap-box"><span>인지도</span><b>${Math.round(G.fame||0)}</b></div>
-        <div class="recap-box"><span>자신감</span><b>${Math.round(G.confidence||55)}</b></div>
+
+    <div class="recap-progress">
+      <div class="recap-step on">1. 시즌 성적</div>
+      <div class="recap-step">2. 능력치 변화</div>
+      <div class="recap-step">3. 평가</div>
+    </div>
+
+    <div class="recap-page on">
+      <div class="focus-card">
+        <div class="focus-label">SEASON RESULT</div>
+        <div class="result-title">${stats.text}</div>
       </div>
-      <div class="recap-section"><h3>능력치 변화</h3><div class="recap-deltas">${deltas.length?deltas.map(d=>`<div class="recap-delta"><span>${d.label}</span><span class="${d.diff>=0?"up":"down"}">${d.diff>=0?"+":""}${d.diff.toFixed(1)}</span></div>`).join(""):'<div class="sub">큰 능력치 변화는 없었습니다.</div>'}</div></div>
-      <div class="recap-section"><h3>주요 사건</h3><div class="recap-events">${events.slice(-8).map(e=>`<div class="log-item">${e}</div>`).join("")||'<div class="sub">기록된 주요 사건이 없습니다.</div>'}</div></div>
+      <div class="focus-grid">
+        <div class="focus-item"><span>스카우트 평가</span><b>${Math.round(G.scout)}</b></div>
+        <div class="focus-item"><span>인지도</span><b>${Math.round(G.fame||0)}</b></div>
+        <div class="focus-item"><span>자신감</span><b>${Math.round(G.confidence||55)}</b></div>
+        <div class="focus-item"><span>현재 OVR</span><b>${ovr().toFixed(1)}</b></div>
+      </div>
+      <div class="recap-section">
+        <h3>그해 주요 사건</h3>
+        <div class="recap-events">${events.slice(-4).map(e=>`<div class="log-item">${e}</div>`).join("")||'<div class="sub">특별한 사건은 없었습니다.</div>'}</div>
+      </div>
     </div>
-    <div class="recap-pane" data-recap-pane="evaluation"><h3>시즌 평가</h3>${evaluationHTML(evals)}</div>
-    <div class="recap-pane" data-recap-pane="honors"><h3>특별 기록·수상</h3>${honorsHTML(honors)}<div class="recap-section"><h3>커리어 수상 이력</h3>${careerHonorsHTML()||'<div class="sub">아직 커리어 수상 기록이 없습니다.</div>'}</div></div>
-    <button class="btn green" style="width:100%;margin-top:13px" onclick="continueAmateurAfterRecap()">${nextLabel}</button>
+
+    <div class="recap-page">
+      <h3>한 시즌 동안의 능력치 변화</h3>
+      <div class="sub" style="margin-bottom:10px">시즌 시작 시점과 비교한 변화입니다.</div>
+      <div class="recap-deltas">
+        ${deltas.length?deltas.map(d=>`<div class="recap-delta"><span>${d.label}</span><span class="${d.diff>=0?"up":"down"}">${d.diff>=0?"+":""}${d.diff.toFixed(1)}</span></div>`).join(""):'<div class="sub">큰 능력치 변화는 없었습니다.</div>'}
+      </div>
+    </div>
+
+    <div class="recap-page">
+      <h3>시즌 평가</h3>
+      <div class="sub" style="margin-bottom:10px">성적뿐 아니라 시즌 중 선택과 행동도 평가에 반영됩니다.</div>
+      ${evaluationHTML(evals)}
+    </div>
+
+    <div id="recapNavWrap" class="recap-nav">
+      <button id="recapBack" class="btn dark" style="visibility:hidden" onclick="showRecapPage(recapPageIndex-1)">이전</button>
+      <button id="recapNext" class="btn green" onclick="recapNextAction('amateur')">다음</button>
+    </div>
   </div>`;
   $("modal").classList.add("show");
 }
@@ -1137,7 +1345,7 @@ function finishSangmuIfNeeded(){
 }
 function playInternational(ev){
   closeM();
-  let e=uniqueContextEvent("international");
+  let e=pickCareerEvent("international");
   let preEffects=stageEventEffect(e,"international");
   G.caps++;
 
@@ -1216,7 +1424,7 @@ function proStep(){
   let month=PRO_MONTHS[G.block]||"시즌";
 
   // Exactly one event per month. No proEvent() call on top of this.
-  let choiceRequired=["choice_risk","choice_safe","injury","role"].includes(e.type) || Math.random()<.24;
+  let choiceRequired=["choice_risk","choice_safe","injury","role","balance","leadership","clutch","career","contract","pressure","showcase","market","mechanics"].includes(e.type) || Math.random()<.12;
   if(choiceRequired){
     runEventChoice(e,stage,()=>{
       G.block++;
@@ -1382,6 +1590,46 @@ function honorsHTML(list){
   let icon={award:"🏆",record:"◆",team:"★",international:"🇰🇷",milestone:"✦"};
   return `<div class="honor-grid">${list.map(h=>`<div class="honor-card ${h.major?"major":""}"><div class="honor-icon">${icon[h.type]||"✦"}</div><div class="honor-title">${h.title}</div><div class="honor-desc">${h.desc}</div></div>`).join("")}</div>`;
 }
+
+function openCareerRecords(){
+  if(!G){
+    alert("아직 시작한 커리어가 없습니다.");
+    return;
+  }
+  pauseAm();pausePro();
+
+  let all=(G.honors||[]).slice().reverse();
+  let awards=all.filter(x=>x.type==="award");
+  let records=all.filter(x=>["record","milestone"].includes(x.type));
+  let teamHonors=all.filter(x=>x.type==="team");
+  let international=all.filter(x=>x.type==="international");
+
+  const group=(title,list)=>`<div class="recap-section">
+    <h3>${title}</h3>
+    ${list.length?`<div class="honor-grid">${list.map(h=>`<div class="honor-card ${h.major?"major":""}">
+      <div class="honor-title">${h.age}세 · ${h.title}</div>
+      <div class="honor-desc">${h.desc}</div>
+    </div>`).join("")}</div>`:`<div class="empty-honors">아직 기록이 없습니다.</div>`}
+  </div>`;
+
+  $("modalBody").innerHTML=`<div class="season-recap">
+    <div class="recap-head">
+      <div><div class="recap-title">커리어 기록·수상</div><div class="recap-sub">${G.name}의 커리어에 남은 공식 이력</div></div>
+      <div class="chip">총 <strong>${all.length}</strong>개</div>
+    </div>
+    ${group("개인 수상",awards)}
+    ${group("특별 기록",records)}
+    ${group("팀 성과",teamHonors)}
+    ${group("국제대회",international)}
+    <button class="btn green" style="width:100%;margin-top:12px" onclick="closeCareerRecords()">돌아가기</button>
+  </div>`;
+  $("modal").classList.add("show");
+}
+function closeCareerRecords(){
+  closeM();
+  setTimeout(autoFlowWatchdog,200);
+}
+
 function careerHonorsHTML(){
   let all=(G.honors||[]).slice(-16).reverse();
   return all.length?`<div class="career-trophy-row">${all.map(h=>`<span class="career-trophy">${h.age}세 · ${h.title}</span>`).join("")}</div>`:"";
@@ -1438,6 +1686,26 @@ function generateProHonors(stats,rank){
   else if(rank<=3&&Math.random()<.24)out.push(addHonor("team","한국시리즈 진출","가을야구의 마지막 무대까지 진출했습니다."));
   return out;
 }
+
+let recapPageIndex=0;
+function showRecapPage(i){
+  recapPageIndex=clamp(i,0,2);
+  document.querySelectorAll(".recap-page").forEach((x,n)=>x.classList.toggle("on",n===recapPageIndex));
+  document.querySelectorAll(".recap-step").forEach((x,n)=>x.classList.toggle("on",n===recapPageIndex));
+  let back=$("recapBack"),next=$("recapNext");
+  if(back)back.style.visibility=recapPageIndex===0?"hidden":"visible";
+  if(next)next.textContent=recapPageIndex===2?"결산 완료":"다음";
+}
+function recapNextAction(mode){
+  if(recapPageIndex<2){showRecapPage(recapPageIndex+1);return}
+  if(mode==="amateur")continueAmateurAfterRecap();
+  else closeProRecapMenu();
+}
+function closeProRecapMenu(){
+  // on final page, reveal simple choice instead of another wall of buttons
+  $("recapNavWrap").innerHTML=`<button class="btn green" onclick="continueAfterRecap()">다음 시즌으로</button><button class="btn blue" onclick="openAgencyFromRecap()">에이전트에게 연락</button>`;
+}
+
 function recapSwitch(tab){
   document.querySelectorAll(".recap-tab").forEach(x=>x.classList.toggle("on",x.dataset.recap===tab));
   document.querySelectorAll(".recap-pane").forEach(x=>x.classList.toggle("on",x.dataset.recapPane===tab));
@@ -1463,28 +1731,57 @@ function showSeasonRecap(summary,extra={}){
   let stats=extra.stats||{text:extra.shortStat||"기록 완료",performance:60};
   let evals=buildProEvaluations(stats);
   let rank=G.stage==="sangmu"?99:(G.standings.findIndex(x=>x.id===G.club)+1);
-  let honors=G.stage==="sangmu"?[]:generateProHonors(stats,rank);
+  let honors=G.stage==="sangmu"?[]:generateProHonors(stats,rank); // saved only
   G.lastProSeasonStats=stats;
-  $("modalBody").innerHTML=`<div class="season-recap">
-    <div class="recap-head"><div><div class="recap-title">${G.age}세 시즌 결산</div><div class="recap-sub">${G.stage==="sangmu"?"상무":team(G.club).name} · ${roleAfter}</div></div><div class="chip">OVR <strong>${ovr().toFixed(1)}</strong></div></div>
-    <div class="recap-tabs">
-      <button class="recap-tab on" data-recap="summary" onclick="recapSwitch('summary')">시즌 결산</button>
-      <button class="recap-tab" data-recap="evaluation" onclick="recapSwitch('evaluation')">평가</button>
-      <button class="recap-tab" data-recap="honors" onclick="recapSwitch('honors')">기록·수상</button>
+  recapPageIndex=0;
+
+  $("modalBody").innerHTML=`<div class="season-recap recap-flow">
+    <div class="recap-head">
+      <div><div class="recap-title">${G.age}세 시즌 결산</div><div class="recap-sub">${G.stage==="sangmu"?"상무":team(G.club).name} · ${roleAfter}</div></div>
+      <div class="chip">OVR <strong>${ovr().toFixed(1)}</strong></div>
     </div>
-    <div class="recap-pane on" data-recap-pane="summary">
-      <div class="recap-grid">
-        <div class="recap-box"><span>시즌 성적</span><b>${stats.text||extra.shortStat}</b></div>
-        <div class="recap-box"><span>역할 변화</span><b>${roleBefore===roleAfter?roleAfter:`${roleBefore} → ${roleAfter}`}</b></div>
-        <div class="recap-box"><span>감독 신뢰</span><b>${Math.round(G.trust||0)}</b></div>
-        <div class="recap-box"><span>연봉</span><b>${(G.salary||3000).toLocaleString()}만</b></div>
+
+    <div class="recap-progress">
+      <div class="recap-step on">1. 시즌 성적</div>
+      <div class="recap-step">2. 능력치 변화</div>
+      <div class="recap-step">3. 평가</div>
+    </div>
+
+    <div class="recap-page on">
+      <div class="focus-card">
+        <div class="focus-label">SEASON RESULT</div>
+        <div class="result-title">${stats.text||extra.shortStat}</div>
       </div>
-      <div class="recap-section"><h3>능력치 변화</h3><div class="recap-deltas">${deltas.length?deltas.map(d=>`<div class="recap-delta"><span>${d.label}</span><span class="${d.diff>=0?"up":"down"}">${d.diff>=0?"+":""}${d.diff.toFixed(1)}</span></div>`).join(""):'<div class="sub">큰 변화 없이 시즌을 마쳤습니다.</div>'}</div></div>
-      <div class="recap-section"><h3>주요 사건</h3><div class="recap-events">${events.slice(-8).map(e=>`<div class="log-item">${e}</div>`).join("")||'<div class="sub">기록된 주요 사건이 없습니다.</div>'}</div></div>
+      <div class="focus-grid">
+        <div class="focus-item"><span>시즌 역할</span><b>${roleBefore===roleAfter?roleAfter:`${roleBefore} → ${roleAfter}`}</b></div>
+        <div class="focus-item"><span>구단 신뢰</span><b>${Math.round(G.trust||0)}</b></div>
+        <div class="focus-item"><span>팀 순위</span><b>${rank===99?"상무":rank+"위"}</b></div>
+        <div class="focus-item"><span>연봉</span><b>${(G.salary||3000).toLocaleString()}만</b></div>
+      </div>
+      <div class="recap-section">
+        <h3>그해 주요 사건</h3>
+        <div class="recap-events">${events.slice(-4).map(e=>`<div class="log-item">${e}</div>`).join("")||'<div class="sub">특별한 사건은 없었습니다.</div>'}</div>
+      </div>
     </div>
-    <div class="recap-pane" data-recap-pane="evaluation"><h3>시즌 평가</h3>${evaluationHTML(evals)}</div>
-    <div class="recap-pane" data-recap-pane="honors"><h3>특별 기록·수상</h3>${honorsHTML(honors)}<div class="recap-section"><h3>커리어 수상 이력</h3>${careerHonorsHTML()||'<div class="sub">아직 수상·특별 기록이 없습니다.</div>'}</div></div>
-    <div class="agency-actions" style="margin-top:13px"><button class="btn green" onclick="continueAfterRecap()">다음 시즌으로</button><button class="btn blue" onclick="openAgencyFromRecap()">에이전트에게 연락</button></div>
+
+    <div class="recap-page">
+      <h3>한 시즌 동안의 능력치 변화</h3>
+      <div class="sub" style="margin-bottom:10px">시즌 시작 시점과 비교한 변화입니다.</div>
+      <div class="recap-deltas">
+        ${deltas.length?deltas.map(d=>`<div class="recap-delta"><span>${d.label}</span><span class="${d.diff>=0?"up":"down"}">${d.diff>=0?"+":""}${d.diff.toFixed(1)}</span></div>`).join(""):'<div class="sub">큰 능력치 변화는 없었습니다.</div>'}
+      </div>
+    </div>
+
+    <div class="recap-page">
+      <h3>시즌 평가</h3>
+      <div class="sub" style="margin-bottom:10px">구단·코치진·동료·팬의 평가는 서로 다를 수 있습니다.</div>
+      ${evaluationHTML(evals)}
+    </div>
+
+    <div id="recapNavWrap" class="recap-nav">
+      <button id="recapBack" class="btn dark" style="visibility:hidden" onclick="showRecapPage(recapPageIndex-1)">이전</button>
+      <button id="recapNext" class="btn green" onclick="recapNextAction('pro')">다음</button>
+    </div>
   </div>`;
   $("modal").classList.add("show");
 }
@@ -1537,8 +1834,7 @@ function renderAgency(){
     <div class="agency-card"><h3>${offseason?"오프시즌 요청":"상담 요청"}</h3>
       <div class="agency-actions">${actions.map(a=>`<button class="btn ${a[0]==="trade"||a[0]==="trade_mid"?"blue":"dark"}" onclick="agencyAction('${a[0]}')">${a[1]}</button>`).join("")}</div>
     </div>
-    <div class="agency-card"><h3>최근 에이전트 기록</h3><div class="sub">${G.lastAgencyMessage||"아직 에이전트에게 별도 요청을 하지 않았습니다."}</div></div>
-    <div class="agency-card"><h3>주요 커리어 이력</h3>${careerHonorsHTML()||'<div class="sub">아직 주요 수상 기록이 없습니다.</div>'}</div>
+    <div class="agency-card"><h3>최근 에이전트 기록</h3><div class="sub">${G.lastAgencyMessage||"아직 에이전트에게 별도 요청을 하지 않았습니다."}</div></div>'}</div>
     ${offseason?`<button class="btn green" style="width:100%" onclick="beginNextSeason()">다음 시즌 시작</button>`:""}`;
 }
 function agencyAction(type){
@@ -1684,11 +1980,11 @@ function stayFA(m){G.salary=m;G.contractYears=2;G.trust+=4;closeM();renderPro();
 function save(){
   if(!G)return alert("진행 중인 커리어가 없습니다.");
   G.buildVersion=24;
-  localStorage.setItem("diamondLife28",JSON.stringify(G));
-  alert("저장했습니다. · BUILD 28");
+  localStorage.setItem("diamondLife30",JSON.stringify(G));
+  alert("저장했습니다. · BUILD 30");
 }
 function load(){
-  let s=localStorage.getItem("diamondLife28")||localStorage.getItem("diamondLife27")||localStorage.getItem("diamondLife26")||localStorage.getItem("diamondLife25")||localStorage.getItem("diamondLife24")||localStorage.getItem("diamondLife23")||localStorage.getItem("diamondLife22")||localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");
+  let s=localStorage.getItem("diamondLife30")||localStorage.getItem("diamondLife29")||localStorage.getItem("diamondLife28")||localStorage.getItem("diamondLife27")||localStorage.getItem("diamondLife26")||localStorage.getItem("diamondLife25")||localStorage.getItem("diamondLife24")||localStorage.getItem("diamondLife23")||localStorage.getItem("diamondLife22")||localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");
   if(!s)return alert("저장된 커리어가 없습니다.");
   G=JSON.parse(s);
 
