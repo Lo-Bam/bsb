@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Diamond Life 22</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Diamond Life 24</title>
 <style>
 :root{
   --team:#3f6fff;--team2:#dbe6ff;--bg:#0e1116;--panel:#1a2028;--panel2:#232b35;
@@ -89,7 +92,7 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
   .top .actions .btn{padding:6px;font-size:9px}.brand h1{font-size:16px}
 }
 
-/* Diamond Life 22 — mobile safety */
+/* Diamond Life 24 — mobile safety */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 img,svg,canvas{max-width:100%}
 .panel,.two,.creator-layout,.grid2,.grid4,.club-grid,.attrs,.offer{min-width:0}
@@ -136,7 +139,7 @@ img,svg,canvas{max-width:100%}
 .effect{border:2px solid #000;background:#0b1015;padding:4px 6px;font-size:9px}
 
 
-/* Diamond Life 22 — visible progression */
+/* Diamond Life 24 — visible progression */
 .season-track{margin-top:10px;border:3px solid #000;background:#0b1015;padding:8px}
 .season-track-head{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
 .season-track-bar{height:12px;background:#050709;border:3px solid #000;margin-top:6px}
@@ -152,7 +155,7 @@ img,svg,canvas{max-width:100%}
 .timeline-note{margin-top:7px;font-size:10px;color:var(--muted)}
 
 
-/* Diamond Life 22 — mobile audit fixes */
+/* Diamond Life 24 — mobile audit fixes */
 .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .table{min-width:0;width:100%;table-layout:fixed}
 .table td,.table th{word-break:keep-all;overflow-wrap:anywhere}
@@ -177,7 +180,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* Diamond Life 22 — event-first career flow */
+/* Diamond Life 24 — event-first career flow */
 .story-card{
   border:4px solid #000;background:#10161d;padding:14px;margin-top:10px;
   box-shadow:5px 5px 0 rgba(0,0,0,.35);min-height:128px
@@ -220,7 +223,7 @@ img,svg,canvas{max-width:100%}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 22</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
+    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 24</h1><small><b style="color:var(--gold)">BUILD 24</b> · <span id="topSub">고교야구에서 시작되는 커리어</span></small></div></div>
     <div class="actions"><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
   </header>
 
@@ -477,9 +480,26 @@ function renderAm(){
  $("amBoard").textContent=college?"COLLEGE LEAGUE":"HIGH SCHOOL";$("amBoard2").textContent=G.name;$("amBoard3").textContent=`SCOUT ${Math.round(G.scout)} · OVR ${ovr().toFixed(1)}`;$("amBanner").textContent=["개막","중반","전국대회"][G.block]||"SEASON";
  $("amProfile").innerHTML=`<div class="profile-card"><span class="tag">${G.potentialTier}</span><span class="tag">프로의식 ${Math.round(G.workEthic)}</span><div class="tiny" style="margin-top:7px">현재 평가는 같아도 성장 속도와 최종 도달점은 선수마다 다릅니다.</div></div>`;
  renderAttrs("amAttrs");$("amLog").innerHTML=G.logs.slice(-10).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 시즌이 시작됩니다.</div>';
- $("amDot").classList.toggle("on",amRun);$("amStatus").textContent=amRun?`${(college?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌 종료"} 진행 중`:"시즌이 멈춰 있습니다";animateField("a")
+ $("amDot").classList.toggle("on",amRun);$("amStatus").textContent=amRun?`${(college?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌 종료"} · 다음 일정으로 이동 중`:"선택을 기다리는 중";animateField("a")
 }
-function startAm(){if($("modal").classList.contains("show"))return;if(amRun)return;amRun=true;if(amTimer)clearTimeout(amTimer);renderAm();amTimer=setTimeout(amStep,Math.round(900/amSpeed))}function pauseAm(){amRun=false;clearTimeout(amTimer);renderAm()}function toggleAm(){amRun?pauseAm():startAm()}
+function scheduleAm(delay){
+  if(!amRun || $("modal").classList.contains("show"))return;
+  if(amTimer){clearTimeout(amTimer);amTimer=null}
+  amTimer=setTimeout(amStep,Math.max(250,Math.round(delay/amSpeed)));
+}
+function startAm(){
+  if($("modal").classList.contains("show"))return;
+  amRun=true;
+  renderAm();
+  scheduleAm(900);
+}
+function pauseAm(){
+  amRun=false;
+  if(amTimer)clearTimeout(amTimer);
+  amTimer=null;
+  if($("amateur")?.classList.contains("active"))renderAm();
+}
+function toggleAm(){amRun?pauseAm():startAm()}
 
 
 function contextualStage(){
@@ -588,9 +608,6 @@ function resolveEventChoice(i){
     G.historyEvents??=[];G.historyEvents.push(`${G.age}세 ${month} · ${c.e.title}`);
   }
   if(c.onDone)c.onDone();
-  if((c.stage==="high"||c.stage==="college") && !$("modal").classList.contains("show")){
-    setTimeout(()=>{if($("amateur").classList.contains("active")&&!amRun)startAm()},Math.round(800/amSpeed));
-  }
 }
 
 function uniqueContextEvent(stage){
@@ -746,6 +763,7 @@ function runAmateurEvent(done){
 function amStoryChoice(stage,key,opt){}
 
 function amStep(){
+  amTimer=null;
   if(!amRun)return;
   runAmateurEvent(()=>{
     G.block++;
@@ -757,21 +775,31 @@ function amStep(){
         if(G.year<3){
           G.year++;G.age++;
           G.logs.push(`${G.age}세 · 고교 ${G.year}학년이 시작됐습니다.`);
-          renderAm();setTimeout(startAm,Math.round(1300/amSpeed));
+          renderAm();setTimeout(()=>{amRun=true;scheduleAm(900)},Math.round(1300/amSpeed));
         }else decision("high");
       }else{
         if(G.year<4){
           G.year++;G.age++;G.scout=clamp(G.scout+2,0,100);
           G.logs.push(`${G.age}세 · 대학 ${G.year}학년이 시작됐습니다.`);
-          renderAm();setTimeout(startAm,Math.round(1300/amSpeed));
+          renderAm();setTimeout(()=>{amRun=true;scheduleAm(900)},Math.round(1300/amSpeed));
         }else decision("college");
       }
       return;
     }
-    setTimeout(()=>{if(!$("modal").classList.contains("show")&&$("amateur").classList.contains("active"))startAm()},Math.round(650/amSpeed));
+    if(!$("modal").classList.contains("show") && $("amateur").classList.contains("active")){
+      amRun=true;
+      scheduleAm(650);
+    }
   });
 }
-function modal(html){$("modalBody").innerHTML=html;$("modal").classList.add("show")}function closeM(){$("modal").classList.remove("show")}
+function modal(html){
+  $("modalBody").innerHTML=html;
+  $("modal").classList.add("show");
+}
+function closeM(){
+  $("modal").classList.remove("show");
+  setTimeout(autoFlowWatchdog,120);
+}
 function decision(stage){
  if(stage==="high")modal(`<h2>고교 3학년, 진로 선택</h2><div class="sub">현재 스카우트 평가 ${Math.round(G.scout)}. 프로에 바로 도전하거나 대학에서 더 성장할 수 있습니다.</div><button class="btn green" style="width:100%;margin-top:12px" onclick="closeM();draftStart('high')">신인 드래프트 참가</button><button class="btn blue" style="width:100%;margin-top:8px" onclick="college()">대학 진학</button>`);
  else modal(`<h2>대학 4학년, 프로 도전</h2><div class="sub">대학리그에서 쌓은 평가를 들고 다시 드래프트에 참가합니다.</div><button class="btn green" style="width:100%;margin-top:12px" onclick="closeM();draftStart('college')">신인 드래프트 참가</button>`)
@@ -809,9 +837,26 @@ function renderPro(){
  let rank=G.stage==="sangmu"?"-":G.standings.findIndex(x=>x.id===G.club)+1;renderMonthRoad("proMonths",PRO_MONTHS,G.block);$("pBoard").textContent=["SPRING CAMP","OPENING","APRIL","MAY","JUNE","ALL STAR","AUGUST","FINAL"][G.block]||"SEASON";$("pBoard2").textContent=G.stage==="sangmu"?`상무 · 군 복무 시즌`:`${team(G.club).abbr} · ${rank}위`;$("pBoard3").textContent=`신뢰 ${Math.round(G.trust)} · OVR ${ovr().toFixed(1)}`;$("pBanner").textContent=["CAMP","OPEN","JUNE","BREAK","AUG","FINAL"][G.block]||"SEASON";
  renderAttrs("pAttrs");$("history").innerHTML=G.history.slice(-8).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 프로 시즌입니다.</div>';
  $("standings").innerHTML=G.standings.map((x,i)=>`<tr><td>${i+1}</td><td>${team(x.id).name}<div class="tiny">${team(x.id).style}</div></td><td>${Math.round(x.s)}</td></tr>`).join("");$("nat").innerHTML=`<div class="review-row"><span>병역</span><b>${G.military}</b></div><div class="review-row"><span>대표팀</span><b>${G.caps}회</b></div>`;
- $("pDot").classList.toggle("on",proRun);$("pStatus").textContent=proRun?`${PRO_MONTHS[G.block]||"시즌 종료"} 진행 중`:"시즌이 멈춰 있습니다";animateField("p")
+ $("pDot").classList.toggle("on",proRun);$("pStatus").textContent=proRun?`${PRO_MONTHS[G.block]||"시즌 종료"} · 다음 일정으로 이동 중`:"선택을 기다리는 중";animateField("p")
 }
-function startPro(){if($("modal").classList.contains("show"))return;if(proRun||G.retired)return;proRun=true;if(proTimer)clearTimeout(proTimer);renderPro();proTimer=setTimeout(proStep,Math.round(1000/proSpeed))}function pausePro(){proRun=false;clearTimeout(proTimer);renderPro()}function togglePro(){proRun?pausePro():startPro()}
+function schedulePro(delay){
+  if(!proRun || G.retired || $("modal").classList.contains("show"))return;
+  if(proTimer){clearTimeout(proTimer);proTimer=null}
+  proTimer=setTimeout(proStep,Math.max(250,Math.round(delay/proSpeed)));
+}
+function startPro(){
+  if($("modal").classList.contains("show") || G.retired)return;
+  proRun=true;
+  renderPro();
+  schedulePro(1000);
+}
+function pausePro(){
+  proRun=false;
+  if(proTimer)clearTimeout(proTimer);
+  proTimer=null;
+  if($("pro")?.classList.contains("active"))renderPro();
+}
+function togglePro(){proRun?pausePro():startPro()}
 
 function proChoicePick(i){
   let effects=window._proChoices[i][1]();
@@ -920,6 +965,7 @@ function proEvent(){
   $("proEvent").innerHTML=`<div class="event-card growth-flash"><div class="event-title">${msg}</div><div class="effects">${effects.map(e=>effectChip(e[0],typeof e[1]==="number"?e[1]:0)).join("")}</div></div>`;
 }
 function proStep(){
+  proTimer=null;
   if(!proRun)return;
   let stage=contextualStage();
   let e=uniqueContextEvent(stage);
@@ -932,7 +978,7 @@ function proStep(){
       G.block++;
       renderPro();
       if(G.block>=8){pausePro();setTimeout(finishSeason,550)}
-      else setTimeout(startPro,Math.round(700/proSpeed));
+      else setTimeout(()=>{if(!proRun)proRun=true;schedulePro(700)},Math.round(1));
     });
     return;
   }
@@ -944,7 +990,7 @@ function proStep(){
   G.block++;
   renderPro();
   if(G.block>=8){pausePro();finishSeason();return}
-  proTimer=setTimeout(proStep,Math.round(3000/proSpeed));
+  schedulePro(3000);
 }
 function proStoryChoice(stage,key,opt){}
 
@@ -1097,8 +1143,54 @@ function fa(){
 }
 function signFA(id,m,years){G.club=id;G.salary=m;G.contractYears=years;G.trust=55;G.proLevel=teamNeed(id)>=75?"1군 주전":"1군 백업";G.pref[id]=clamp((G.pref[id]||50)+10,0,100);theme(id);closeM();newStandings();renderPro();setTimeout(startPro,700)}
 function stayFA(m){G.salary=m;G.contractYears=2;G.trust+=4;closeM();renderPro();setTimeout(startPro,650)}
-function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife22",JSON.stringify(G));alert("저장했습니다.")}
-function load(){let s=localStorage.getItem("diamondLife22")||localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
+function save(){
+  if(!G)return alert("진행 중인 커리어가 없습니다.");
+  G.buildVersion=24;
+  localStorage.setItem("diamondLife24",JSON.stringify(G));
+  alert("저장했습니다. · BUILD 24");
+}
+function load(){
+  let s=localStorage.getItem("diamondLife24")||localStorage.getItem("diamondLife23")||localStorage.getItem("diamondLife22")||localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");
+  if(!s)return alert("저장된 커리어가 없습니다.");
+  G=JSON.parse(s);
+
+  G.logs??=[];G.history??=[];G.historyEvents??=[];G.bigEventMem??={};G.eventMem??={};
+  G.pref??=Object.fromEntries(TEAMS.map(t=>[t.id,t.id===G.fav?82:50]));
+  G.military??="미필";G.resolved??=false;G.caps??=0;G.trust??=45;
+  G.confidence??=55;G.workEthic??=65;G.durability??=65;G.momentum??=0;
+  G.potential??=76;G.learnRate??=1;G.potentialTier??="주전급 잠재력";
+  G.block=clamp(Number(G.block)||0,0,7);
+  G.year=Math.max(1,Number(G.year)||1);
+  G.stage??="pro";G.proLevel??="2군";
+
+  amRun=false;proRun=false;
+  if(amTimer)clearTimeout(amTimer);
+  if(proTimer)clearTimeout(proTimer);
+  amTimer=null;proTimer=null;
+
+  theme(G.club||G.fav);
+  if(G.stage==="high"||G.stage==="college"){
+    show("amateur");renderAm();
+  }else{
+    show("pro");newStandings();renderPro();
+  }
+  setTimeout(autoFlowWatchdog,250);
+}
+setInterval(autoFlowWatchdog,1800);
+
+function autoFlowWatchdog(){
+  if(!G || $("modal").classList.contains("show"))return;
+  if($("amateur").classList.contains("active") && (G.stage==="high"||G.stage==="college")){
+    if(!amRun)amRun=true;
+    if(!amTimer)scheduleAm(700);
+  }
+  if($("pro").classList.contains("active") && ["pro","sangmu"].includes(G.stage) && !G.retired){
+    if(!proRun)proRun=true;
+    if(!proTimer)schedulePro(800);
+  }
+}
+setInterval(autoFlowWatchdog,1800);
+
 creator();
 </script>
 </body>
