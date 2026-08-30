@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Diamond Life 8 - 10 Club Career</title>
+<style>
+:root{
+  --team:#4f8cff; --team2:#dbe7ff; --bg:#101217; --panel:#1c2028; --panel2:#242b35;
+  --line:#3a4350; --text:#f6f8fb; --muted:#aab4c0; --good:#72e071; --gold:#ffd65a; --bad:#ff7676;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);background:
+  linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),var(--bg);
+  background-size:16px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;min-height:100vh
+}
+button,input,select{font:inherit}
+.app{max-width:1280px;margin:auto;padding:16px}
+.top{
+  position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 14px;margin-bottom:18px;background:#0b0d11;border:4px solid #000;box-shadow:0 0 0 4px var(--team),8px 8px 0 #000
+}
+.brand{display:flex;align-items:center;gap:12px}.brand h1{font-size:21px;margin:0}.brand small{color:var(--muted)}
+.badge{
+  width:46px;height:46px;background:var(--team);color:#fff;border:4px solid #000;box-shadow:inset 0 0 0 3px rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px
+}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:3px solid #000;box-shadow:4px 4px 0 #000;padding:9px 12px;background:var(--gold);color:#101010;font-weight:900;cursor:pointer
+}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}.btn.green{background:var(--good)}.btn.blue{background:var(--team2)}
+.btn.red{background:var(--bad)}.btn.dark{background:#2c3440;color:#fff}.btn.small{padding:6px 8px;font-size:12px}
+.panel{background:var(--panel);border:4px solid #000;box-shadow:0 0 0 4px var(--line),8px 8px 0 #000;padding:15px;margin-bottom:18px}
+.panel h2,.panel h3{margin:0 0 10px}.sub{color:var(--muted);font-size:13px;line-height:1.6}
+
+.onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
+.steps{display:flex;flex-direction:column;gap:8px}
+.stepnav{border:3px solid #000;background:#141920;padding:10px;display:flex;gap:9px;align-items:center;opacity:.55}
+.stepnav.active{opacity:1;background:color-mix(in srgb,var(--team) 24%,#141920)}
+.stepnum{width:28px;height:28px;border:3px solid #000;background:var(--team);display:flex;align-items:center;justify-content:center;font-weight:900}
+.stepcopy b{display:block;font-size:12px}.stepcopy span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.creator{min-height:520px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choice-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.choice-card{
+  position:relative;border:4px solid #000;background:#141920;padding:14px;cursor:pointer;min-height:108px;
+  box-shadow:4px 4px 0 #000;transition:.08s ease
+}
+.choice-card:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
+.choice-card.selected{outline:4px solid var(--gold);background:color-mix(in srgb,var(--team) 22%,#141920)}
+.choice-card .icon{font-size:28px;line-height:1;margin-bottom:8px}.choice-card b{display:block;font-size:13px}.choice-card small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:5px}
+.segment{display:flex;gap:8px;flex-wrap:wrap}.seg{
+ border:3px solid #000;background:#141920;color:#fff;padding:10px 13px;cursor:pointer;box-shadow:3px 3px 0 #000;font-weight:900
+}
+.seg.selected{background:var(--team);color:#fff;outline:3px solid var(--gold)}
+.pos-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.pos-card{border:3px solid #000;background:#141920;padding:10px;text-align:center;cursor:pointer;min-height:84px}
+.pos-card.selected{background:var(--team);outline:3px solid var(--gold)}.pos-dot{width:28px;height:28px;margin:0 auto 7px;background:var(--team2);border:3px solid #000;transform:rotate(45deg)}
+.role-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.role-card{border:3px solid #000;background:#141920;padding:11px;text-align:center;cursor:pointer}.role-card.selected{background:var(--team);outline:3px solid var(--gold)}
+.creator-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px}
+.creator-head h2{margin:0}.progressbar{height:12px;background:#090b0e;border:3px solid #000;margin:10px 0 16px}.progressfill{height:100%;background:var(--team)}
+.review{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.review-card{border:4px solid #000;background:#12171d;padding:14px}
+.review-line{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:2px solid #000;font-size:12px}
+.name-input{font-size:22px;padding:14px;width:100%;border:4px solid #000;background:#0e1217;color:#fff;box-shadow:inset 0 0 0 3px var(--team)}
+.creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
+.club.create{min-height:118px}.club.create .club-name{font-size:13px}
+@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
+
+.setup-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
+input,select{background:#11151b;color:#fff;border:3px solid #000;box-shadow:inset 0 0 0 2px var(--line);padding:10px}
+.club-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.club{
+  border:3px solid #000;background:#161b22;padding:9px;cursor:pointer;position:relative;min-height:96px
+}
+.club:hover{transform:translateY(-2px)}.club.selected{outline:4px solid var(--gold)}
+.club-head{display:flex;align-items:center;gap:8px}.mini-badge{width:32px;height:32px;border:3px solid #000;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff}
+.club-name{font-weight:900;font-size:12px}.tiny{font-size:11px;color:var(--muted)}
+.prefs{margin-top:6px;height:6px;background:#090b0e;border:2px solid #000}.pref-fill{height:100%;background:var(--gold)}
+.screen{display:none}.screen.active{display:block}
+.draft-stage{
+  min-height:280px;background:#0e1115;border:4px solid #000;position:relative;overflow:hidden;padding:20px
+}
+.draft-board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:20px}
+.pick{border:3px solid #000;background:#1e242d;padding:10px;text-align:center;font-size:12px}
+.pick.on{background:var(--team);color:white}.pick.done{opacity:.45}
+.flash{animation:flash .45s steps(2,end) 3}@keyframes flash{50%{filter:brightness(2)}}
+.result-card{margin-top:18px;padding:15px;background:#171c23;border:4px solid #000}
+.game-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.hero{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.pixel-player{width:130px;height:130px;position:relative;margin:auto;image-rendering:pixelated}
+.cap{position:absolute;left:38px;top:12px;width:52px;height:8px;background:var(--team);box-shadow:8px 8px 0 var(--team)}
+.head{position:absolute;left:48px;top:20px;width:32px;height:32px;background:#efc49a;box-shadow:0 -8px 0 #20252d,8px -8px 0 #20252d,16px -8px 0 #20252d,24px -8px 0 #20252d}
+.body{position:absolute;left:40px;top:52px;width:48px;height:40px;background:var(--team2);box-shadow:0 8px 0 var(--team2)}
+.belt{position:absolute;left:40px;top:84px;width:48px;height:8px;background:#111}
+.arm1,.arm2{position:absolute;top:56px;width:16px;height:32px;background:#efc49a}.arm1{left:24px}.arm2{left:88px}
+.leg1,.leg2{position:absolute;top:92px;width:16px;height:28px;background:#ddd}.leg1{left:40px}.leg2{left:72px}
+.shoe1,.shoe2{position:absolute;top:116px;width:24px;height:8px;background:#111}.shoe1{left:32px}.shoe2{left:72px}
+.bat{position:absolute;left:104px;top:44px;width:8px;height:58px;background:#c88947;transform:rotate(-18deg)}
+.ball{position:absolute;left:10px;top:24px;width:12px;height:12px;background:#fff;border:2px solid #000}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:7px 9px;background:#10151a;border:3px solid #000}.chip strong{color:var(--gold)}
+.team-strip{height:12px;background:linear-gradient(90deg,var(--team) 0 70%,var(--team2) 70%);border:3px solid #000;margin:10px 0}
+.attrs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.attr{background:#12171d;border:3px solid #000;padding:8px}
+.attr-head{display:flex;justify-content:space-between;font-size:12px}.bar{height:9px;background:#050608;border:2px solid #000;margin-top:5px}.fill{height:100%;background:var(--team)}
+.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}.step{height:52px;border:3px solid #000;background:#151a21;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);text-align:center}
+.step.done{background:#243626;color:#fff}.step.now{background:var(--team);color:#fff}
+.event{border:3px solid #000;border-left:8px solid var(--gold);background:#141920;padding:12px;margin-top:10px}
+.event.good{border-left-color:var(--good)}.event.bad{border-left-color:var(--bad)}
+.choice button{width:100%;margin-top:6px;text-align:left}
+.offer{
+  border:4px solid #000;background:#141920;padding:12px;margin:10px 0;display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center
+}
+.offer .money{font-size:18px;color:var(--gold);font-weight:900}
+.league-table{width:100%;border-collapse:collapse;font-size:12px}.league-table th,.league-table td{padding:7px;border-bottom:2px solid #000;text-align:left}
+.league-table tr.me{background:color-mix(in srgb,var(--team) 25%,transparent)}
+.history-card{border:3px solid #000;background:#141920;padding:9px;margin:7px 0}.history-card strong{color:var(--gold)}
+.relationship{display:grid;grid-template-columns:90px 1fr 38px;gap:6px;align-items:center;font-size:11px;margin:5px 0}
+.relbar{height:8px;background:#080a0d;border:2px solid #000}.relfill{height:100%;background:var(--gold)}
+.notice{padding:8px;border:3px dashed var(--line);color:var(--muted);font-size:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.76);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
+.modal.show{display:flex}.modal-box{max-width:720px;width:100%;background:var(--panel);border:4px solid #000;box-shadow:0 0 0 4px var(--team),10px 10px 0 #000;padding:16px;max-height:90vh;overflow:auto}
+
+
+.major-wrap{position:relative;overflow:hidden;text-align:center;padding:18px 10px 8px}
+.major-wrap:before,.major-wrap:after{content:"";position:absolute;width:110px;height:110px;background:var(--team);opacity:.14;transform:rotate(45deg);top:-55px}
+.major-wrap:before{left:-45px}.major-wrap:after{right:-45px}
+.major-kicker{display:inline-block;padding:5px 9px;border:3px solid #000;background:var(--gold);color:#111;font-size:11px;font-weight:900;box-shadow:3px 3px 0 #000}
+.major-title{font-size:30px;line-height:1.2;margin:14px 0 7px;text-shadow:4px 4px 0 #000}
+.major-desc{max-width:560px;margin:0 auto;color:var(--muted);line-height:1.7}
+.major-art{height:112px;position:relative;margin:12px auto;width:220px}
+.pixel-cup{position:absolute;left:82px;top:14px;width:56px;height:52px;background:var(--gold);border:4px solid #000;box-shadow:-20px 8px 0 -12px var(--gold),20px 8px 0 -12px var(--gold)}
+.pixel-cup:after{content:"";position:absolute;left:18px;top:48px;width:20px;height:22px;background:var(--gold);border-left:4px solid #000;border-right:4px solid #000;box-shadow:-12px 20px 0 2px var(--gold),-16px 16px 0 2px #000}
+.pixel-card{position:absolute;left:58px;top:17px;width:104px;height:70px;background:var(--team);border:4px solid #000;box-shadow:8px 8px 0 #000}
+.pixel-card:before{content:"";position:absolute;left:12px;top:13px;width:34px;height:34px;background:var(--team2);border:4px solid #000}
+.pixel-card:after{content:"★";position:absolute;right:13px;top:12px;color:var(--gold);font-size:30px}
+.pixel-flag{position:absolute;left:96px;top:5px;width:10px;height:90px;background:#ddd;border:3px solid #000}
+.pixel-flag:after{content:"";position:absolute;left:7px;top:2px;width:72px;height:42px;background:var(--team);border:4px solid #000}
+.pixel-arrows{font-size:68px;font-weight:900;color:var(--team);text-shadow:5px 5px 0 #000;line-height:100px}
+.major-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}
+.major-stat{border:3px solid #000;background:#12171d;padding:9px}.major-stat b{display:block;color:var(--gold);font-size:18px}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;width:8px;height:14px;background:var(--gold);top:-20px;animation:fall 2.6s linear infinite}
+.confetti i:nth-child(2n){background:var(--team);animation-delay:.35s}.confetti i:nth-child(3n){background:#fff;animation-delay:.7s}
+@keyframes fall{to{transform:translateY(520px) rotate(520deg)}}
+.pitch-list{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}
+.pitch{border:3px solid #000;background:#12171d;padding:8px;font-size:11px}.pitch strong{color:var(--team2)}
+.award-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.award-chip{border:3px solid #000;background:#282112;color:var(--gold);padding:5px 7px;font-size:10px}
+.legacy-meter{height:14px;background:#090b0e;border:3px solid #000;margin-top:7px}.legacy-fill{height:100%;background:linear-gradient(90deg,var(--team),var(--gold))}
+
+.national-card{border:3px solid #000;background:#141920;padding:10px;margin:7px 0}
+.medals{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.medal{padding:5px 7px;border:3px solid #000;background:#221f16;color:var(--gold);font-size:11px}
+.military-ok{color:var(--good);font-weight:900}.military-warn{color:var(--bad);font-weight:900}
+
+@media(max-width:950px){.game-grid{grid-template-columns:1fr}.club-grid{grid-template-columns:repeat(2,1fr)}
+.onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
+.steps{display:flex;flex-direction:column;gap:8px}
+.stepnav{border:3px solid #000;background:#141920;padding:10px;display:flex;gap:9px;align-items:center;opacity:.55}
+.stepnav.active{opacity:1;background:color-mix(in srgb,var(--team) 24%,#141920)}
+.stepnum{width:28px;height:28px;border:3px solid #000;background:var(--team);display:flex;align-items:center;justify-content:center;font-weight:900}
+.stepcopy b{display:block;font-size:12px}.stepcopy span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.creator{min-height:520px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choice-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.choice-card{
+  position:relative;border:4px solid #000;background:#141920;padding:14px;cursor:pointer;min-height:108px;
+  box-shadow:4px 4px 0 #000;transition:.08s ease
+}
+.choice-card:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
+.choice-card.selected{outline:4px solid var(--gold);background:color-mix(in srgb,var(--team) 22%,#141920)}
+.choice-card .icon{font-size:28px;line-height:1;margin-bottom:8px}.choice-card b{display:block;font-size:13px}.choice-card small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:5px}
+.segment{display:flex;gap:8px;flex-wrap:wrap}.seg{
+ border:3px solid #000;background:#141920;color:#fff;padding:10px 13px;cursor:pointer;box-shadow:3px 3px 0 #000;font-weight:900
+}
+.seg.selected{background:var(--team);color:#fff;outline:3px solid var(--gold)}
+.pos-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.pos-card{border:3px solid #000;background:#141920;padding:10px;text-align:center;cursor:pointer;min-height:84px}
+.pos-card.selected{background:var(--team);outline:3px solid var(--gold)}.pos-dot{width:28px;height:28px;margin:0 auto 7px;background:var(--team2);border:3px solid #000;transform:rotate(45deg)}
+.role-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.role-card{border:3px solid #000;background:#141920;padding:11px;text-align:center;cursor:pointer}.role-card.selected{background:var(--team);outline:3px solid var(--gold)}
+.creator-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px}
+.creator-head h2{margin:0}.progressbar{height:12px;background:#090b0e;border:3px solid #000;margin:10px 0 16px}.progressfill{height:100%;background:var(--team)}
+.review{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.review-card{border:4px solid #000;background:#12171d;padding:14px}
+.review-line{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:2px solid #000;font-size:12px}
+.name-input{font-size:22px;padding:14px;width:100%;border:4px solid #000;background:#0e1217;color:#fff;box-shadow:inset 0 0 0 3px var(--team)}
+.creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
+.club.create{min-height:118px}.club.create .club-name{font-size:13px}
+@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
+
+.setup-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){
+.onboard{display:grid;grid-template-columns:220px 1fr;gap:18px}
+.steps{display:flex;flex-direction:column;gap:8px}
+.stepnav{border:3px solid #000;background:#141920;padding:10px;display:flex;gap:9px;align-items:center;opacity:.55}
+.stepnav.active{opacity:1;background:color-mix(in srgb,var(--team) 24%,#141920)}
+.stepnum{width:28px;height:28px;border:3px solid #000;background:var(--team);display:flex;align-items:center;justify-content:center;font-weight:900}
+.stepcopy b{display:block;font-size:12px}.stepcopy span{display:block;font-size:10px;color:var(--muted);margin-top:2px}
+.creator{min-height:520px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.choice-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.choice-card{
+  position:relative;border:4px solid #000;background:#141920;padding:14px;cursor:pointer;min-height:108px;
+  box-shadow:4px 4px 0 #000;transition:.08s ease
+}
+.choice-card:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 #000}
+.choice-card.selected{outline:4px solid var(--gold);background:color-mix(in srgb,var(--team) 22%,#141920)}
+.choice-card .icon{font-size:28px;line-height:1;margin-bottom:8px}.choice-card b{display:block;font-size:13px}.choice-card small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:5px}
+.segment{display:flex;gap:8px;flex-wrap:wrap}.seg{
+ border:3px solid #000;background:#141920;color:#fff;padding:10px 13px;cursor:pointer;box-shadow:3px 3px 0 #000;font-weight:900
+}
+.seg.selected{background:var(--team);color:#fff;outline:3px solid var(--gold)}
+.pos-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.pos-card{border:3px solid #000;background:#141920;padding:10px;text-align:center;cursor:pointer;min-height:84px}
+.pos-card.selected{background:var(--team);outline:3px solid var(--gold)}.pos-dot{width:28px;height:28px;margin:0 auto 7px;background:var(--team2);border:3px solid #000;transform:rotate(45deg)}
+.role-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.role-card{border:3px solid #000;background:#141920;padding:11px;text-align:center;cursor:pointer}.role-card.selected{background:var(--team);outline:3px solid var(--gold)}
+.creator-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px}
+.creator-head h2{margin:0}.progressbar{height:12px;background:#090b0e;border:3px solid #000;margin:10px 0 16px}.progressfill{height:100%;background:var(--team)}
+.review{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.review-card{border:4px solid #000;background:#12171d;padding:14px}
+.review-line{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:2px solid #000;font-size:12px}
+.name-input{font-size:22px;padding:14px;width:100%;border:4px solid #000;background:#0e1217;color:#fff;box-shadow:inset 0 0 0 3px var(--team)}
+.creator-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.club-grid.create{grid-template-columns:repeat(2,minmax(0,1fr))}
+.club.create{min-height:118px}.club.create .club-name{font-size:13px}
+@media(max-width:900px){.onboard{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:repeat(5,1fr)}.stepcopy span{display:none}.choice-grid.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.steps{grid-template-columns:repeat(3,1fr)}.choice-grid,.choice-grid.three,.choice-grid.four,.pos-grid,.role-grid{grid-template-columns:repeat(2,1fr)}.review{grid-template-columns:1fr}.club-grid.create{grid-template-columns:1fr}}
+
+.setup-grid{grid-template-columns:1fr}.club-grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.attrs{grid-template-columns:1fr}.draft-board{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand"><div class="badge" id="topBadge">DL</div><div><h1>DIAMOND LIFE 8</h1><small id="topSub">프로의 문이 열립니다</small></div></div>
+    <div class="top-actions">
+      <button class="btn dark small" onclick="saveGame()">저장</button>
+      <button class="btn dark small" onclick="loadGame()">불러오기</button>
+      <button class="btn red small" onclick="resetGame()">새 게임</button>
+    </div>
+  </div>
+
+  
+<section id="setupScreen" class="screen active">
+  <div class="panel">
+    <div class="onboard">
+      <div class="steps" id="creatorSteps">
+        <div class="stepnav active" data-step="0"><div class="stepnum">1</div><div class="stepcopy"><b>기본 정보</b><span>선수의 시작점</span></div></div>
+        <div class="stepnav" data-step="1"><div class="stepnum">2</div><div class="stepcopy"><b>역할</b><span>그라운드 위의 자리</span></div></div>
+        <div class="stepnav" data-step="2"><div class="stepnum">3</div><div class="stepcopy"><b>야구 스타일</b><span>당신의 야구 스타일</span></div></div>
+        <div class="stepnav" data-step="3"><div class="stepnum">4</div><div class="stepcopy"><b>희망 구단</b><span>마음속의 팀</span></div></div>
+        <div class="stepnav" data-step="4"><div class="stepnum">5</div><div class="stepcopy"><b>최종 확인</b><span>프로 입성 전 마지막 확인</span></div></div>
+      </div>
+
+      <div class="creator">
+        <div class="creator-head">
+          <div><h2 id="creatorTitle">내 선수 만들기</h2><div class="sub" id="creatorSub">먼저 어떤 선수로 시작할지 정해보세요.</div></div>
+          <div class="chip">준비 <strong id="stepLabel">1/5</strong></div>
+        </div>
+        <div class="progressbar"><div id="creatorProgress" class="progressfill" style="width:20%"></div></div>
+        <div id="creatorBody"></div>
+        <div class="creator-actions">
+          <button id="prevBtn" class="btn dark" onclick="creatorPrev()" style="visibility:hidden">이전</button>
+          <button id="nextBtn" class="btn green" onclick="creatorNext()">다음</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section id="draftScreen" class="screen">
+    <div class="panel">
+      <h2>신인 드래프트</h2>
+      <div class="draft-stage">
+        <div class="sub">10개 구단이 선수의 포지션 수요, 잠재력, 구단 성향을 바탕으로 지명합니다.</div>
+        <div id="draftBoard" class="draft-board"></div>
+        <div id="draftResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="careerScreen" class="screen">
+    <div class="game-grid">
+      <div>
+        <div class="panel hero">
+          <div class="pixel-player">
+            <div class="cap"></div><div class="head"></div><div class="body"></div><div class="belt"></div>
+            <div class="arm1"></div><div class="arm2"></div><div class="leg1"></div><div class="leg2"></div><div class="shoe1"></div><div class="shoe2"></div><div id="bat" class="bat"></div><div class="ball"></div>
+          </div>
+          <div>
+            <h2 id="pname">선수</h2><div id="meta" class="sub"></div><div class="team-strip"></div>
+            <div class="chips">
+              <div class="chip">나이 <strong id="age">18</strong></div>
+              <div class="chip">평가 <strong id="ovr">60</strong></div>
+              <div class="chip">소속 <strong id="clubName">-</strong></div>
+              <div class="chip">연봉 <strong id="salary">3,000만</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>시즌 일정</h3>
+          <div id="timeline" class="timeline"></div>
+          <div style="margin-top:12px" class="chips">
+            <div class="chip">팀 순위 <strong id="teamRank">-</strong></div>
+            <div class="chip">감독 신뢰 <strong id="trust">45</strong></div>
+            <div class="chip">1군 등록 <strong id="service">0</strong>년</div>
+          </div>
+          <div style="margin-top:12px">
+            <button class="btn green" onclick="advanceBlock()">다음 구간</button>
+            <button class="btn blue" onclick="simSeason()">시즌 끝까지</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>라커룸 소식</h3>
+          <div id="eventBox" class="notice">라커룸과 구단에서 들려오는 소식이 여기에 표시됩니다.</div>
+        </div>
+
+        <div class="panel">
+          <h3>리그 판도</h3>
+          <table class="league-table"><thead><tr><th>#</th><th>구단</th><th>전력</th><th>성향</th></tr></thead><tbody id="standings"></tbody></table>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel"><h3>선수 능력</h3><div id="attrs" class="attrs"></div></div>
+        <div class="panel">
+          <h3>이번 시즌 훈련</h3><div class="sub">이번 시즌의 이번 시즌 훈련을 정합니다.</div>
+          <div id="trainingButtons" style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"></div>
+        </div>
+        <div class="panel"><h3>구단에 대한 마음</h3><div id="relationships"></div></div>
+        <div class="panel" id="pitchPanel" style="display:none">
+          <h3>구종 레퍼토리</h3>
+          <div class="sub">투수코치와의 훈련을 통해 새로운 구종을 익히거나 주무기를 다듬을 수 있습니다.</div>
+          <div id="pitchList" class="pitch-list"></div>
+        </div>
+        <div class="panel">
+          <h3>태극마크 / 병역</h3>
+          <div id="nationalStatus"></div>
+        </div>
+        <div class="panel">
+          <h3>수상 / 발자취</h3>
+          <div id="legacyStatus"></div>
+        </div>
+        <div class="panel"><h3>최근 기록</h3><div id="history"></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="modal" class="modal"><div class="modal-box"><div id="modalContent"></div></div></div>
+
+<script>
+
+
+const CAREER_EVENTS = [
+  {id:"slump_meeting",cat:"performance",minAge:19,maxAge:35,base:.10,cooldown:3,
+   when:g=>g.history.length>0 && ((g.type==="hitter" && g.history[0].ops<.700) || (g.type==="pitcher" && g.history[0].era>4.60)),
+   title:"슬럼프 대책 회의"},
+  {id:"hot_streak_media",cat:"performance",minAge:19,maxAge:38,base:.10,cooldown:3,
+   when:g=>g.history.length>0 && ((g.type==="hitter" && g.history[0].ops>.900) || (g.type==="pitcher" && g.history[0].era<3.00)),
+   title:"뜨거워진 언론 관심"},
+  {id:"fan_favorite",cat:"club",minAge:20,maxAge:38,base:.08,cooldown:5,
+   when:g=>g.club!=="ARM" && (g.preference[g.club]||0)>=78,
+   title:"팬들이 만든 응원가"},
+  {id:"position_competition",cat:"club",minAge:19,maxAge:33,base:.10,cooldown:4,
+   when:g=>g.level!=="2군" && g.club!=="ARM",
+   title:"주전 경쟁 심화"},
+  {id:"captain_offer",cat:"club",minAge:28,maxAge:38,base:.05,cooldown:8,
+   when:g=>g.service>=6 && g.trust>=72 && g.club!=="ARM",
+   title:"주장단 합류 제안"},
+  {id:"agent_change",cat:"career",minAge:23,maxAge:34,base:.05,cooldown:8,
+   when:g=>g.service>=3 && !g.sangmu,
+   title:"에이전트 교체 제안"},
+  {id:"hometown_appeal",cat:"career",minAge:24,maxAge:36,base:.05,cooldown:7,
+   when:g=>g.favorite!==g.club && !g.sangmu,
+   title:"어릴 적 응원팀의 관심"},
+  {id:"minor_option",cat:"club",minAge:19,maxAge:27,base:.08,cooldown:4,
+   when:g=>g.level==="2군" && g.club!=="ARM",
+   title:"2군에서의 선택"},
+  {id:"veteran_rest",cat:"physical",minAge:31,maxAge:40,base:.10,cooldown:3,
+   when:g=>!g.sangmu,
+   title:"베테랑 관리 프로그램"},
+  {id:"specialist_coach",cat:"training",minAge:20,maxAge:36,base:.09,cooldown:4,
+   when:g=>true,
+   title:"전문 코치 단기 지도"},
+  {id:"rivalry_game",cat:"club",minAge:20,maxAge:38,base:.08,cooldown:3,
+   when:g=>g.level!=="2군" && g.club!=="ARM",
+   title:"라이벌전 집중 조명"},
+  {id:"club_rebuild",cat:"club",minAge:22,maxAge:36,base:.06,cooldown:7,
+   when:g=>g.club!=="ARM" && team(g.club).power<68,
+   title:"구단 리빌딩 선언"},
+  {id:"contender_push",cat:"club",minAge:24,maxAge:36,base:.06,cooldown:6,
+   when:g=>g.club!=="ARM" && team(g.club).power>=75,
+   title:"우승 도전 전력 강화"},
+  {id:"national_buzz",cat:"national",minAge:21,maxAge:34,base:.07,cooldown:5,
+   when:g=>(g.internationalReputation||20)>=45,
+   title:"대표팀 후보 기사"},
+  {id:"military_pressure",cat:"military",minAge:23,maxAge:28,base:.07,cooldown:4,
+   when:g=>!g.militaryResolved && !g.sangmu,
+   title:"병역 일정 고민"},
+  {id:"late_bloom",cat:"development",minAge:26,maxAge:32,base:.05,cooldown:8,
+   when:g=>g.level!=="2군" && overall()<73,
+   title:"늦게 찾아온 성장 신호"},
+  {id:"comeback",cat:"development",minAge:29,maxAge:37,base:.05,cooldown:7,
+   when:g=>g.history.length>=2,
+   title:"재도약을 위한 변화"},
+  {id:"community_event",cat:"club",minAge:19,maxAge:38,base:.08,cooldown:4,
+   when:g=>g.club!=="ARM",
+   title:"지역 사회 행사"},
+  {id:"endorsement",cat:"career",minAge:24,maxAge:36,base:.05,cooldown:7,
+   when:g=>overall()>=72 && !g.sangmu,
+   title:"개인 스폰서 제안"}
+];
+function eventMem(){G.eventMemory??={};return G.eventMemory}
+function eventAvailable(e){
+  let mem=eventMem(), last=mem[e.id]??-99;
+  return G.age>=e.minAge && G.age<=e.maxAge && (G.season-last)>=e.cooldown && e.when(G);
+}
+function weightedCareerEvent(){
+  let pool=CAREER_EVENTS.filter(eventAvailable).map(e=>{
+    let w=e.base;
+    // 최근 같은 카테고리 반복을 줄인다.
+    if(G.lastEventCat===e.cat)w*=.35;
+    // 플레이어 상태에 따라 가중치 흔들기
+    if(e.cat==="club" && G.trust<45)w*=1.25;
+    if(e.cat==="career" && G.service>=5)w*=1.2;
+    if(e.cat==="physical" && G.age>=33)w*=1.35;
+    return {e,w:w*rand(.75,1.35)}
+  });
+  if(!pool.length)return null;
+  let total=pool.reduce((s,x)=>s+x.w,0),r=Math.random()*total;
+  for(let x of pool){r-=x.w;if(r<=0)return x.e}
+  return pool[pool.length-1].e
+}
+function rememberEvent(e){eventMem()[e.id]=G.season;G.lastEventCat=e.cat}
+function runContextEvent(e){
+  rememberEvent(e);
+  if(e.id==="slump_meeting"){
+    choiceModal(e.title,"최근 성적이 좋지 않습니다. 코치진이 접근 방식을 바꿔보자고 합니다.",[
+      ["기본기를 다시 다진다",()=>{let k=G.type==="hitter"?"contact":"control";G.attrs[k]+=0.45;G.trust+=2}],
+      ["휴식과 컨디션 회복",()=>{G.trust+=1}],
+      ["그대로 밀고 간다",()=>{G.trust-=1}]
+    ]);return;
+  }
+  if(e.id==="hot_streak_media"){
+    G.internationalReputation=clamp((G.internationalReputation||20)+2,0,100);
+    eventBox(e.title,"최근 활약이 크게 주목받고 있습니다. 대표팀 평가도 소폭 상승했습니다.","good");return;
+  }
+  if(e.id==="fan_favorite"){
+    G.preference[G.club]=clamp(G.preference[G.club]+5,0,100);
+    eventBox(e.title,"팬들이 선수 전용 응원가를 만들었습니다. 소속팀 선호도가 상승했습니다.","good");return;
+  }
+  if(e.id==="position_competition"){
+    choiceModal(e.title,"팀 내 경쟁자가 좋은 모습을 보이며 출전 경쟁이 치열해졌습니다.",[
+      ["훈련 강도를 높인다",()=>{let k=G.type==="hitter"?"fielding":"command";G.attrs[k]+=0.4;G.trust+=2}],
+      ["현재 루틴을 유지한다",()=>{}],
+      ["코치에게 역할 상담",()=>{G.trust+=1;roleProposal()}]
+    ]);return;
+  }
+  if(e.id==="captain_offer"){
+    choiceModal(e.title,"감독이 라커룸 리더 역할을 맡아달라고 요청했습니다.",[
+      ["주장단에 합류한다",()=>{G.trust=clamp(G.trust+7,0,100);G.preference[G.club]=clamp(G.preference[G.club]+4,0,100);G.careerScore+=4}],
+      ["경기에만 집중한다",()=>{G.trust-=1}]
+    ]);return;
+  }
+  if(e.id==="agent_change"){
+    choiceModal(e.title,"새 에이전트가 더 적극적인 계약 협상을 제안했습니다.",[
+      ["새 에이전트와 계약",()=>{G.agentAggressive=true;G.internationalReputation+=1}],
+      ["현재 에이전트 유지",()=>{G.agentAggressive=false}]
+    ]);return;
+  }
+  if(e.id==="hometown_appeal"){
+    G.preference[G.favorite]=clamp(G.preference[G.favorite]+6,0,100);
+    eventBox(e.title,`${team(G.favorite).name}이 장기적으로 관심을 보인다는 소식입니다. 희망 구단에 대한 마음가 다시 올라갑니다.`,"good");return;
+  }
+  if(e.id==="minor_option"){
+    choiceModal(e.title,"2군에서 꾸준히 출전하며 성장할지, 1군 백업 기회를 기다릴지 고민됩니다.",[
+      ["2군 주전으로 꾸준히 뛴다",()=>{let k=G.type==="hitter"?"contact":"control";G.attrs[k]+=0.35}],
+      ["1군 기회를 기다린다",()=>{G.trust+=2}]
+    ]);return;
+  }
+  if(e.id==="veteran_rest"){
+    choiceModal(e.title,"체력 관리를 위해 휴식일을 늘릴 수 있습니다.",[
+      ["휴식 비중 증가",()=>{G.attrs[G.type==="hitter"?"contact":"command"]+=0.15}],
+      ["기존 출전 유지",()=>{G.trust+=1}]
+    ]);return;
+  }
+  if(e.id==="specialist_coach"){
+    let keys=G.type==="hitter"?HATTR:PATTR,k=pick(keys);
+    G.attrs[k]=clamp(G.attrs[k]+rand(.4,.8),20,99);
+    eventBox(e.title,`${LAB[k]} 분야 전문 코치의 단기 지도를 받아 성장했습니다.`,"good");return;
+  }
+  if(e.id==="rivalry_game"){
+    G.trust=clamp(G.trust+rand(-1,3),0,100);
+    eventBox(e.title,"라이벌전이 큰 관심을 받으며 선수에게도 평소보다 많은 시선이 쏠렸습니다.","");return;
+  }
+  if(e.id==="club_rebuild"){
+    choiceModal(e.title,"구단이 젊은 선수 중심의 리빌딩을 선언했습니다.",[
+      ["팀의 중심으로 남는다",()=>{G.preference[G.club]+=4;G.trust+=3}],
+      ["향후 이적 가능성을 열어둔다",()=>{G.preference[G.club]-=3}]
+    ]);return;
+  }
+  if(e.id==="contender_push"){
+    eventBox(e.title,"구단이 우승을 위해 베테랑 전력을 보강했습니다. 포스트시즌 경쟁이 더 치열해집니다.","good");return;
+  }
+  if(e.id==="national_buzz"){
+    G.internationalReputation=clamp(G.internationalReputation+3,0,100);
+    eventBox(e.title,"대표팀 후보 명단에 이름이 오르내리며 대표팀 평가이 상승했습니다.","good");return;
+  }
+  if(e.id==="military_pressure"){
+    maybeMilitaryDecision();return;
+  }
+  if(e.id==="late_bloom"){
+    let k=pick(G.type==="hitter"?["contact","discipline","fielding"]:["command","breaking","pitchIQ"]);
+    G.attrs[k]=clamp(G.attrs[k]+0.65,20,99);
+    eventBox(e.title,`${LAB[k]}에서 뒤늦은 성장세가 나타났습니다.`,"good");return;
+  }
+  if(e.id==="comeback"){
+    choiceModal(e.title,"최근 몇 시즌의 패턴을 바꾸기 위해 훈련 방식을 조정할 수 있습니다.",[
+      ["새 루틴 도입",()=>{let k=pick(G.type==="hitter"?HATTR:PATTR);G.attrs[k]+=0.45}],
+      ["익숙한 루틴 유지",()=>{}]
+    ]);return;
+  }
+  if(e.id==="community_event"){
+    G.preference[G.club]=clamp(G.preference[G.club]+3,0,100);
+    eventBox(e.title,`${team(G.club).city} 지역 행사에 참가해 팬들과 가까워졌습니다.`,"good");return;
+  }
+  if(e.id==="endorsement"){
+    G.careerScore+=2;
+    eventBox(e.title,"개인 스폰서 계약으로 스타성이 높아졌습니다. 선수의 이름값이 한층 올라갔습니다.","good");return;
+  }
+}
+
+const INTL_EVENTS=[
+  {id:"AG",name:"아시안게임",cycle:4,offset:3,prestige:72,military:true,youthBias:true},
+  {id:"WBC",name:"WBC",cycle:4,offset:2,prestige:95,military:false,youthBias:false},
+  {id:"OLY",name:"올림픽",cycle:8,offset:5,prestige:100,military:true,youthBias:false},
+  {id:"PREM",name:"프리미어12",cycle:4,offset:0,prestige:86,military:false,youthBias:false}
+];
+const INTL_COLORS={AG:"#d4a72c",WBC:"#4a8cff",OLY:"#e14b4b",PREM:"#8a5bd6"};
+
+const TEAMS=[
+{id:"SEO",name:"서울 타이탄즈",abbr:"ST",city:"서울",c1:"#3f6fff",c2:"#dce6ff",budget:92,power:83,dev:68,market:95,style:"우승 지향",need:{C:55,"1B":70,"2B":62,"3B":73,SS:66,LF:76,CF:68,RF:75,DH:80,SP:85,RP:70}},
+{id:"BUS",name:"부산 마리너스",abbr:"BM",city:"부산",c1:"#0aa6a6",c2:"#d7ffff",budget:78,power:70,dev:77,market:82,style:"균형",need:{C:72,"1B":66,"2B":74,"3B":60,SS:78,LF:69,CF:80,RF:63,DH:67,SP:74,RP:79}},
+{id:"INC",name:"인천 웨이브",abbr:"IW",city:"인천",c1:"#237cc9",c2:"#d9f1ff",budget:74,power:66,dev:82,market:78,style:"육성",need:{C:65,"1B":72,"2B":63,"3B":80,SS:70,LF:61,CF:76,RF:68,DH:64,SP:70,RP:76}},
+{id:"DAE",name:"대구 팔콘스",abbr:"DF",city:"대구",c1:"#e06a32",c2:"#ffe3d6",budget:71,power:72,dev:73,market:70,style:"장타",need:{C:68,"1B":80,"2B":66,"3B":74,SS:60,LF:78,CF:63,RF:79,DH:82,SP:66,RP:72}},
+{id:"DJN",name:"대전 로켓츠",abbr:"DR",city:"대전",c1:"#8059d7",c2:"#eadfff",budget:67,power:62,dev:88,market:64,style:"리빌딩",need:{C:80,"1B":62,"2B":78,"3B":67,SS:82,LF:74,CF:72,RF:70,DH:60,SP:82,RP:68}},
+{id:"GWJ",name:"광주 레드폭스",abbr:"GR",city:"광주",c1:"#d64343",c2:"#ffe0e0",budget:76,power:75,dev:76,market:72,style:"공격적",need:{C:60,"1B":79,"2B":70,"3B":76,SS:68,LF:81,CF:66,RF:73,DH:84,SP:71,RP:74}},
+{id:"SUW",name:"수원 스톰",abbr:"SS",city:"수원",c1:"#5aa45a",c2:"#e0f4df",budget:69,power:67,dev:79,market:73,style:"수비",need:{C:76,"1B":61,"2B":82,"3B":69,SS:84,LF:62,CF:83,RF:65,DH:58,SP:76,RP:71}},
+{id:"CHW",name:"창원 블레이즈",abbr:"CB",city:"창원",c1:"#ff9d28",c2:"#fff0d9",budget:72,power:69,dev:74,market:68,style:"불펜 강세",need:{C:69,"1B":71,"2B":64,"3B":72,SS:75,LF:66,CF:74,RF:77,DH:69,SP:65,RP:86}},
+{id:"JEO",name:"전주 피닉스",abbr:"JP",city:"전주",c1:"#b44a98",c2:"#f6ddf1",budget:63,power:58,dev:90,market:58,style:"유망주 중심",need:{C:85,"1B":65,"2B":80,"3B":68,SS:86,LF:71,CF:79,RF:73,DH:62,SP:88,RP:75}},
+{id:"JEJ",name:"제주 샤크스",abbr:"JS",city:"제주",c1:"#168f75",c2:"#d7fff3",budget:65,power:61,dev:84,market:62,style:"기동력",need:{C:71,"1B":60,"2B":81,"3B":64,SS:79,LF:72,CF:87,RF:70,DH:59,SP:80,RP:73}}
+];
+const POS={C:"포수","1B":"1루수","2B":"2루수","3B":"3루수",SS:"유격수",LF:"좌익수",CF:"중견수",RF:"우익수",DH:"지명타자"};
+const ROLES={SP:"선발",RP:"중간계투",SU:"셋업",CL:"마무리"};
+const HATTR=["contact","power","discipline","speed","fielding","arm"],PATTR=["velocity","stuff","control","command","breaking","stamina","hold","pitchIQ"];
+const LAB={contact:"컨택",power:"파워",discipline:"선구안",speed:"주력",fielding:"수비",arm:"송구",velocity:"구속",stuff:"구위",control:"제구",command:"커맨드",breaking:"변화구",stamina:"체력",hold:"견제",pitchIQ:"투구IQ"};
+let fav="SEO",G=null,draftTimer=null;
+const $=id=>document.getElementById(id),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),rand=(a,b)=>Math.random()*(b-a)+a,pick=a=>a[Math.floor(Math.random()*a.length)];
+function team(id){return TEAMS.find(t=>t.id===id)}
+function refreshType(){$("posWrap").style.display=$("type").value==="hitter"?"flex":"none";$("roleWrap").style.display=$("type").value==="pitcher"?"flex":"none"}
+
+let creatorStep=0;
+let C={
+  name:"김민준",type:"hitter",pace:"fast",throws:"R",bats:"R",position:"SS",role:"SP",build:"balanced",favorite:"SEO"
+};
+function selectCreator(key,val){
+  C[key]=val;
+  if(key==="favorite"){
+    fav=val;let t=team(val);document.documentElement.style.setProperty("--team",t.c1);document.documentElement.style.setProperty("--team2",t.c2);$("topBadge").textContent=t.abbr;$("topSub").textContent="희망 구단 · "+t.name;
+  }
+  renderCreator()
+}
+function creatorPrev(){creatorStep=Math.max(0,creatorStep-1);renderCreator()}
+function creatorNext(){
+  if(creatorStep<4){creatorStep++;renderCreator();return}
+  startFromCreator()
+}
+function creatorCard(key,val,icon,title,desc){
+ return `<div class="choice-card ${C[key]===val?"selected":""}" onclick="selectCreator('${key}','${val}')"><div class="icon">${icon}</div><b>${title}</b><small>${desc}</small></div>`
+}
+function renderCreator(){
+  document.querySelectorAll(".stepnav").forEach((x,i)=>x.classList.toggle("active",i===creatorStep));
+  $("stepLabel").textContent=`${creatorStep+1}/5`;
+  $("creatorProgress").style.width=`${(creatorStep+1)*20}%`;
+  $("prevBtn").style.visibility=creatorStep===0?"hidden":"visible";
+  $("nextBtn").textContent=creatorStep===4?"드래프트 참가":"다음";
+  let body="",title="",sub="";
+  if(creatorStep===0){
+    title="당신은 어떤 선수인가요?";sub="프로 무대에 설 당신의 첫 모습을 정해보세요.";
+    body=`<label style="margin-bottom:14px">선수 이름<input class="name-input" value="${C.name}" oninput="C.name=this.value"></label>
+    <div class="sub" style="margin-bottom:7px">선수 유형</div><div class="choice-grid">
+      ${creatorCard("type","hitter","⚾","야수","타격과 수비, 포지션 변경까지 즐기는 커리어")}
+      ${creatorCard("type","pitcher","🔥","투수","구속·제구·구종·선발/불펜 보직 중심 커리어")}
+    </div>
+    <div class="sub" style="margin:14px 0 7px">투구</div><div class="segment">
+      <button class="seg ${C.throws==="R"?"selected":""}" onclick="selectCreator('throws','R')">우투</button>
+      <button class="seg ${C.throws==="L"?"selected":""}" onclick="selectCreator('throws','L')">좌투</button>
+    </div>
+    <div class="sub" style="margin:14px 0 7px">타격</div><div class="segment">
+      <button class="seg ${C.bats==="R"?"selected":""}" onclick="selectCreator('bats','R')">우타</button>
+      <button class="seg ${C.bats==="L"?"selected":""}" onclick="selectCreator('bats','L')">좌타</button>
+      <button class="seg ${C.bats==="S"?"selected":""}" onclick="selectCreator('bats','S')">스위치</button>
+    </div>`;
+  } else if(creatorStep===1){
+    title=C.type==="hitter"?"그라운드에서 어디를 지킬까요?":"마운드에서 어떤 역할을 맡을까요?";
+    sub=C.type==="hitter"?"포지션은 커리어 중 코치 제안으로 바뀔 수도 있습니다.":"보직은 성장과 팀 상황에 따라 변경 제안이 올 수 있습니다.";
+    if(C.type==="hitter"){
+      body=`<div class="pos-grid">${Object.entries(POS).map(([k,v])=>`<div class="pos-card ${C.position===k?"selected":""}" onclick="selectCreator('position','${k}')"><div class="pos-dot"></div><b>${v}</b><div class="tiny">${k}</div></div>`).join("")}</div>`;
+    }else{
+      let roles=[["SP","선발","긴 이닝과 로테이션의 중심"],["RP","중간계투","다양한 상황에서 팀을 연결"],["SU","셋업","승리조의 핵심"],["CL","마무리","9회의 압박을 책임"]];
+      body=`<div class="role-grid">${roles.map(r=>`<div class="role-card ${C.role===r[0]?"selected":""}" onclick="selectCreator('role','${r[0]}')"><div style="font-size:26px;margin-bottom:7px">◆</div><b>${r[1]}</b><div class="tiny">${r[2]}</div></div>`).join("")}</div>`;
+    }
+  } else if(creatorStep===2){
+    title="어떤 야구를 하고 싶나요?";sub="당신의 첫 이번 시즌 훈련입니다. 커리어가 흐르며 언제든 달라질 수 있습니다.";
+    let cards=C.type==="hitter"
+      ? [["balanced","◎","균형형","모든 능력을 고르게 키우는 안정적인 시작"],["contact","✦","컨택형","정교한 타격과 출루를 우선"],["power","★","장타형","홈런과 장타력 중심"],["defense","◇","수비형","수비·송구·주루로 가치 창출"]]
+      : [["balanced","◎","균형형","구속·구위·제구를 고르게"],["contact","⌖","제구형","볼넷을 줄이고 커맨드를 강화"],["power","▲","파워형","구속과 구위로 압도"],["defense","✧","변화구형","브레이킹볼과 투구IQ 중심"]];
+    body=`<div class="choice-grid four">${cards.map(r=>creatorCard("build",r[0],r[1],r[2],r[3])).join("")}</div>
+    <div class="sub" style="margin:16px 0 7px">커리어 템포</div><div class="choice-grid">
+      ${creatorCard("pace","fast","»","빠른 진행","주요 장면 중심으로 커리어를 빠르게 이어갑니다.")}
+      ${creatorCard("pace","normal","›","일반 진행","훈련과 팀 내 변화를 조금 더 자주 확인합니다.")}
+    </div>`;
+  } else if(creatorStep===3){
+    title="어릴 때부터 마음에 품은 팀은?";sub="마음속에 품은 구단을 골라보세요. 프로의 첫 유니폼이 그 팀일지는 아직 모릅니다.";
+    body=`<div class="club-grid create">${TEAMS.map(t=>`<div class="club create ${C.favorite===t.id?"selected":""}" onclick="selectCreator('favorite','${t.id}')">
+      <div class="club-head"><div class="mini-badge" style="background:${t.c1}">${t.abbr}</div><div><div class="club-name">${t.name}</div><div class="tiny">${t.city} · ${t.style}</div></div></div>
+      <div class="tiny" style="margin-top:8px">전력 ${t.power} · 육성 ${t.dev} · 재정 ${t.budget}</div>
+      <div class="prefs"><div class="pref-fill" style="width:${t.dev}%"></div></div>
+    </div>`).join("")}</div>`;
+  } else {
+    title="프로의 문 앞에 섰습니다";sub="이제 선택은 끝났습니다. 다음 순간부터는 야구가 당신의 길을 정합니다.";
+    let t=team(C.favorite), role=C.type==="hitter"?POS[C.position]:ROLES[C.role];
+    body=`<div class="review">
+      <div class="pixel-player">
+        <div class="cap" style="background:${t.c1};box-shadow:8px 8px 0 ${t.c1}"></div><div class="head"></div><div class="body" style="background:${t.c2};box-shadow:0 8px 0 ${t.c2}"></div><div class="belt"></div>
+        <div class="arm1"></div><div class="arm2"></div><div class="leg1"></div><div class="leg2"></div><div class="shoe1"></div><div class="shoe2"></div>${C.type==="hitter"?'<div class="bat"></div>':""}<div class="ball"></div>
+      </div>
+      <div class="review-card">
+        <h2 style="margin:0 0 10px">${C.name||"김민준"}</h2>
+        <div class="review-line"><span>선수 유형</span><b>${C.type==="hitter"?"야수":"투수"}</b></div>
+        <div class="review-line"><span>투타</span><b>${C.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[C.bats]}</b></div>
+        <div class="review-line"><span>역할</span><b>${role}</b></div>
+        <div class="review-line"><span>당신의 야구 스타일</span><b>${{balanced:"균형형",contact:C.type==="hitter"?"컨택형":"제구형",power:"파워형",defense:C.type==="hitter"?"수비형":"변화구형"}[C.build]}</b></div>
+        <div class="review-line"><span>희망 구단</span><b style="color:${t.c1}">${t.name}</b></div>
+        <div class="review-line"><span>진행</span><b>${C.pace==="fast"?"빠른 진행":"일반 진행"}</b></div>
+      </div>
+    </div>`;
+  }
+  $("creatorTitle").textContent=title;$("creatorSub").textContent=sub;$("creatorBody").innerHTML=body;
+}
+function startFromCreator(){
+  fav=C.favorite;
+  const tempName=C.name||"김민준";
+  // 기존 initPlayer가 DOM select를 읽으므로, 동일한 구조를 직접 만들어준다.
+  G={name:tempName,type:C.type,pace:C.pace,throws:C.throws,bats:C.bats,position:C.position,role:C.role,build:C.build,
+    favorite:C.favorite,club:null,age:18,season:1,block:0,level:"신인",service:0,salary:3000,contractYears:1,trust:45,history:[],training:"balanced",lastChangeAge:-99,
+    attrs:C.type==="hitter"?{contact:56,power:62,discipline:48,speed:71,fielding:66,arm:73}:{velocity:68,stuff:64,control:56,command:53,breaking:61,stamina:70,hold:55,pitchIQ:58},
+    preference:Object.fromEntries(TEAMS.map(t=>[t.id,t.id===C.favorite?82:Math.round(rand(35,62))])),standings:[],
+    nationalCaps:0,nationalMedals:[],nationalHistory:[],militaryStatus:"미필",militaryResolved:false,sangmu:false,sangmuYears:0,originalClub:null,internationalReputation:20,
+    awards:[],championships:0,postseasonApps:0,careerScore:0,retired:false,draftRound:1,draftPick:0,extensionDeclined:false,nextFAService:7,
+    pitches:C.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[],eventMemory:{},lastEventCat:null,agentAggressive:false
+  };
+  showScreen("draftScreen");runDraft()
+}
+
+function renderFavorite(){
+  $("favoriteGrid").innerHTML=TEAMS.map(t=>`<div class="club ${fav===t.id?"selected":""}" onclick="fav='${t.id}';renderFavorite()"><div class="club-head"><div class="mini-badge" style="background:${t.c1}">${t.abbr}</div><div><div class="club-name">${t.name}</div><div class="tiny">${t.style}</div></div></div><div class="tiny" style="margin-top:6px">전력 ${t.power} · 육성 ${t.dev} · 재정 ${t.budget}</div></div>`).join("")
+}
+function showScreen(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")}
+function initPlayer(){
+ const type=$("type").value;
+ G={name:$("name").value||"김민준",type,pace:$("pace").value,throws:$("throws").value,bats:$("bats").value,position:$("position").value,role:$("role").value,build:$("build").value,
+ favorite:fav,club:null,age:18,season:1,block:0,level:"신인",service:0,salary:3000,contractYears:1,trust:45,history:[],training:"balanced",lastChangeAge:-99,
+ attrs:type==="hitter"?{contact:56,power:62,discipline:48,speed:71,fielding:66,arm:73}:{velocity:68,stuff:64,control:56,command:53,breaking:61,stamina:70,hold:55,pitchIQ:58},
+ preference:Object.fromEntries(TEAMS.map(t=>[t.id, t.id===fav?82:Math.round(rand(35,62))])), standings:[],
+ nationalCaps:0,nationalMedals:[],nationalHistory:[],
+ militaryStatus:"미필",militaryResolved:false,sangmu:false,sangmuYears:0,originalClub:null,
+ internationalReputation:20,
+ awards:[],championships:0,postseasonApps:0,careerScore:0,retired:false,
+ draftRound:1,draftPick:0,extensionDeclined:false,nextFAService:7,
+ pitches:type==="pitcher"?[
+   {name:"포심",quality:68,velo:146},
+   {name:"슬라이더",quality:62,velo:134},
+   {name:"체인지업",quality:56,velo:131}
+ ]:[]
+ };
+}
+function goDraft(){initPlayer();showScreen("draftScreen");runDraft()}
+function runDraft(){
+ const key=G.type==="hitter"?G.position:(G.role==="SP"?"SP":"RP"); let scores=TEAMS.map(t=>{
+   let s=t.need[key]*.6+t.dev*.22+rand(0,28)+(t.id===G.favorite?6:0);
+   return {t,s}
+ }).sort((a,b)=>b.s-a.s);
+ let selected=scores[Math.floor(Math.random()*Math.min(5,scores.length))].t;
+ $("draftBoard").innerHTML=TEAMS.map(t=>`<div class="pick" id="pick_${t.id}"><div class="mini-badge" style="margin:auto;background:${t.c1}">${t.abbr}</div><div style="margin-top:5px">${t.name}</div></div>`).join("");
+ let i=0; const order=[...TEAMS].sort(()=>Math.random()-.5);
+ clearInterval(draftTimer); draftTimer=setInterval(()=>{
+   document.querySelectorAll(".pick").forEach(x=>x.classList.remove("on"));
+   if(i<order.length){$("pick_"+order[i].id).classList.add("on");i++}
+   else{clearInterval(draftTimer);finishDraft(selected)}
+ },220)
+}
+function finishDraft(t){
+ G.club=t.id;G.preference[t.id]=Math.max(G.preference[t.id],68);
+ let talent=overall()+rand(-7,7);G.draftRound=talent>=66?1:talent>=61?2:talent>=57?3:4;G.draftPick=Math.floor(rand(1,11));
+ applyTheme();
+ $("draftResult").innerHTML=`<div class="result-card flash"><h3>${G.draftRound}라운드 ${G.draftPick}순위 · ${t.name}</h3><div class="sub">${G.favorite===t.id?"희망 구단이 실제로 지명했습니다.":"희망 구단은 "+team(G.favorite).name+"였지만, "+t.name+"이 먼저 선택했습니다."}</div><div class="chips" style="margin-top:10px"><div class="chip">계약금 <strong>${Math.round(rand(80,180))*100}만원</strong></div><div class="chip">초봉 <strong>3,000만원</strong></div></div><button class="btn green" style="margin-top:12px" onclick="draftCeremony()">지명 무대로</button></div>`;
+}
+
+function majorArt(kind){
+  if(kind==="trophy"||kind==="award")return '<div class="major-art"><div class="pixel-cup"></div></div>';
+  if(kind==="national")return '<div class="major-art"><div class="pixel-flag"></div></div>';
+  if(kind==="trade")return '<div class="major-art"><div class="pixel-arrows">⇄</div></div>';
+  return '<div class="major-art"><div class="pixel-card"></div></div>';
+}
+function confetti(){
+  return '<div class="confetti">'+Array.from({length:18},(_,i)=>`<i style="left:${(i*37)%100}%;animation-duration:${1.8+(i%5)*.3}s"></i>`).join('')+'</div>';
+}
+function majorEvent(kicker,title,desc,kind="card",stats=[],buttons=[["계속",()=>closeModal()]],celebrate=false){
+  window._modalQueue??=[];
+  if($("modal").classList.contains("show")){window._modalQueue.push(()=>majorEvent(kicker,title,desc,kind,stats,buttons,celebrate));return;}
+  let html=`<div class="major-wrap">${celebrate?confetti():""}<span class="major-kicker">${kicker}</span><h2 class="major-title">${title}</h2>${majorArt(kind)}<div class="major-desc">${desc}</div>`;
+  if(stats.length)html+=`<div class="major-stats">${stats.map(s=>`<div class="major-stat"><span class="tiny">${s[0]}</span><b>${s[1]}</b></div>`).join("")}</div>`;
+  html+='<div style="margin-top:14px">';
+  buttons.forEach((b,i)=>html+=`<button class="btn ${i===0?"green":"blue"}" style="width:100%;margin:5px 0" onclick="majorChoose(${i})">${b[0]}</button>`);
+  html+='</div></div>';window._majorButtons=buttons;$("modalContent").innerHTML=html;$("modal").classList.add("show")
+}
+function majorChoose(i){let fn=window._majorButtons[i][1];closeModal();if(fn)fn();render()}
+function draftCeremony(){
+  let t=team(G.club);
+  majorEvent("신인 드래프트",`${G.name}, ${t.name} 지명`,
+    `${G.draftRound}라운드 ${G.draftPick}순위. ${G.favorite===G.club?"어릴 적 바라던 팀의 유니폼을 입게 됐습니다.":"희망 구단과는 달랐지만, 이제 이 팀에서 프로 커리어가 시작됩니다."}`,
+    "card",[["지명",`${G.draftRound}R ${G.draftPick}순위`],["구단",t.abbr],["나이","18세"]],[["프로 커리어 시작",()=>enterCareer()]],true)
+}
+
+function enterCareer(){showScreen("careerScreen");buildTraining();newStandings();render()}
+function applyTheme(){
+ if(G && G.club==="ARM"){
+   document.documentElement.style.setProperty("--team","#3e6b3e");document.documentElement.style.setProperty("--team2","#dfeadf");$("topBadge").textContent="ARM";$("topSub").textContent="상무 야구단";return;
+ }
+ const t=team(G.club||G.favorite);document.documentElement.style.setProperty("--team",t.c1);document.documentElement.style.setProperty("--team2",t.c2);$("topBadge").textContent=t.abbr;$("topSub").textContent=t.name
+}
+function overall(){let a=G.attrs;if(G.type==="hitter")return a.contact*.24+a.power*.20+a.discipline*.17+a.speed*.11+a.fielding*.18+a.arm*.10;return a.velocity*.13+a.stuff*.18+a.control*.16+a.command*.15+a.breaking*.14+a.stamina*.10+a.hold*.05+a.pitchIQ*.09}
+function buildTraining(){
+ let opts=G.type==="hitter"?[["balanced","균형"],["contact","컨택"],["power","파워"],["discipline","선구안"],["defense","수비"],["physical","피지컬"]]:[["balanced","균형"],["velocity","구속"],["control","제구"],["breaking","변화구"],["stamina","선발체력"],["bullpen","불펜압축"]];
+ $("trainingButtons").innerHTML="";opts.forEach(([k,l])=>{let b=document.createElement("button");b.className="btn small";b.textContent=l;b.onclick=()=>{G.training=k;eventBox("훈련 변경",`${l} 중심으로 시즌 훈련을 진행합니다.`,"good");render()};$("trainingButtons").appendChild(b)})
+}
+function train(){
+ const a=G.attrs,m=G.pace==="fast"?1.2:1;function u(k,v){if(a[k]!=null)a[k]=clamp(a[k]+v*m,20,99)}
+ if(G.type==="hitter"){
+  if(G.training==="balanced"){u("contact",.45);u("power",.45);u("discipline",.4);u("fielding",.35)}
+  if(G.training==="contact"){u("contact",1);u("discipline",.25)}if(G.training==="power"){u("power",1);u("contact",.18)}
+  if(G.training==="discipline"){u("discipline",1);u("contact",.18)}if(G.training==="defense"){u("fielding",.85);u("arm",.55);u("speed",.18)}
+  if(G.training==="physical"){u("power",.55);u("speed",.55);u("arm",.25)}
+ }else{
+  if(G.training==="balanced"){u("velocity",.25);u("stuff",.45);u("control",.45);u("command",.4);u("breaking",.4);u("stamina",.3)}
+  if(G.training==="velocity"){u("velocity",.9);u("stuff",.35)}if(G.training==="control"){u("control",.8);u("command",.65)}
+  if(G.training==="breaking"){u("breaking",.9);u("stuff",.35)}if(G.training==="stamina"){u("stamina",.9);u("control",.25)}
+  if(G.training==="bullpen"){u("stuff",.75);u("velocity",.45);u("command",.25)}
+ }
+}
+function maybeEvent(){
+  // 빠른 진행에서도 매 구간 이벤트가 뜨지 않도록 하고,
+  // 동일 카테고리/동일 이벤트 반복을 쿨다운으로 억제한다.
+  let baseChance=G.pace==="fast"?.42:.50;
+  if(Math.random()>baseChance)return;
+
+  let r=Math.random();
+
+  // 투수 전용 구종 이벤트
+  if(G.type==="pitcher" && r<.12){pitchEvent();return}
+
+  // 실제 커리어 방향을 바꾸는 이벤트는 드물게
+  if(G.service>=2 && !G.sangmu && r<.19){tradeRumor();return}
+  if(r<.26){roleProposal();return}
+
+  // 나머지는 상황 기반 가중 이벤트 풀에서 선택
+  let e=weightedCareerEvent();
+  if(e){runContextEvent(e);return}
+
+  // 풀에 적합한 이벤트가 없을 때만 가벼운 훈련/미디어 이벤트
+  if(Math.random()<.55){
+    let k=pick(G.type==="hitter"?HATTR:PATTR);
+    G.attrs[k]=clamp(G.attrs[k]+rand(.25,.55),20,99);
+    eventBox("훈련에서 작은 성과",`${LAB[k]}가 조금 향상되었습니다.`,"good");
+  }else sponsorOrMedia();
+}
+
+function pitchEvent(){
+  let owned=G.pitches.map(p=>p.name), pool=["투심","커브","스플리터","커터","포크"];
+  let add=pool.filter(x=>!owned.includes(x));
+  if(add.length && Math.random()<.48){
+    let np=pick(add);
+    majorEvent("투수코치실","새 구종 제안",`투수코치가 ${np} 습득을 제안했습니다. 구종을 늘릴지, 기존 주무기를 더 날카롭게 만들지 선택하세요.`,"card",
+      [["현재 구종",G.pitches.length+"개"],["구위",Math.round(G.attrs.stuff)],["제구",Math.round(G.attrs.control)]],
+      [["새 구종을 배운다",()=>{G.pitches.push({name:np,quality:54,velo:Math.round(rand(125,142))});G.attrs.pitchIQ+=.25;eventBox("구종 습득",`${np}를 레퍼토리에 추가했습니다.`,"good")}],
+       ["기존 주무기 강화",()=>{let p=[...G.pitches].sort((a,b)=>b.quality-a.quality)[0];p.quality=clamp(p.quality+2.5,20,99);G.attrs.stuff+=.25;eventBox("주무기 강화",`${p.name} 완성도가 상승했습니다.`,"good")}]],false)
+  }else{
+    let p=pick(G.pitches);p.quality=clamp(p.quality+rand(1,2.3),20,99);eventBox("불펜 세션",`${p.name} 완성도가 상승했습니다.`,"good")
+  }
+}
+function tradeRumor(){
+  if(Math.random()>.24)return;
+  let current=team(G.club);
+  let userValue=overall()+G.trust*.12+(G.history.length?(G.type==="hitter"?G.history[0].ops*12:Math.max(0,5-G.history[0].era)*4):0);
+  let candidates=TEAMS.filter(t=>t.id!==G.club).map(t=>{
+    let need=t.need[G.type==="hitter"?G.position:(G.role==="SP"?"SP":"RP")]||70;
+    let fit=need*.55+t.power*.15+t.budget*.10+rand(-10,10);
+    return {t,fit}
+  }).sort((a,b)=>b.fit-a.fit);
+  let dest=candidates[0].t;
+
+  // 경쟁팀은 좋은 선수 영입, 리빌딩팀은 젊은 선수 확보 등 맥락 추가
+  let reason=current.power<66 && userValue>72?"리빌딩 과정에서 높은 가치를 인정받아":
+             dest.power>=75?"우승 경쟁팀이 즉시 전력으로 원해":
+             "포지션 수요가 맞아";
+  majorEvent("트레이드 소식","트레이드 통보",`${current.name}이 ${dest.name}과 트레이드에 합의했습니다. ${reason} 이동하게 됐습니다.`,"trade",
+    [["FROM",current.abbr],["TO",dest.abbr],["새 팀 선호도",Math.round(G.preference[dest.id])]],
+    [["새 팀으로 이동",()=>{G.club=dest.id;G.trust=52;G.preference[dest.id]=clamp(G.preference[dest.id]+8,0,100);applyTheme();eventBox("트레이드 완료",`${dest.name} 소속이 되었습니다.`,"good")}]],false)
+}
+function maybeExtension(){
+  if(G.sangmu||G.service<3||G.service>=G.nextFAService||G.contractYears>1||Math.random()>.24)return;
+  let t=team(G.club),o=overall(),years=Math.round(rand(2.5,5.5)),annual=Math.round((.55+o/100*2.1+t.budget/100*.75)*10000/100)*100;
+  majorEvent("구단 사무실","장기계약 제안",`${t.name}이 FA 이전에 장기계약을 제시했습니다. 안정성을 택할지, FA 시장의 더 큰 계약을 노릴지 선택합니다.`,"card",
+    [["기간",years+"년"],["연평균",formatWon(annual)],["팀 선호도",Math.round(G.preference[G.club])]],
+    [["계약한다",()=>{G.salary=annual;G.contractYears=years;G.nextFAService=Math.max(G.nextFAService,G.service+years);G.preference[G.club]=clamp(G.preference[G.club]+6,0,100);eventBox("연장계약",`${years}년 장기계약에 합의했습니다.`,"good")}],
+     ["FA를 노린다",()=>{G.extensionDeclined=true;eventBox("계약 거절","FA 시장을 목표로 단기 계약을 이어갑니다.","")}]],false)
+}
+
+function roleProposal(){
+ if(G.age-G.lastChangeAge<2)return;
+ if(G.type==="hitter"){
+  let c=[];let a=G.attrs;if(["SS","2B"].includes(G.position)&&a.fielding<64)c.push("3B","LF");if(a.speed>72&&a.fielding>66)c.push("CF");if(a.arm>75)c.push("RF","3B");if(a.power>76&&a.speed<62)c.push("1B","DH");
+  c=[...new Set(c)].filter(x=>x!==G.position);if(!c.length)return;let np=pick(c),old=G.position;
+  choiceModal("포지션 변경 제안",`${team(G.club).name} 코치진이 ${POS[old]} 대신 ${POS[np]} 전향을 제안했습니다.`,[
+   ["전향한다",()=>{G.position=np;G.lastChangeAge=G.age;G.trust+=4}],
+   ["현재 포지션 유지",()=>{G.trust-=2}],
+   ["보조 포지션으로만 연습",()=>{G.attrs.fielding+=.3}]
+  ])
+ }else{
+  let nr=null,a=G.attrs;if(G.role==="SP"&&(a.stamina<65||(a.stuff>72&&a.velocity>72)))nr=pick(["RP","SU"]);else if(G.role!=="SP"&&a.stamina>69&&a.control>64&&a.command>63)nr="SP";else if(["RP","SU"].includes(G.role)&&a.stuff>76&&a.command>66)nr="CL";if(!nr)return;
+  let old=G.role;choiceModal("보직 변경 제안",`${ROLES[old]}에서 ${ROLES[nr]} 전환을 제안받았습니다.`,[
+   ["변경한다",()=>{G.role=nr;G.lastChangeAge=G.age;G.trust+=4}],["현재 보직 유지",()=>G.trust-=1],["한 시즌 시험",()=>G.attrs.pitchIQ+=.35]
+  ])
+ }
+}
+function sponsorOrMedia(){
+ let t=team(G.club);let opt=Math.random()<.5;
+ if(opt){G.preference[G.club]=clamp(G.preference[G.club]+3,0,100);eventBox("지역 팬 행사",`${t.city} 팬 행사에 참가해 구단에 대한 마음가 상승했습니다.`,"good")}
+ else{G.trust=clamp(G.trust+rand(-2,3),0,100);eventBox("감독 인터뷰","최근 경기력에 대한 감독 인터뷰가 공개됐습니다.","")}
+}
+function advanceBlock(){if(G.retired)return alert("이미 은퇴한 선수입니다.");if(G.block>=5){finishSeason();return}train();G.block++;maybeEvent();render()}
+function simSeason(){if(G.retired)return alert("이미 은퇴한 선수입니다.");while(G.block<5){train();G.block++}finishSeason()}
+function finishSeason(){
+ let o=overall(),rec={age:G.age,club:G.club,ovr:o};G.level=o>=70?"1군 주전":o>=64?"1군":"2군";
+ if(G.type==="hitter"){let avg=clamp(.235+(G.attrs.contact-55)*.002+rand(-.025,.025),.19,.365),obp=clamp(avg+.045+(G.attrs.discipline-55)*.0012,.245,.45),slg=clamp(.35+(G.attrs.power-55)*.005+rand(-.04,.04),.28,.72);Object.assign(rec,{avg,obp,slg,ops:obp+slg,hr:Math.max(1,Math.round(8+(G.attrs.power-55)*.8+rand(-5,5)))})}
+ else{let era=clamp(5.4-(G.attrs.stuff-55)*.045-(G.attrs.control-55)*.025-(G.attrs.command-55)*.018+rand(-.55,.55),1.75,6.8);Object.assign(rec,{era,whip:clamp(1.55-(G.attrs.control-55)*.012-(G.attrs.command-55)*.006+rand(-.12,.12),.82,1.75),k9:clamp(6+(G.attrs.stuff-55)*.075+(G.attrs.velocity-55)*.035+rand(-.5,.5),4.5,13.5)})}
+ G.history.unshift(rec);
+ if(!G.sangmu){G.service++;if(G.contractYears>0)G.contractYears--;G.salary=Math.round((3000+Math.max(0,o-60)*650+G.service*500)/100)*100;if(G.club!=="ARM")G.preference[G.club]=clamp(G.preference[G.club]+rand(1,4),0,100);}
+ G.trust=clamp(G.trust+(o-65)*.7+rand(-3,3),10,95);eventBox("시즌 종료",G.type==="hitter"?`${G.age}세: OPS ${rec.ops.toFixed(3)}, ${rec.hr}홈런`:`${G.age}세: ERA ${rec.era.toFixed(2)}, K/9 ${rec.k9.toFixed(2)}`,"good");
+ let wasSangmu=G.sangmu;processSangmuSeason();
+ maybeInternationalSelection();
+ if(!wasSangmu)maybeMilitaryDecision();
+ postseasonAndAwards(rec);
+ maybeExtension();
+ G.age++;G.season++;G.block=0;ageing();newStandings();
+ if(!retirementCheck() && !G.sangmu && G.service>=G.nextFAService && G.contractYears<=0)setTimeout(startFA,780);render()
+}
+
+function currentIntlEvents(){
+  return INTL_EVENTS.filter(e => ((G.season-1) % e.cycle)===e.offset);
+}
+function nationalTeamScore(){
+  let o=overall(),rep=G.internationalReputation||20,form=G.history.length?(G.type==="hitter"?G.history[0].ops*100:(7-G.history[0].era)*12):65;
+  return o*.58+form*.22+rep*.12+G.trust*.08+rand(-8,8);
+}
+function maybeInternationalSelection(){
+  let events=currentIntlEvents(); if(!events.length)return;
+  let eligible=events.filter(e=>G.age<=e.ageMax);
+  if(!eligible.length)return;
+
+  let score=nationalTeamScore();
+  let threshold=G.type==="hitter"?70:69;
+
+  // 대회가 열리는 해라도 실제로는 선발 경쟁을 통과해야 한다.
+  let selectionChance=clamp(.18+(score-threshold)*.035+(G.internationalReputation||20)*.002, .08,.82);
+  // 아시안게임은 젊은 선수에게 조금 유리하게
+  let e=pick(eligible);
+  if(e.id==="AG" && G.age<=25)selectionChance+=.10;
+  if(score<threshold || Math.random()>selectionChance)return;
+
+  let reserve = score < threshold+5;
+  choiceModal("국가대표 선발",`${e.name} ${reserve?"예비 엔트리":"최종 엔트리"}에 선발되었습니다. 태극마크를 달고 국제무대에 나설 기회입니다.`,[
+    ["대표팀에 합류한다",()=>playInternational(e,reserve)],
+    ["이번에는 고사한다",()=>{G.internationalReputation=clamp(G.internationalReputation-4,0,100);eventBox("대표팀 고사",`${e.name} 출전을 고사했습니다.`,"")}]
+  ]);
+}
+function playInternational(e,reserve){
+  if(reserve && Math.random()<.35){
+    G.nationalHistory.unshift({age:G.age,event:e.name,result:"예비 엔트리"});
+    eventBox("대표팀 예비 엔트리",`${e.name} 최종 명단에는 들지 못했습니다.`,"");
+    return;
+  }
+  G.nationalCaps++;
+  let teamStrength=76+rand(-7,7), personal=nationalTeamScore();
+  let medalRoll=teamStrength*.55+personal*.45+rand(-18,18);
+  let result="8강/조별리그";
+  if(medalRoll>82)result="금메달";
+  else if(medalRoll>75)result="은메달";
+  else if(medalRoll>69)result="동메달";
+  else if(medalRoll>62)result="4강";
+  G.nationalHistory.unshift({age:G.age,event:e.name,result});
+  G.internationalReputation=clamp(G.internationalReputation+(result==="금메달"?12:result==="은메달"?8:result==="동메달"?6:3),0,100);
+  if(["금메달","은메달","동메달"].includes(result))G.nationalMedals.push(`${e.name} ${result}`);
+  let militaryMsg="";
+  const olympicMedal=e.id==="OLY" && ["금메달","은메달","동메달"].includes(result);
+  const asianGold=e.id==="AG" && result==="금메달";
+  if((olympicMedal||asianGold) && !G.militaryResolved){
+    G.militaryResolved=true;G.militaryStatus="체육요원 편입 대상";
+    militaryMsg=" · 병역 문제가 체육요원 경로로 해결되었습니다.";
+  }
+  majorEvent("대한민국 대표팀",`${e.name} ${result}`,`국가대표 커리어가 추가되었습니다${militaryMsg}`,"national",
+    [["대회",e.name],["성적",result],["대표팀",G.nationalCaps+"회"]],[["소속팀으로 복귀",()=>{}]],["금메달","은메달","동메달"].includes(result));
+}
+function maybeMilitaryDecision(){
+  if(G.militaryResolved || G.sangmu || G.age<22 || G.age>28)return;
+  // 게임 템포상 22세부터 계획 이벤트를 열고 20대 후반으로 갈수록 빈도를 높인다.
+  let chance=G.age<24?.10:G.age<26?.17:G.age<28?.27:.38;
+  if(Math.random()>chance)return;
+  choiceModal("병역 계획",`현재 병역 상태: ${G.militaryStatus}. 커리어를 이어가며 국제대회 기회를 노릴지, 상무 지원을 준비할지 결정할 수 있습니다.`,[
+    ["상무 지원",()=>applySangmu()],
+    ["당분간 대표팀 기회를 노린다",()=>{G.internationalReputation=clamp(G.internationalReputation+2,0,100);eventBox("대표팀 도전","국제대회 선발을 목표로 시즌을 이어갑니다.","")}],
+    ["다음 시즌 다시 생각한다",()=>eventBox("병역 결정 보류","현재 팀에서 한 시즌 더 뛰기로 했습니다.","")]
+  ]);
+}
+function applySangmu(){
+  let qualify=overall()>=63 && G.service>=1;
+  if(!qualify){eventBox("상무 지원 탈락","현재 경력/기량이 지원 기준에 조금 부족했습니다.","bad");return}
+  let accepted=Math.random() < clamp(.58+(overall()-63)*.025+G.trust*.002, .45,.9);
+  if(!accepted){eventBox("상무 최종 탈락","지원했지만 최종 선발되지 못했습니다.","bad");return}
+  G.originalClub=G.club;G.sangmu=true;G.sangmuYears=0;G.club="ARM";G.militaryStatus="상무 복무 중";G.trust=55;
+  majorEvent("상무 야구단","상무 최종 합격","2시즌 동안 군 복무와 야구를 병행합니다. 군 복무와 선수 생활을 함께 이어갑니다.","card",
+[["복무","2시즌"],["상태","상무"],["원소속",clubAbbr(G.originalClub)]],[["입대",()=>{}]],false);
+}
+function processSangmuSeason(){
+  if(!G.sangmu)return false;
+  G.sangmuYears++;
+  // 상무는 경기 기회와 훈련 효율이 좋아 성장에 소폭 보너스
+  let keys=G.type==="hitter"?HATTR:PATTR;
+  pick(keys); for(let i=0;i<2;i++){let k=pick(keys);G.attrs[k]=clamp(G.attrs[k]+rand(.3,.7),20,99)}
+  if(G.sangmuYears>=2){
+    G.sangmu=false;G.militaryResolved=true;G.militaryStatus="병역 완료";
+    G.club=G.originalClub;G.originalClub=null;G.trust=48;
+    majorEvent("팀 복귀","상무 전역",`${team(G.club).name}으로 복귀합니다. 병역을 마쳤습니다.`,"card",
+[["병역","완료"],["복귀팀",clubAbbr(G.club)],["나이",G.age+"세"]],[["팀에 합류",()=>{}]],true);
+    applyTheme();
+  }
+  return true;
+}
+
+
+function postseasonAndAwards(rec){
+  if(G.sangmu||G.club==="ARM")return;
+  let rank=G.standings.findIndex(x=>x.id===G.club)+1;
+  let earnedAward=null;
+  if(G.type==="hitter"){
+    if(rec.ops>=.93 && rec.hr>=25)earnedAward="MVP";
+    else if(rec.ops>=.84)earnedAward=G.position==="DH"?"실버슬러거":"골든글러브";
+    else if(G.service===1 && rec.ops>=.78)earnedAward="신인왕";
+  }else{
+    if(rec.era<=2.75 && rec.k9>=8.2)earnedAward="MVP";
+    else if(rec.era<=3.35)earnedAward="최우수 투수상";
+    else if(G.service===1 && rec.era<=3.7)earnedAward="신인왕";
+  }
+  if(earnedAward){
+    G.awards.push(`${G.age}세 ${earnedAward}`);
+    G.careerScore+=earnedAward==="MVP"?18:earnedAward==="신인왕"?10:7;
+    setTimeout(()=>majorEvent("시상식",`${earnedAward} 수상`,`${G.age}세 시즌의 활약이 리그에서 인정받았습니다.`,"award",
+      [["수상",earnedAward],["OVR",overall().toFixed(1)],["구단",clubAbbr(G.club)]],[["트로피 받기",()=>{}]],true),220)
+  }
+  if(rank<=5 && !G.sangmu){
+    G.postseasonApps++;
+    let base=(6-rank)*8+team(G.club).power*.55+overall()*.35+rand(-18,18);
+    let result=base>92?"한국시리즈 우승":base>84?"한국시리즈 준우승":base>76?"플레이오프 탈락":base>68?"준플레이오프 탈락":"와일드카드 탈락";
+    if(result==="한국시리즈 우승"){G.championships++;G.careerScore+=20;G.preference[G.club]=clamp(G.preference[G.club]+8,0,100)}
+    setTimeout(()=>majorEvent("가을야구",result,`${team(G.club).name}의 ${G.age}세 포스트시즌이 끝났습니다.`,"trophy",
+      [["정규시즌",rank+"위"],["PS 진출",G.postseasonApps+"회"],["우승",G.championships+"회"]],[["다음 일정으로",()=>{}]],result.includes("우승")),520)
+  }
+}
+function retirementCheck(){
+  if(G.age<35||G.retired)return false;
+  let chance=.05+(G.age-35)*.11+Math.max(0,58-overall())*.015;
+  if(Math.random()>clamp(chance,.05,.78))return false;
+  G.retired=true;
+  let statYears=G.history.length,awards=G.awards.length;
+  let score=Math.round(G.careerScore+statYears*2+awards*5+G.championships*15+(G.nationalMedals||[]).length*5+Math.max(0,overall()-60));
+  let tier=score>=125?"명예의 전당급":score>=85?"리그 레전드":score>=55?"프랜차이즈 스타":"프로 커리어 완주";
+  majorEvent("FAREWELL",`${G.name}, 현역 은퇴`,`${statYears}시즌의 프로 커리어가 끝났습니다. 최종 평가는 <b>${tier}</b>입니다.`,"trophy",
+    [["커리어 점수",score],["우승",G.championships+"회"],["수상",awards+"회"]],
+    [["커리어 기록 보기",()=>showLegacyFinal(score,tier)]],true);
+  return true
+}
+function showLegacyFinal(score,tier){
+  let html=`<div class="major-wrap"><span class="major-kicker">LEGACY</span><h2 class="major-title">${tier}</h2>${majorArt("trophy")}<div class="major-desc">드래프트부터 국가대표, FA, 포스트시즌을 거친 ${G.name}의 최종 커리어.</div><div class="legacy-meter"><div class="legacy-fill" style="width:${Math.min(100,score/1.4)}%"></div></div>
+  <div class="major-stats"><div class="major-stat"><span class="tiny">시즌</span><b>${G.history.length}</b></div><div class="major-stat"><span class="tiny">우승</span><b>${G.championships}</b></div><div class="major-stat"><span class="tiny">대표팀</span><b>${G.nationalCaps}</b></div></div>
+  <div class="award-row">${G.awards.map(x=>`<span class="award-chip">${x}</span>`).join("")}</div><button class="btn green" style="width:100%;margin-top:15px" onclick="closeModal()">명예의 전당 닫기</button></div>`;
+  $("modalContent").innerHTML=html;$("modal").classList.add("show")
+}
+
+function ageing(){if(G.age<31)return;let c=.06+(G.age-31)*.045;if(Math.random()<c){let k=pick(G.type==="hitter"?["speed","fielding","contact","power"]:["velocity","stamina","control","stuff"]);G.attrs[k]=clamp(G.attrs[k]-.5,20,99)}}
+function startFA(){
+ window._modalQueue??=[];if($("modal").classList.contains("show")){window._modalQueue.push(()=>startFA());return;}
+ if(G.sangmu||G.club==="ARM"||G.service<G.nextFAService||G.contractYears>0)return;
+ let pos=G.type==="hitter"?G.position:"SP",o=overall();let ranked=TEAMS.map(t=>{
+  let pref=G.preference[t.id],need=t.need[pos]||70,win=t.power,market=t.market,budget=t.budget;
+  let fit=need*.30+pref*.22+win*.16+market*.08+budget*.18+(G.agentAggressive?4:0)+(t.id===G.favorite?3:0)+rand(-12,12);
+  let annual=Math.round((0.85+o/100*2.45+budget/100*1.15+need/100*.72+(G.agentAggressive?.22:0)+rand(-.18,.18))*10000/100)*100;
+  let years=Math.max(2,Math.min(6,Math.round(2+(o-65)/8+rand(-1,1))));
+  return {t,fit,annual,years,role:need>78?"핵심 보장":need>68?"주전 경쟁":"백업 경쟁"}
+ }).sort((a,b)=>b.fit-a.fit).slice(0,5);
+ let html=`<div class="major-wrap"><span class="major-kicker">FA 시장</span><h2 class="major-title">FA 시장 개장</h2>${majorArt("card")}<div class="major-desc">돈, 우승 가능성, 출전 기회, 시장 규모와 구단에 대한 마음가 함께 반영됩니다.</div></div>`;
+ ranked.forEach((o,i)=>{html+=`<div class="offer"><div class="mini-badge" style="background:${o.t.c1};width:48px;height:48px">${o.t.abbr}</div><div><strong>${o.t.name}</strong><div class="tiny">${o.role} · 선호도 ${Math.round(G.preference[o.t.id])} · 팀전력 ${o.t.power}</div><div class="money">${o.years}년 / 연 ${formatWon(o.annual)}</div></div><button class="btn small" onclick="signFA('${o.t.id}',${o.annual},${o.years})">선택</button></div>`});
+ html+=`<button class="btn dark" onclick="closeModal()">현 소속팀 잔류 협상</button>`;$("modalContent").innerHTML=html;$("modal").classList.add("show")
+}
+function signFA(id,annual,years){
+ let old=G.club;G.club=id;G.salary=annual;G.contractYears=years;G.nextFAService=G.service+years;G.preference[id]=clamp(G.preference[id]+12,0,100);G.trust=55;applyTheme();closeModal();
+ eventBox("FA 계약",`${clubLabel(old)}을 떠나 ${team(id).name}과 ${years}년 계약을 맺었습니다.`,"good");render()
+}
+function clubLabel(id){return id==="ARM"?"상무 야구단":team(id).name}
+function clubAbbr(id){return id==="ARM"?"ARM":team(id).abbr}
+function formatWon(x){return x>=10000?(x/10000).toFixed(1)+"억":x.toLocaleString()+"만"}
+function newStandings(){G.standings=TEAMS.map(t=>({id:t.id,score:t.power+rand(-10,10)})).sort((a,b)=>b.score-a.score)}
+function eventBox(title,desc,cls){$("eventBox").className="event "+(cls||"");$("eventBox").innerHTML=`<strong>${title}</strong><div class="sub" style="margin-top:5px">${desc}</div>`}
+function choiceModal(title,desc,choices){
+ window._modalQueue??=[];
+ if($("modal").classList.contains("show")){window._modalQueue.push(()=>choiceModal(title,desc,choices));return;}
+ let html=`<h2>${title}</h2><div class="sub">${desc}</div><div style="margin-top:12px">`;choices.forEach((c,i)=>html+=`<button class="btn blue" style="width:100%;margin:5px 0" onclick="chooseModal(${i})">${c[0]}</button>`);html+="</div>";
+ window._choices=choices;$("modalContent").innerHTML=html;$("modal").classList.add("show")
+}
+function chooseModal(i){window._choices[i][1]();closeModal();render()}
+function closeModal(){
+ $("modal").classList.remove("show");
+ if(window._modalQueue&&window._modalQueue.length){let next=window._modalQueue.shift();setTimeout(next,120)}
+}
+function saveGame(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife7",JSON.stringify(G));alert("저장했습니다.")}
+function loadGame(){let s=localStorage.getItem("diamondLife7")||localStorage.getItem("diamondLife6")||localStorage.getItem("diamondLife5")||localStorage.getItem("diamondLife4")||localStorage.getItem("diamondLife3")||localStorage.getItem("diamondLife2");if(!s)return alert("저장된 게임이 없습니다.");G=JSON.parse(s);G.nationalCaps??=0;G.nationalMedals??=[];G.nationalHistory??=[];G.militaryStatus??="미필";G.militaryResolved??=false;G.sangmu??=false;G.sangmuYears??=0;G.originalClub??=null;G.internationalReputation??=20;G.awards??=[];G.championships??=0;G.postseasonApps??=0;G.careerScore??=0;G.retired??=false;G.nextFAService??=7;G.contractYears??=0;G.pitches??=(G.type==="pitcher"?[{name:"포심",quality:68,velo:146},{name:"슬라이더",quality:62,velo:134},{name:"체인지업",quality:56,velo:131}]:[]);G.eventMemory??={};G.lastEventCat??=null;G.agentAggressive??=false;showScreen("careerScreen");applyTheme();buildTraining();render()}
+function resetGame(){if(confirm("새 게임을 시작할까요?")){localStorage.removeItem("diamondLife7");localStorage.removeItem("diamondLife6");localStorage.removeItem("diamondLife5");localStorage.removeItem("diamondLife4");localStorage.removeItem("diamondLife3");localStorage.removeItem("diamondLife2");location.reload()}}
+function render(){
+ if(!G)return;applyTheme();$("pname").textContent=G.name;$("age").textContent=G.age;$("ovr").textContent=overall().toFixed(1);$("clubName").textContent=clubLabel(G.club);$("salary").textContent=formatWon(G.salary);$("service").textContent=G.service;$("trust").textContent=Math.round(G.trust);
+ $("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]} · ${G.level}`;$("bat").style.display=G.type==="hitter"?"block":"none";
+ let attrs=G.type==="hitter"?HATTR:PATTR;$("attrs").innerHTML=attrs.map(k=>`<div class="attr"><div class="attr-head"><span>${LAB[k]}</span><strong>${Math.round(G.attrs[k])}</strong></div><div class="bar"><div class="fill" style="width:${G.attrs[k]}%"></div></div></div>`).join("");
+ $("timeline").innerHTML=["캠프","4~5월","6~7월","8~9월","막판","오프시즌"].map((x,i)=>`<div class="step ${i<G.block?"done":i===G.block?"now":""}">${x}</div>`).join("");
+ $("relationships").innerHTML=TEAMS.slice().sort((a,b)=>G.preference[b.id]-G.preference[a.id]).map(t=>`<div class="relationship"><span>${t.abbr} ${t.id===G.favorite?"★":""}</span><div class="relbar"><div class="relfill" style="width:${G.preference[t.id]}%"></div></div><b>${Math.round(G.preference[t.id])}</b></div>`).join("");
+ $("history").innerHTML=G.history.slice(0,5).map(h=>`<div class="history-card"><strong>${h.age}세 · ${clubAbbr(h.club)}</strong><div class="tiny">${G.type==="hitter"?`OPS ${h.ops.toFixed(3)} · ${h.hr} HR`:`ERA ${h.era.toFixed(2)} · WHIP ${h.whip.toFixed(2)}`}</div></div>`).join("")||'<div class="notice">아직 시즌 기록이 없습니다.</div>';
+ let rank=G.club==="ARM"?0:G.standings.findIndex(x=>x.id===G.club)+1;$("teamRank").textContent=G.club==="ARM"?"군 복무":rank+"위";
+ $("pitchPanel").style.display=G.type==="pitcher"?"block":"none";
+ if(G.type==="pitcher"){
+   $("pitchList").innerHTML=(G.pitches||[]).map(p=>`<div class="pitch"><strong>${p.name}</strong><div class="tiny">${p.velo} km/h · 완성도 ${Math.round(p.quality)}</div><div class="bar"><div class="fill" style="width:${p.quality}%"></div></div></div>`).join("");
+ }
+ let medals=(G.nationalMedals||[]).slice(-5).map(x=>`<span class="medal">${x}</span>`).join("");
+ $("legacyStatus").innerHTML=`<div class="national-card"><div>우승 <b>${G.championships||0}</b>회 · 포스트시즌 <b>${G.postseasonApps||0}</b>회</div><div class="award-row">${(G.awards||[]).slice(-6).map(x=>`<span class="award-chip">${x}</span>`).join("")||'<span class="tiny">아직 주요 수상이 없습니다.</span>'}</div></div>`;
+ $("nationalStatus").innerHTML=`<div class="national-card"><div>병역: <span class="${G.militaryResolved?"military-ok":"military-warn"}">${G.militaryStatus}</span></div><div class="tiny" style="margin-top:5px">국가대표 ${G.nationalCaps||0}회 · 대표팀 평가 ${Math.round(G.internationalReputation||20)}</div>${medals?`<div class="medals">${medals}</div>`:""}</div>`+
+ ((G.nationalHistory||[]).slice(0,3).map(n=>`<div class="history-card"><strong>${n.event}</strong><div class="tiny">${n.age}세 · ${n.result}</div></div>`).join(""));
+ $("standings").innerHTML=G.standings.map((s,i)=>{let t=team(s.id);return `<tr class="${s.id===G.club?"me":""}"><td>${i+1}</td><td><span class="mini-badge" style="display:inline-flex;width:25px;height:25px;background:${t.c1};font-size:9px">${t.abbr}</span> ${t.name}</td><td>${Math.round(s.score)}</td><td>${t.style}</td></tr>`}).join("")
+}
+renderCreator();
+</script>
+</body>
+</html>
