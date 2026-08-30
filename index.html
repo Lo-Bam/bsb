@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Diamond Life 17</title>
+<title>Diamond Life 20</title>
 <style>
 :root{
   --team:#3f6fff;--team2:#dbe6ff;--bg:#0e1116;--panel:#1a2028;--panel2:#232b35;
@@ -89,7 +89,7 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
   .top .actions .btn{padding:6px;font-size:9px}.brand h1{font-size:16px}
 }
 
-/* Diamond Life 17 — mobile safety */
+/* Diamond Life 20 — mobile safety */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 img,svg,canvas{max-width:100%}
 .panel,.two,.creator-layout,.grid2,.grid4,.club-grid,.attrs,.offer{min-width:0}
@@ -135,12 +135,53 @@ img,svg,canvas{max-width:100%}
 .event-card .effects{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
 .effect{border:2px solid #000;background:#0b1015;padding:4px 6px;font-size:9px}
 
+
+/* Diamond Life 20 — visible progression */
+.season-track{margin-top:10px;border:3px solid #000;background:#0b1015;padding:8px}
+.season-track-head{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
+.season-track-bar{height:12px;background:#050709;border:3px solid #000;margin-top:6px}
+.season-track-fill{height:100%;background:linear-gradient(90deg,var(--team),var(--gold));transition:width .45s steps(6,end)}
+.growth-flash{animation:growthFlash .65s steps(2,end)}
+@keyframes growthFlash{50%{filter:brightness(1.7)}}
+.profile-card{border:4px solid #000;background:#11161d;padding:10px;margin-top:10px}
+.profile-card .tag{display:inline-block;border:2px solid #000;background:var(--team);padding:4px 6px;font-size:9px;font-weight:900;margin-right:4px}
+.big-gain{font-size:15px!important;font-weight:900}
+.attr.changed{outline:3px solid var(--gold)}
+.event-title{font-size:13px;font-weight:900;margin-bottom:4px}
+.event-sub{font-size:10px;color:var(--muted);line-height:1.45}
+.timeline-note{margin-top:7px;font-size:10px;color:var(--muted)}
+
+
+/* Diamond Life 20 — mobile audit fixes */
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.table{min-width:0;width:100%;table-layout:fixed}
+.table td,.table th{word-break:keep-all;overflow-wrap:anywhere}
+.offer{width:100%;max-width:100%;overflow:hidden}
+.offer .effects{display:flex;flex-wrap:wrap}
+.modal-box h2{word-break:keep-all}
+.modal-box .sub,.event-sub,.tiny{overflow-wrap:anywhere}
+@media(max-width:760px){
+  .modal{align-items:flex-end;padding:6px}
+  .modal-box{border-radius:0;max-height:84dvh}
+  .modal-box .offer{padding:9px}
+  .modal-box .effects{gap:4px}
+  .modal-box .effect{font-size:8px;padding:3px 5px}
+  .modal-box button{white-space:normal;word-break:keep-all}
+  .table td:nth-child(1){width:10%}
+  .table td:nth-child(2){width:65%}
+  .table td:nth-child(3){width:25%;text-align:right}
+  .field{min-width:0}
+  .club-grid{width:100%}
+  .club{width:100%;max-width:100%}
+  .review-row{font-size:10px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 17</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
+    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 20</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
     <div class="actions"><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
   </header>
 
@@ -168,7 +209,8 @@ img,svg,canvas{max-width:100%}
             <div id="ar1" class="runner r1"></div><div id="ar2" class="runner r2"></div><div id="ar3" class="runner r3"></div><div id="aball" class="ball"></div>
             <div class="board"><div class="green" id="amBoard"></div><strong id="amBoard2"></strong><div class="tiny" id="amBoard3"></div></div><div id="amBanner" class="banner"></div>
           </div>
-          <div class="auto"><div class="status"><span id="amDot" class="dot"></span><span id="amStatus"></span></div><button class="btn blue" onclick="toggleAm()">일시정지</button></div>
+          <div class="season-track"><div class="season-track-head"><span id="amTimeLabel"></span><span id="amTimePct"></span></div><div class="season-track-bar"><div id="amTimeFill" class="season-track-fill"></div></div></div>
+<div class="auto"><div class="status"><span id="amDot" class="dot"></span><span id="amStatus"></span></div><button class="btn blue" onclick="toggleAm()">일시정지</button></div>
         </div>
         <div class="panel">
   <h3>학교 소식</h3>
@@ -177,7 +219,7 @@ img,svg,canvas{max-width:100%}
 </div>
       </div>
       <div>
-        <div class="panel"><h3>선수 능력</h3><div id="amAttrs" class="attrs"></div></div>
+        <div class="panel"><h3>선수 능력</h3><div id="amProfile"></div><div id="amAttrs" class="attrs" style="margin-top:8px"></div></div>
         <div class="panel"><h3>커리어 기록</h3><div id="amLog" class="log"></div></div>
       </div>
     </div>
@@ -207,10 +249,11 @@ img,svg,canvas{max-width:100%}
             <div id="pr1" class="runner r1"></div><div id="pr2" class="runner r2"></div><div id="pr3" class="runner r3"></div><div id="pball" class="ball"></div>
             <div class="board"><div class="green" id="pBoard"></div><strong id="pBoard2"></strong><div class="tiny" id="pBoard3"></div></div><div id="pBanner" class="banner"></div>
           </div>
-          <div class="auto"><div class="status"><span id="pDot" class="dot"></span><span id="pStatus"></span></div><button class="btn blue" onclick="togglePro()">일시정지</button></div>
+          <div class="season-track"><div class="season-track-head"><span id="pTimeLabel"></span><span id="pTimePct"></span></div><div class="season-track-bar"><div id="pTimeFill" class="season-track-fill"></div></div></div>
+<div class="auto"><div class="status"><span id="pDot" class="dot"></span><span id="pStatus"></span></div><button class="btn blue" onclick="togglePro()">일시정지</button></div>
         </div>
         <div class="panel"><h3>라커룸 소식</h3><div id="proEvent" class="sub">시즌이 시작됩니다.</div></div>
-        <div class="panel"><h3>리그 판도</h3><table class="table"><tbody id="standings"></tbody></table></div>
+        <div class="panel"><h3>리그 판도</h3><div class="table-wrap"><table class="table"><tbody id="standings"></tbody></table></div></div>
       </div>
       <div>
         <div class="panel"><h3>선수 능력</h3><div id="pAttrs" class="attrs"></div></div>
@@ -228,8 +271,57 @@ const $=id=>document.getElementById(id),pick=a=>a[Math.floor(Math.random()*a.len
 const POS={C:"포수","1B":"1루수","2B":"2루수","3B":"3루수",SS:"유격수",LF:"좌익수",CF:"중견수",RF:"우익수",DH:"지명타자"},ROLES={SP:"선발",RP:"중간계투",SU:"셋업",CL:"마무리"};
 const H=["contact","power","discipline","speed","fielding","arm"],P=["velocity","stuff","control","command","breaking","stamina"],LAB={contact:"컨택",power:"파워",discipline:"선구안",speed:"주력",fielding:"수비",arm:"송구",velocity:"구속",stuff:"구위",control:"제구",command:"커맨드",breaking:"변화구",stamina:"체력"};
 const TEAMS=[
-["SEO","서울 타이탄즈","ST","#3f6fff","#dbe6ff",84,90,70],["BUS","부산 마리너스","BM","#0aa6a6","#d8ffff",72,78,78],["INC","인천 웨이브","IW","#267ec7","#d9efff",67,74,83],["DAE","대구 팔콘스","DF","#df6a32","#ffe4d7",74,71,73],["DJN","대전 로켓츠","DR","#7e59d6","#eadfff",62,67,88],["GWJ","광주 레드폭스","GR","#d74444","#ffe0e0",76,76,75],["SUW","수원 스톰","SS","#58a05a","#e0f2df",68,69,80],["CHW","창원 블레이즈","CB","#f59a28","#fff0d9",70,72,74],["JEO","전주 피닉스","JP","#b64b98","#f7dff2",59,63,90],["JEJ","제주 샤크스","JS","#168f75","#d7fff4",63,65,84]
-].map(x=>({id:x[0],name:x[1],abbr:x[2],c1:x[3],c2:x[4],power:x[5],budget:x[6],dev:x[7]}));
+["SEO","서울 타이탄즈","ST","#3f6fff","#dbe6ff",84,90,70,"우승지향",86,72,88,62],
+["BUS","부산 마리너스","BM","#0aa6a6","#d8ffff",72,78,78,"균형",72,80,74,70],
+["INC","인천 웨이브","IW","#267ec7","#d9efff",67,74,83,"육성",64,88,70,78],
+["DAE","대구 팔콘스","DF","#df6a32","#ffe4d7",74,71,73,"공격야구",76,68,78,72],
+["DJN","대전 로켓츠","DR","#7e59d6","#eadfff",62,67,88,"리빌딩",55,92,62,86],
+["GWJ","광주 레드폭스","GR","#d74444","#ffe0e0",76,76,75,"승부사",80,72,76,68],
+["SUW","수원 스톰","SS","#58a05a","#e0f2df",68,69,80,"수비중심",64,82,66,80],
+["CHW","창원 블레이즈","CB","#f59a28","#fff0d9",70,72,74,"불펜중심",72,74,70,76],
+["JEO","전주 피닉스","JP","#b64b98","#f7dff2",59,63,90,"유망주중심",48,95,58,90],
+["JEJ","제주 샤크스","JS","#168f75","#d7fff4",63,65,84,"기동력",58,86,64,84]
+].map(x=>({
+ id:x[0],name:x[1],abbr:x[2],c1:x[3],c2:x[4],power:x[5],budget:x[6],dev:x[7],style:x[8],
+ winNow:x[9],youth:x[10],market:x[11],patience:x[12]
+}));
+
+const POS_NEED={
+ SEO:{C:54,"1B":72,"2B":62,"3B":74,SS:68,LF:76,CF:70,RF:78,DH:82,SP:86,RP:72},
+ BUS:{C:74,"1B":65,"2B":77,"3B":64,SS:80,LF:68,CF:82,RF:66,DH:69,SP:76,RP:80},
+ INC:{C:68,"1B":72,"2B":66,"3B":80,SS:72,LF:63,CF:76,RF:70,DH:66,SP:72,RP:77},
+ DAE:{C:66,"1B":82,"2B":64,"3B":78,SS:62,LF:80,CF:64,RF:82,DH:86,SP:68,RP:72},
+ DJN:{C:82,"1B":64,"2B":80,"3B":70,SS:86,LF:76,CF:74,RF:72,DH:62,SP:84,RP:70},
+ GWJ:{C:62,"1B":80,"2B":72,"3B":78,SS:70,LF:84,CF:68,RF:76,DH:86,SP:72,RP:75},
+ SUW:{C:78,"1B":62,"2B":84,"3B":70,SS:86,LF:64,CF:84,RF:68,DH:60,SP:78,RP:72},
+ CHW:{C:70,"1B":72,"2B":66,"3B":74,SS:76,LF:68,CF:76,RF:80,DH:70,SP:66,RP:88},
+ JEO:{C:86,"1B":66,"2B":82,"3B":70,SS:88,LF:74,CF:82,RF:76,DH:64,SP:90,RP:78},
+ JEJ:{C:74,"1B":61,"2B":84,"3B":66,SS:82,LF:76,CF:90,RF:72,DH:60,SP:82,RP:74}
+};
+function roleKey(){
+  if(G.type==="hitter")return G.position;
+  return G.role==="SP"?"SP":"RP";
+}
+function teamNeed(tid){return POS_NEED[tid]?.[roleKey()]??70}
+function playerMarketValue(){
+  let level=G.proLevel==="1군 주전"?10:G.proLevel==="1군 백업"?5:G.proLevel==="1군/2군"?1:-5;
+  return ovr()*.72+(G.trust||45)*.10+(G.fame||8)*.05+level+Math.min(G.age,30)*.08+rand(-4,4);
+}
+function teamFit(t){
+  let need=teamNeed(t.id), value=playerMarketValue();
+  let ageFit=G.age<=25?t.youth*.10:(G.age>=31?t.winNow*.08:7);
+  let urgency=t.winNow*.12+t.power*.08;
+  return need*.35+value*.28+t.budget*.10+ageFit+urgency+rand(-7,7);
+}
+function transactionReason(t){
+  let need=teamNeed(t.id);
+  if(t.style==="리빌딩"||t.style==="유망주중심")return G.age<=26?"젊은 핵심 자원으로 평가":"베테랑 자산을 재편하는 과정";
+  if(t.winNow>=80)return "우승 경쟁을 위한 즉시전력 보강";
+  if(need>=82)return "해당 포지션의 공백을 메우기 위한 영입";
+  if(t.dev>=85)return "육성 시스템과 선수의 성장 곡선이 잘 맞는다는 평가";
+  return "전력 균형과 선수단 구성상 적합하다는 판단";
+}
+
 const team=id=>TEAMS.find(t=>t.id===id),show=id=>{document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")};
 let C={name:"김민준",type:"hitter",throws:"R",bats:"R",position:"SS",role:"SP",build:"balanced",fav:"SEO"},step=0,G=null,amTimer=null,proTimer=null,amRun=false,proRun=false;
 function theme(id){let t=team(id);document.documentElement.style.setProperty("--team",t.c1);document.documentElement.style.setProperty("--team2",t.c2);$("topBadge").textContent=t.abbr;$("topSub").textContent=t.name}
@@ -257,9 +349,42 @@ function creator(){
 }
 function rr(a,b){return `<div class="review-row"><span>${a}</span><b>${b}</b></div>`}function card(k,v,i,t,d){return `<div class="choice ${C[k]===v?"on":""}" onclick="C.${k}='${v}';creator()"><div class="icon">${i}</div><b>${t}</b><small>${d}</small></div>`}function seg(k,v,t){return `<button class="seg ${C[k]===v?"on":""}" onclick="C.${k}='${v}';creator()">${t}</button>`}
 function prevStep(){if(step){step--;creator()}}function nextStep(){if(step<4){step++;creator()}else startCareer()}
+function weightedPotential(){
+  let r=Math.random();
+  if(r<.06)return {tier:"세대급 재능",pot:rand(90,98),learn:rand(1.18,1.34)};
+  if(r<.24)return {tier:"특급 유망주",pot:rand(82,91),learn:rand(1.08,1.22)};
+  if(r<.67)return {tier:"주전급 잠재력",pot:rand(72,84),learn:rand(.94,1.10)};
+  return {tier:"원석형 유망주",pot:rand(62,76),learn:rand(.82,1.02)};
+}
+function randomizeAttrs(type,build){
+  let base=type==="hitter"
+    ?{contact:53,power:55,discipline:47,speed:64,fielding:60,arm:64}
+    :{velocity:61,stuff:58,control:52,command:49,breaking:56,stamina:63};
+  Object.keys(base).forEach(k=>base[k]+=rand(-6,6));
+  if(type==="hitter"){
+    if(build==="contact"){base.contact+=4;base.discipline+=3}
+    if(build==="power"){base.power+=5;base.arm+=1}
+    if(build==="defense"){base.fielding+=4;base.speed+=2;base.arm+=2}
+    if(build==="balanced")Object.keys(base).forEach(k=>base[k]+=1)
+  }else{
+    if(build==="contact"){base.control+=4;base.command+=3}
+    if(build==="power"){base.velocity+=5;base.stuff+=3}
+    if(build==="defense"){base.breaking+=4;base.command+=2}
+    if(build==="balanced")Object.keys(base).forEach(k=>base[k]+=1)
+  }
+  Object.keys(base).forEach(k=>base[k]=clamp(base[k],38,78));
+  return base;
+}
 function startCareer(){
- G={...C,age:16,stage:"high",year:1,block:0,attrs:C.type==="hitter"?{contact:55,power:58,discipline:48,speed:68,fielding:64,arm:69}:{velocity:65,stuff:61,control:54,command:51,breaking:59,stamina:67},scout:18,fame:8,logs:[],club:null,service:0,salary:3000,history:[],pref:Object.fromEntries(TEAMS.map(t=>[t.id,t.id===C.fav?82:45+Math.round(rand(0,18))])),military:"미필",resolved:false,caps:0,medals:[],trust:45,retired:false};
- theme(C.fav);show("amateur");renderAm();setTimeout(startAm,600)
+ let pt=weightedPotential();
+ G={...C,age:16,stage:"high",year:1,block:0,attrs:randomizeAttrs(C.type,C.build),
+    potential:pt.pot,potentialTier:pt.tier,learnRate:pt.learn,
+    workEthic:rand(45,92),durability:rand(45,92),adaptability:rand(45,92),clutch:rand(40,95),
+    momentum:0,confidence:55,eventMem:{},lastEvent:null,
+    scout:clamp(14+(pt.pot-70)*.32+rand(-4,5),8,38),fame:8,logs:[],club:null,service:0,salary:3000,history:[],
+    pref:Object.fromEntries(TEAMS.map(t=>[t.id,t.id===C.fav?82:45+Math.round(rand(0,18))])),
+    military:"미필",resolved:false,caps:0,medals:[],trust:45,retired:false,proLevel:"2군",careerPeak:ovr?0:0};
+ theme(C.fav);show("amateur");renderAm();setTimeout(startAm,650)
 }
 function animateField(prefix){
  ["1","2","3"].forEach(n=>$(prefix+"r"+n).classList.remove("on"));if(Math.random()<.55)$(prefix+"r1").classList.add("on");if(Math.random()<.28)$(prefix+"r2").classList.add("on");if(Math.random()<.15)$(prefix+"r3").classList.add("on");
@@ -267,16 +392,117 @@ function animateField(prefix){
 }
 function renderAttrs(id){let keys=G.type==="hitter"?H:P;$(id).innerHTML=keys.map(k=>`<div class="attr"><div class="attr-head"><span>${LAB[k]}</span><b>${Math.round(G.attrs[k])}</b></div><div class="bar"><div class="fill" style="width:${G.attrs[k]}%"></div></div></div>`).join("")}
 function renderAm(){
- let college=G.stage==="college";$("amStage").textContent=college?"대학야구":"고교야구";$("amAge").textContent=G.age;$("scout").textContent=Math.round(G.scout);$("amTitle").textContent=college?`대학 ${G.year}학년`:`고교 ${G.year}학년`;
+ let college=G.stage==="college";$("amStage").textContent=college?"대학야구":"고교야구";$("amTimeLabel").textContent=`${college?"대학":"고교"} ${G.year}학년 · ${["개막","중반","전국대회"][G.block]||"시즌 종료"}`;$("amTimePct").textContent=`${Math.round((G.block/3)*100)}%`;$("amTimeFill").style.width=`${Math.min(100,(G.block/3)*100)}%`;$("amAge").textContent=G.age;$("scout").textContent=Math.round(G.scout);$("amTitle").textContent=college?`대학 ${G.year}학년`:`고교 ${G.year}학년`;
  $("amBoard").textContent=college?"COLLEGE LEAGUE":"HIGH SCHOOL";$("amBoard2").textContent=G.name;$("amBoard3").textContent=`SCOUT ${Math.round(G.scout)} · OVR ${ovr().toFixed(1)}`;$("amBanner").textContent=["개막","중반","전국대회"][G.block]||"SEASON";
+ $("amProfile").innerHTML=`<div class="profile-card"><span class="tag">${G.potentialTier}</span><span class="tag">프로의식 ${Math.round(G.workEthic)}</span><div class="tiny" style="margin-top:7px">현재 평가는 같아도 성장 속도와 최종 도달점은 선수마다 다릅니다.</div></div>`;
  renderAttrs("amAttrs");$("amLog").innerHTML=G.logs.slice(-10).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 시즌이 시작됩니다.</div>';
  $("amDot").classList.toggle("on",amRun);$("amStatus").textContent=amRun?"시즌이 자동으로 흐르고 있습니다":"시즌이 멈춰 있습니다";animateField("a")
 }
 function startAm(){if(amRun)return;amRun=true;renderAm();amTimer=setTimeout(amStep,900)}function pauseAm(){amRun=false;clearTimeout(amTimer);renderAm()}function toggleAm(){amRun?pauseAm():startAm()}
 
+
+function contextualStage(){
+  if(G.stage==="high")return "high";
+  if(G.stage==="college")return "college";
+  if(G.stage==="sangmu")return "sangmu";
+  if(G.stage==="pro"){
+    if((G.proLevel||"").includes("2군") || G.proLevel==="2군")return "minors";
+    return "pro";
+  }
+  return "pro";
+}
+function uniqueContextEvent(stage){
+  G.bigEventMem??={};
+  let pool=EVENT_LIBRARY[stage]||[];
+  let recent=G.bigEventMem[stage]||[];
+  let candidates=pool.filter(e=>!recent.includes(e.id));
+  if(candidates.length<12){
+    recent=recent.slice(-35);
+    G.bigEventMem[stage]=recent;
+    candidates=pool.filter(e=>!recent.includes(e.id));
+  }
+  let e=pick(candidates.length?candidates:pool);
+  G.bigEventMem[stage]=[...(G.bigEventMem[stage]||[]),e.id].slice(-55);
+  return e;
+}
+function stageEventEffect(e,stage){
+  let keys=G.type==="hitter"?H:P;
+  let effects=[],msg=e.desc;
+  let stageScale=stage==="high"?1.0:stage==="college"?1.1:stage==="sangmu"?1.0:stage==="minors"?.95:stage==="international"?1.05:1.0;
+
+  if(e.type==="growth"){
+    let k=pick(keys),g=addAttr(k,rand(.55,1.35)*stageScale);
+    effects.push([LAB[k],g]);
+  }else if(e.type==="scout"){
+    if(stage==="high"||stage==="college"){let s=rand(1.5,4.5);G.scout=clamp(G.scout+s,0,100);effects.push(["스카우트",s])}
+    else{G.trust=clamp(G.trust+2,0,100);effects.push(["감독 신뢰",2])}
+  }else if(e.type==="confidence"){
+    let v=Math.random()<.72?rand(2,5):-rand(1,4);G.confidence=clamp((G.confidence||55)+v,0,100);effects.push(["자신감",v]);
+  }else if(e.type==="trust"){
+    let v=rand(1,4);G.trust=clamp((G.trust||45)+v,0,100);effects.push(["감독 신뢰",v]);
+  }else if(e.type==="fame"){
+    let v=rand(1,4);G.fame=clamp((G.fame||8)+v,0,100);effects.push(["인지도",v]);
+  }else if(e.type==="mentor"){
+    let k=pick(keys),g=addAttr(k,rand(.45,.95));G.workEthic=clamp((G.workEthic||60)+1,0,100);effects.push([LAB[k],g],["프로의식",1]);
+  }else if(e.type==="media"){
+    let v=rand(1,4);G.fame=clamp((G.fame||8)+v,0,100);G.confidence=clamp((G.confidence||55)+(Math.random()<.65?1:-1),0,100);effects.push(["인지도",v]);
+  }else if(e.type==="competition"){
+    let v=Math.random()<.65?2:-1;G.trust=clamp((G.trust||45)+v,0,100);effects.push(["감독 신뢰",v]);
+  }else if(e.type==="injury"){
+    let safe=Math.random()<(G.durability||65)/100;
+    if(safe){G.durability=clamp((G.durability||65)+.5,0,100);effects.push(["내구성",.5])}
+    else{G.confidence=clamp((G.confidence||55)-2,0,100);G.momentum=-.6;effects.push(["자신감",-2])}
+  }else if(e.type==="role"){
+    let k=G.type==="hitter"?"fielding":"command",g=addAttr(k,rand(.4,.8));effects.push([LAB[k],g]);
+  }
+  return effects;
+}
+function runContextualEvent(stage,done){
+  let e=uniqueContextEvent(stage);
+  // Roughly 25% of contextual events become player choices.
+  if(["choice_risk","choice_safe"].includes(e.type) || Math.random()<.17){
+    let keys=G.type==="hitter"?H:P;
+    pauseAm();pausePro();
+    let choiceA=pick(keys),choiceB=pick(keys.filter(k=>k!==choiceA));
+    modal(`<h2>${e.title}</h2><div class="sub">${e.desc}</div>
+      <button class="btn green" onclick="contextChoice('${stage}','${choiceA}',1)">${LAB[choiceA]}에 집중한다</button>
+      <button class="btn blue" onclick="contextChoice('${stage}','${choiceB}',2)">${LAB[choiceB]}를 보완한다</button>
+      <button class="btn dark" onclick="contextChoice('${stage}','',3)">현재 루틴을 유지한다</button>`);
+    window._contextDone=done;window._contextEvent=e;
+    return;
+  }
+  let effects=stageEventEffect(e,stage);
+  let target=stage==="high"||stage==="college"?"amEvent":"proEvent";
+  if($(target))$(target).innerHTML=`<div class="event-card growth-flash"><div class="event-title">${e.title}</div><div class="event-sub">${e.desc}</div><div class="effects">${effects.map(x=>effectChip(x[0],typeof x[1]==="number"?x[1]:0)).join("")}</div></div>`;
+  if(stage==="high"||stage==="college")G.logs.push(`${G.age}세 · ${e.title}`);
+  if(done)setTimeout(done,850);
+}
+function contextChoice(stage,key,opt){
+  let effects=[];
+  if(opt===1&&key){effects.push([LAB[key],addAttr(key,1.15)]);G.momentum=.6}
+  if(opt===2&&key){effects.push([LAB[key],addAttr(key,.8)]);G.workEthic=clamp((G.workEthic||60)+1,0,100);effects.push(["프로의식",1])}
+  if(opt===3){G.confidence=clamp((G.confidence||55)+1,0,100);effects.push(["자신감",1])}
+  closeM();
+  let stageNow=stage;
+  if(stageNow==="high"||stageNow==="college"){
+    if($("amEvent"))$("amEvent").innerHTML=`<div class="event-card"><div class="event-title">${window._contextEvent.title}</div><div class="effects">${effects.map(x=>effectChip(x[0],x[1])).join("")}</div></div>`;
+    if(window._contextDone)window._contextDone();
+    setTimeout(startAm,500);
+  }else{
+    if($("proEvent"))$("proEvent").innerHTML=`<div class="event-card"><div class="event-title">${window._contextEvent.title}</div><div class="effects">${effects.map(x=>effectChip(x[0],x[1])).join("")}</div></div>`;
+    setTimeout(startPro,500);
+  }
+}
+
 function addAttr(k,amt){
   let before=G.attrs[k];
-  G.attrs[k]=clamp(G.attrs[k]+amt,20,99);
+  let current=G.attrs[k], gap=(G.potential||75)-current;
+  let ceilingFactor=clamp(.55+gap/55,.45,1.28);
+  let workFactor=.78+(G.workEthic||65)/280;
+  let ageFactor=G.age<=18?1.16:G.age<=22?1.08:G.age<=26?1:G.age<=30?.78:.52;
+  let momentumFactor=1+(G.momentum||0)*.025;
+  let real=amt*(G.learnRate||1)*ceilingFactor*workFactor*ageFactor*momentumFactor;
+  G.attrs[k]=clamp(current+real,20,99);
   return G.attrs[k]-before;
 }
 function effectChip(label,val){
@@ -300,70 +526,110 @@ function amateurChoicePick(i){
   if(window._amDone)window._amDone();
   setTimeout(startAm,650);
 }
+const EVENT_LIBRARY={"high":[{"id":"high_001","title":"전국대회 · 주전 경쟁","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"growth"},{"id":"high_002","title":"전국대회 · 타격폼 점검","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"scout"},{"id":"high_003","title":"전국대회 · 수비 포지션 테스트","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"fame"},{"id":"high_004","title":"전국대회 · 체력 강화","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"role"},{"id":"high_005","title":"전국대회 · 멘탈 관리","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"media"},{"id":"high_006","title":"전국대회 · 선배의 조언","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"growth"},{"id":"high_007","title":"전국대회 · 코치 면담","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"confidence"},{"id":"high_008","title":"전국대회 · 스카우트 평가","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"choice_risk"},{"id":"high_009","title":"전국대회 · 몸 상태 점검","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"injury"},{"id":"high_010","title":"전국대회 · 팀워크 훈련","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"competition"},{"id":"high_011","title":"주말리그 · 주전 경쟁","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"trust"},{"id":"high_012","title":"주말리그 · 타격폼 점검","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"choice_safe"},{"id":"high_013","title":"주말리그 · 수비 포지션 테스트","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"mentor"},{"id":"high_014","title":"주말리그 · 체력 강화","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"growth"},{"id":"high_015","title":"주말리그 · 멘탈 관리","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"scout"},{"id":"high_016","title":"주말리그 · 선배의 조언","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"fame"},{"id":"high_017","title":"주말리그 · 코치 면담","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"role"},{"id":"high_018","title":"주말리그 · 스카우트 평가","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"media"},{"id":"high_019","title":"주말리그 · 몸 상태 점검","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"growth"},{"id":"high_020","title":"주말리그 · 팀워크 훈련","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"confidence"},{"id":"high_021","title":"학교 훈련 · 주전 경쟁","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"injury"},{"id":"high_022","title":"학교 훈련 · 타격폼 점검","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"competition"},{"id":"high_023","title":"학교 훈련 · 수비 포지션 테스트","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"growth"},{"id":"high_024","title":"학교 훈련 · 체력 강화","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"trust"},{"id":"high_025","title":"학교 훈련 · 멘탈 관리","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"choice_safe"},{"id":"high_026","title":"학교 훈련 · 선배의 조언","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"mentor"},{"id":"high_027","title":"학교 훈련 · 코치 면담","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"growth"},{"id":"high_028","title":"학교 훈련 · 스카우트 평가","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"scout"},{"id":"high_029","title":"학교 훈련 · 몸 상태 점검","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"fame"},{"id":"high_030","title":"학교 훈련 · 팀워크 훈련","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"role"},{"id":"high_031","title":"청소년 대표 · 주전 경쟁","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"growth"},{"id":"high_032","title":"청소년 대표 · 타격폼 점검","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"confidence"},{"id":"high_033","title":"청소년 대표 · 수비 포지션 테스트","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"choice_risk"},{"id":"high_034","title":"청소년 대표 · 체력 강화","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"injury"},{"id":"high_035","title":"청소년 대표 · 멘탈 관리","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"competition"},{"id":"high_036","title":"청소년 대표 · 선배의 조언","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"growth"},{"id":"high_037","title":"청소년 대표 · 코치 면담","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"trust"},{"id":"high_038","title":"청소년 대표 · 스카우트 평가","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"choice_safe"},{"id":"high_039","title":"청소년 대표 · 몸 상태 점검","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"mentor"},{"id":"high_040","title":"청소년 대표 · 팀워크 훈련","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"growth"},{"id":"high_041","title":"지역 라이벌전 · 주전 경쟁","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"fame"},{"id":"high_042","title":"지역 라이벌전 · 타격폼 점검","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"role"},{"id":"high_043","title":"지역 라이벌전 · 수비 포지션 테스트","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"media"},{"id":"high_044","title":"지역 라이벌전 · 체력 강화","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"growth"},{"id":"high_045","title":"지역 라이벌전 · 멘탈 관리","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"confidence"},{"id":"high_046","title":"지역 라이벌전 · 선배의 조언","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"choice_risk"},{"id":"high_047","title":"지역 라이벌전 · 코치 면담","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"injury"},{"id":"high_048","title":"지역 라이벌전 · 스카우트 평가","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"competition"},{"id":"high_049","title":"지역 라이벌전 · 몸 상태 점검","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"growth"},{"id":"high_050","title":"지역 라이벌전 · 팀워크 훈련","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"trust"},{"id":"high_051","title":"스카우트 방문 · 주전 경쟁","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"mentor"},{"id":"high_052","title":"스카우트 방문 · 타격폼 점검","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"growth"},{"id":"high_053","title":"스카우트 방문 · 수비 포지션 테스트","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"scout"},{"id":"high_054","title":"스카우트 방문 · 체력 강화","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"fame"},{"id":"high_055","title":"스카우트 방문 · 멘탈 관리","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"role"},{"id":"high_056","title":"스카우트 방문 · 선배의 조언","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"media"},{"id":"high_057","title":"스카우트 방문 · 코치 면담","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"growth"},{"id":"high_058","title":"스카우트 방문 · 스카우트 평가","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"confidence"},{"id":"high_059","title":"스카우트 방문 · 몸 상태 점검","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"choice_risk"},{"id":"high_060","title":"스카우트 방문 · 팀워크 훈련","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"injury"},{"id":"high_061","title":"겨울 캠프 · 주전 경쟁","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"growth"},{"id":"high_062","title":"겨울 캠프 · 타격폼 점검","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"trust"},{"id":"high_063","title":"겨울 캠프 · 수비 포지션 테스트","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"choice_safe"},{"id":"high_064","title":"겨울 캠프 · 체력 강화","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"mentor"},{"id":"high_065","title":"겨울 캠프 · 멘탈 관리","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"growth"},{"id":"high_066","title":"겨울 캠프 · 선배의 조언","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"scout"},{"id":"high_067","title":"겨울 캠프 · 코치 면담","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"fame"},{"id":"high_068","title":"겨울 캠프 · 스카우트 평가","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"role"},{"id":"high_069","title":"겨울 캠프 · 몸 상태 점검","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"media"},{"id":"high_070","title":"겨울 캠프 · 팀워크 훈련","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"growth"},{"id":"high_071","title":"연습경기 · 주전 경쟁","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"choice_risk"},{"id":"high_072","title":"연습경기 · 타격폼 점검","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"injury"},{"id":"high_073","title":"연습경기 · 수비 포지션 테스트","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"competition"},{"id":"high_074","title":"연습경기 · 체력 강화","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"growth"},{"id":"high_075","title":"연습경기 · 멘탈 관리","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"trust"},{"id":"high_076","title":"연습경기 · 선배의 조언","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"choice_safe"},{"id":"high_077","title":"연습경기 · 코치 면담","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"mentor"},{"id":"high_078","title":"연습경기 · 스카우트 평가","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"growth"},{"id":"high_079","title":"연습경기 · 몸 상태 점검","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"scout"},{"id":"high_080","title":"연습경기 · 팀워크 훈련","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"fame"},{"id":"high_081","title":"학교 축제 · 주전 경쟁","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"media"},{"id":"high_082","title":"학교 축제 · 타격폼 점검","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"growth"},{"id":"high_083","title":"학교 축제 · 수비 포지션 테스트","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"confidence"},{"id":"high_084","title":"학교 축제 · 체력 강화","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"choice_risk"},{"id":"high_085","title":"학교 축제 · 멘탈 관리","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"injury"},{"id":"high_086","title":"학교 축제 · 선배의 조언","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"competition"},{"id":"high_087","title":"학교 축제 · 코치 면담","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"growth"},{"id":"high_088","title":"학교 축제 · 스카우트 평가","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"trust"},{"id":"high_089","title":"학교 축제 · 몸 상태 점검","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"choice_safe"},{"id":"high_090","title":"학교 축제 · 팀워크 훈련","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"mentor"},{"id":"high_091","title":"야구부 회의 · 주전 경쟁","desc":"전국 무대에서 자신의 장점을 보여줄 기회가 찾아왔습니다.","type":"scout"},{"id":"high_092","title":"야구부 회의 · 타격폼 점검","desc":"학교 안팎에서 선수에 대한 기대가 커지고 있습니다.","type":"fame"},{"id":"high_093","title":"야구부 회의 · 수비 포지션 테스트","desc":"감독이 시즌 후반을 대비해 역할 조정을 검토했습니다.","type":"role"},{"id":"high_094","title":"야구부 회의 · 체력 강화","desc":"동료들과의 관계가 경기 집중력에 영향을 주고 있습니다.","type":"media"},{"id":"high_095","title":"야구부 회의 · 멘탈 관리","desc":"주전 경쟁이 치열해지며 훈련 태도가 더욱 중요해졌습니다.","type":"growth"},{"id":"high_096","title":"야구부 회의 · 선배의 조언","desc":"강팀과의 경기에서 예상보다 큰 관심을 받았습니다.","type":"confidence"},{"id":"high_097","title":"야구부 회의 · 코치 면담","desc":"성장기 신체 변화로 플레이 스타일에 새로운 가능성이 생겼습니다.","type":"choice_risk"},{"id":"high_098","title":"야구부 회의 · 스카우트 평가","desc":"짧은 부진을 벗어나기 위한 새로운 루틴이 제안됐습니다.","type":"injury"},{"id":"high_099","title":"야구부 회의 · 몸 상태 점검","desc":"훈련 방식의 작은 변화가 경기력에 영향을 주기 시작했습니다.","type":"competition"},{"id":"high_100","title":"야구부 회의 · 팀워크 훈련","desc":"프로 스카우트가 경기장을 찾아 최근 성장세를 확인했습니다.","type":"growth"}],"college":[{"id":"college_001","title":"대학리그 · 드래프트 평가","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"growth"},{"id":"college_002","title":"대학리그 · 주전 경쟁","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"scout"},{"id":"college_003","title":"대학리그 · 포지션 변경","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"college_004","title":"대학리그 · 웨이트 강화","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"role"},{"id":"college_005","title":"대학리그 · 폼 수정","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"media"},{"id":"college_006","title":"대학리그 · 전술 이해","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"growth"},{"id":"college_007","title":"대학리그 · 프로 준비","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"confidence"},{"id":"college_008","title":"대학리그 · 멘탈 관리","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"choice_risk"},{"id":"college_009","title":"대학리그 · 부상 예방","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"injury"},{"id":"college_010","title":"대학리그 · 리더십","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"competition"},{"id":"college_011","title":"춘계리그 · 드래프트 평가","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"trust"},{"id":"college_012","title":"춘계리그 · 주전 경쟁","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"choice_safe"},{"id":"college_013","title":"춘계리그 · 포지션 변경","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"mentor"},{"id":"college_014","title":"춘계리그 · 웨이트 강화","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"growth"},{"id":"college_015","title":"춘계리그 · 폼 수정","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"scout"},{"id":"college_016","title":"춘계리그 · 전술 이해","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"fame"},{"id":"college_017","title":"춘계리그 · 프로 준비","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"role"},{"id":"college_018","title":"춘계리그 · 멘탈 관리","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"media"},{"id":"college_019","title":"춘계리그 · 부상 예방","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"growth"},{"id":"college_020","title":"춘계리그 · 리더십","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"confidence"},{"id":"college_021","title":"전국대학야구 · 드래프트 평가","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"injury"},{"id":"college_022","title":"전국대학야구 · 주전 경쟁","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"competition"},{"id":"college_023","title":"전국대학야구 · 포지션 변경","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"growth"},{"id":"college_024","title":"전국대학야구 · 웨이트 강화","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"trust"},{"id":"college_025","title":"전국대학야구 · 폼 수정","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"choice_safe"},{"id":"college_026","title":"전국대학야구 · 전술 이해","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"mentor"},{"id":"college_027","title":"전국대학야구 · 프로 준비","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"growth"},{"id":"college_028","title":"전국대학야구 · 멘탈 관리","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"scout"},{"id":"college_029","title":"전국대학야구 · 부상 예방","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"fame"},{"id":"college_030","title":"전국대학야구 · 리더십","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"role"},{"id":"college_031","title":"프로 스카우트 데이 · 드래프트 평가","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"growth"},{"id":"college_032","title":"프로 스카우트 데이 · 주전 경쟁","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"confidence"},{"id":"college_033","title":"프로 스카우트 데이 · 포지션 변경","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"choice_risk"},{"id":"college_034","title":"프로 스카우트 데이 · 웨이트 강화","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"injury"},{"id":"college_035","title":"프로 스카우트 데이 · 폼 수정","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"competition"},{"id":"college_036","title":"프로 스카우트 데이 · 전술 이해","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"growth"},{"id":"college_037","title":"프로 스카우트 데이 · 프로 준비","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"trust"},{"id":"college_038","title":"프로 스카우트 데이 · 멘탈 관리","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"choice_safe"},{"id":"college_039","title":"프로 스카우트 데이 · 부상 예방","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"mentor"},{"id":"college_040","title":"프로 스카우트 데이 · 리더십","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"growth"},{"id":"college_041","title":"합숙 훈련 · 드래프트 평가","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"fame"},{"id":"college_042","title":"합숙 훈련 · 주전 경쟁","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"role"},{"id":"college_043","title":"합숙 훈련 · 포지션 변경","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"media"},{"id":"college_044","title":"합숙 훈련 · 웨이트 강화","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"growth"},{"id":"college_045","title":"합숙 훈련 · 폼 수정","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"confidence"},{"id":"college_046","title":"합숙 훈련 · 전술 이해","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"choice_risk"},{"id":"college_047","title":"합숙 훈련 · 프로 준비","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"injury"},{"id":"college_048","title":"합숙 훈련 · 멘탈 관리","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"competition"},{"id":"college_049","title":"합숙 훈련 · 부상 예방","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"growth"},{"id":"college_050","title":"합숙 훈련 · 리더십","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"trust"},{"id":"college_051","title":"라이벌 대학전 · 드래프트 평가","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"mentor"},{"id":"college_052","title":"라이벌 대학전 · 주전 경쟁","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"growth"},{"id":"college_053","title":"라이벌 대학전 · 포지션 변경","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"scout"},{"id":"college_054","title":"라이벌 대학전 · 웨이트 강화","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"fame"},{"id":"college_055","title":"라이벌 대학전 · 폼 수정","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"role"},{"id":"college_056","title":"라이벌 대학전 · 전술 이해","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"media"},{"id":"college_057","title":"라이벌 대학전 · 프로 준비","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"growth"},{"id":"college_058","title":"라이벌 대학전 · 멘탈 관리","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"confidence"},{"id":"college_059","title":"라이벌 대학전 · 부상 예방","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"choice_risk"},{"id":"college_060","title":"라이벌 대학전 · 리더십","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"injury"},{"id":"college_061","title":"대학 대표팀 · 드래프트 평가","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"growth"},{"id":"college_062","title":"대학 대표팀 · 주전 경쟁","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"trust"},{"id":"college_063","title":"대학 대표팀 · 포지션 변경","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"choice_safe"},{"id":"college_064","title":"대학 대표팀 · 웨이트 강화","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"mentor"},{"id":"college_065","title":"대학 대표팀 · 폼 수정","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"growth"},{"id":"college_066","title":"대학 대표팀 · 전술 이해","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"scout"},{"id":"college_067","title":"대학 대표팀 · 프로 준비","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"fame"},{"id":"college_068","title":"대학 대표팀 · 멘탈 관리","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"role"},{"id":"college_069","title":"대학 대표팀 · 부상 예방","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"media"},{"id":"college_070","title":"대학 대표팀 · 리더십","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"growth"},{"id":"college_071","title":"학업 일정 · 드래프트 평가","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"choice_risk"},{"id":"college_072","title":"학업 일정 · 주전 경쟁","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"injury"},{"id":"college_073","title":"학업 일정 · 포지션 변경","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"competition"},{"id":"college_074","title":"학업 일정 · 웨이트 강화","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"growth"},{"id":"college_075","title":"학업 일정 · 폼 수정","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"trust"},{"id":"college_076","title":"학업 일정 · 전술 이해","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"choice_safe"},{"id":"college_077","title":"학업 일정 · 프로 준비","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"mentor"},{"id":"college_078","title":"학업 일정 · 멘탈 관리","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"growth"},{"id":"college_079","title":"학업 일정 · 부상 예방","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"scout"},{"id":"college_080","title":"학업 일정 · 리더십","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"college_081","title":"캠퍼스 행사 · 드래프트 평가","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"media"},{"id":"college_082","title":"캠퍼스 행사 · 주전 경쟁","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"growth"},{"id":"college_083","title":"캠퍼스 행사 · 포지션 변경","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"confidence"},{"id":"college_084","title":"캠퍼스 행사 · 웨이트 강화","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"choice_risk"},{"id":"college_085","title":"캠퍼스 행사 · 폼 수정","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"injury"},{"id":"college_086","title":"캠퍼스 행사 · 전술 이해","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"competition"},{"id":"college_087","title":"캠퍼스 행사 · 프로 준비","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"growth"},{"id":"college_088","title":"캠퍼스 행사 · 멘탈 관리","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"trust"},{"id":"college_089","title":"캠퍼스 행사 · 부상 예방","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"choice_safe"},{"id":"college_090","title":"캠퍼스 행사 · 리더십","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"mentor"},{"id":"college_091","title":"전지훈련 · 드래프트 평가","desc":"대학 대표급 선수들과 경쟁하며 자신의 수준을 확인했습니다.","type":"scout"},{"id":"college_092","title":"전지훈련 · 주전 경쟁","desc":"팀 내 역할 변화가 프로 스카우트 평가에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"college_093","title":"전지훈련 · 포지션 변경","desc":"대학 코치진이 장기적인 성장 방향을 다시 제안했습니다.","type":"role"},{"id":"college_094","title":"전지훈련 · 웨이트 강화","desc":"프로 테스트를 앞두고 세부 기술을 다듬을 시간이 찾아왔습니다.","type":"media"},{"id":"college_095","title":"전지훈련 · 폼 수정","desc":"학업과 야구의 균형을 잡는 선택이 필요한 시점입니다.","type":"growth"},{"id":"college_096","title":"전지훈련 · 전술 이해","desc":"경기 경험이 쌓이며 플레이의 안정감이 달라지고 있습니다.","type":"confidence"},{"id":"college_097","title":"전지훈련 · 프로 준비","desc":"졸업이 가까워지면서 커리어 선택의 무게가 커지고 있습니다.","type":"choice_risk"},{"id":"college_098","title":"전지훈련 · 멘탈 관리","desc":"강도 높은 훈련이 성장의 기회이자 컨디션 부담으로 다가옵니다.","type":"injury"},{"id":"college_099","title":"전지훈련 · 부상 예방","desc":"전국 중계 경기에서 좋은 모습을 보여 관심이 커졌습니다.","type":"competition"},{"id":"college_100","title":"전지훈련 · 리더십","desc":"프로 진출을 앞두고 구단들의 평가가 조금씩 엇갈리고 있습니다.","type":"growth"}],"sangmu":[{"id":"sangmu_001","title":"상무 훈련소 · 체력 강화","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"growth"},{"id":"sangmu_002","title":"상무 훈련소 · 경기 감각","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"scout"},{"id":"sangmu_003","title":"상무 훈련소 · 복귀 준비","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"fame"},{"id":"sangmu_004","title":"상무 훈련소 · 투타 폼 점검","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"role"},{"id":"sangmu_005","title":"상무 훈련소 · 팀 리더십","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"media"},{"id":"sangmu_006","title":"상무 훈련소 · 부상 관리","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"growth"},{"id":"sangmu_007","title":"상무 훈련소 · 기술 재정비","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"confidence"},{"id":"sangmu_008","title":"상무 훈련소 · 원소속팀 연락","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"choice_risk"},{"id":"sangmu_009","title":"상무 훈련소 · 국가대표 경쟁","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"injury"},{"id":"sangmu_010","title":"상무 훈련소 · 멘탈 관리","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"competition"},{"id":"sangmu_011","title":"국군체육부대 · 체력 강화","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"trust"},{"id":"sangmu_012","title":"국군체육부대 · 경기 감각","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"choice_safe"},{"id":"sangmu_013","title":"국군체육부대 · 복귀 준비","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"mentor"},{"id":"sangmu_014","title":"국군체육부대 · 투타 폼 점검","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"growth"},{"id":"sangmu_015","title":"국군체육부대 · 팀 리더십","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"scout"},{"id":"sangmu_016","title":"국군체육부대 · 부상 관리","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"fame"},{"id":"sangmu_017","title":"국군체육부대 · 기술 재정비","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"role"},{"id":"sangmu_018","title":"국군체육부대 · 원소속팀 연락","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"media"},{"id":"sangmu_019","title":"국군체육부대 · 국가대표 경쟁","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"growth"},{"id":"sangmu_020","title":"국군체육부대 · 멘탈 관리","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"confidence"},{"id":"sangmu_021","title":"군 체육대회 · 체력 강화","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"injury"},{"id":"sangmu_022","title":"군 체육대회 · 경기 감각","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"competition"},{"id":"sangmu_023","title":"군 체육대회 · 복귀 준비","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"growth"},{"id":"sangmu_024","title":"군 체육대회 · 투타 폼 점검","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"trust"},{"id":"sangmu_025","title":"군 체육대회 · 팀 리더십","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"choice_safe"},{"id":"sangmu_026","title":"군 체육대회 · 부상 관리","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"mentor"},{"id":"sangmu_027","title":"군 체육대회 · 기술 재정비","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"growth"},{"id":"sangmu_028","title":"군 체육대회 · 원소속팀 연락","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"scout"},{"id":"sangmu_029","title":"군 체육대회 · 국가대표 경쟁","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"fame"},{"id":"sangmu_030","title":"군 체육대회 · 멘탈 관리","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"role"},{"id":"sangmu_031","title":"상무 리그전 · 체력 강화","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"growth"},{"id":"sangmu_032","title":"상무 리그전 · 경기 감각","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"confidence"},{"id":"sangmu_033","title":"상무 리그전 · 복귀 준비","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"choice_risk"},{"id":"sangmu_034","title":"상무 리그전 · 투타 폼 점검","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"injury"},{"id":"sangmu_035","title":"상무 리그전 · 팀 리더십","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"competition"},{"id":"sangmu_036","title":"상무 리그전 · 부상 관리","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"growth"},{"id":"sangmu_037","title":"상무 리그전 · 기술 재정비","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"trust"},{"id":"sangmu_038","title":"상무 리그전 · 원소속팀 연락","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"choice_safe"},{"id":"sangmu_039","title":"상무 리그전 · 국가대표 경쟁","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"mentor"},{"id":"sangmu_040","title":"상무 리그전 · 멘탈 관리","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"growth"},{"id":"sangmu_041","title":"체력 측정 · 체력 강화","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"fame"},{"id":"sangmu_042","title":"체력 측정 · 경기 감각","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"role"},{"id":"sangmu_043","title":"체력 측정 · 복귀 준비","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"media"},{"id":"sangmu_044","title":"체력 측정 · 투타 폼 점검","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"growth"},{"id":"sangmu_045","title":"체력 측정 · 팀 리더십","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"confidence"},{"id":"sangmu_046","title":"체력 측정 · 부상 관리","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"choice_risk"},{"id":"sangmu_047","title":"체력 측정 · 기술 재정비","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"injury"},{"id":"sangmu_048","title":"체력 측정 · 원소속팀 연락","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"competition"},{"id":"sangmu_049","title":"체력 측정 · 국가대표 경쟁","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"growth"},{"id":"sangmu_050","title":"체력 측정 · 멘탈 관리","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"trust"},{"id":"sangmu_051","title":"부대 행사 · 체력 강화","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"mentor"},{"id":"sangmu_052","title":"부대 행사 · 경기 감각","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"growth"},{"id":"sangmu_053","title":"부대 행사 · 복귀 준비","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"scout"},{"id":"sangmu_054","title":"부대 행사 · 투타 폼 점검","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"fame"},{"id":"sangmu_055","title":"부대 행사 · 팀 리더십","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"role"},{"id":"sangmu_056","title":"부대 행사 · 부상 관리","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"media"},{"id":"sangmu_057","title":"부대 행사 · 기술 재정비","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"growth"},{"id":"sangmu_058","title":"부대 행사 · 원소속팀 연락","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"confidence"},{"id":"sangmu_059","title":"부대 행사 · 국가대표 경쟁","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"choice_risk"},{"id":"sangmu_060","title":"부대 행사 · 멘탈 관리","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"injury"},{"id":"sangmu_061","title":"전역 준비 · 체력 강화","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"growth"},{"id":"sangmu_062","title":"전역 준비 · 경기 감각","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"trust"},{"id":"sangmu_063","title":"전역 준비 · 복귀 준비","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"choice_safe"},{"id":"sangmu_064","title":"전역 준비 · 투타 폼 점검","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"mentor"},{"id":"sangmu_065","title":"전역 준비 · 팀 리더십","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"growth"},{"id":"sangmu_066","title":"전역 준비 · 부상 관리","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"scout"},{"id":"sangmu_067","title":"전역 준비 · 기술 재정비","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"fame"},{"id":"sangmu_068","title":"전역 준비 · 원소속팀 연락","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"role"},{"id":"sangmu_069","title":"전역 준비 · 국가대표 경쟁","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"media"},{"id":"sangmu_070","title":"전역 준비 · 멘탈 관리","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"growth"},{"id":"sangmu_071","title":"복귀 프로그램 · 체력 강화","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"choice_risk"},{"id":"sangmu_072","title":"복귀 프로그램 · 경기 감각","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"injury"},{"id":"sangmu_073","title":"복귀 프로그램 · 복귀 준비","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"competition"},{"id":"sangmu_074","title":"복귀 프로그램 · 투타 폼 점검","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"growth"},{"id":"sangmu_075","title":"복귀 프로그램 · 팀 리더십","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"trust"},{"id":"sangmu_076","title":"복귀 프로그램 · 부상 관리","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"choice_safe"},{"id":"sangmu_077","title":"복귀 프로그램 · 기술 재정비","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"mentor"},{"id":"sangmu_078","title":"복귀 프로그램 · 원소속팀 연락","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"growth"},{"id":"sangmu_079","title":"복귀 프로그램 · 국가대표 경쟁","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"scout"},{"id":"sangmu_080","title":"복귀 프로그램 · 멘탈 관리","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"fame"},{"id":"sangmu_081","title":"상무 코치진 · 체력 강화","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"media"},{"id":"sangmu_082","title":"상무 코치진 · 경기 감각","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"growth"},{"id":"sangmu_083","title":"상무 코치진 · 복귀 준비","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"confidence"},{"id":"sangmu_084","title":"상무 코치진 · 투타 폼 점검","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"choice_risk"},{"id":"sangmu_085","title":"상무 코치진 · 팀 리더십","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"injury"},{"id":"sangmu_086","title":"상무 코치진 · 부상 관리","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"competition"},{"id":"sangmu_087","title":"상무 코치진 · 기술 재정비","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"growth"},{"id":"sangmu_088","title":"상무 코치진 · 원소속팀 연락","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"trust"},{"id":"sangmu_089","title":"상무 코치진 · 국가대표 경쟁","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"choice_safe"},{"id":"sangmu_090","title":"상무 코치진 · 멘탈 관리","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"mentor"},{"id":"sangmu_091","title":"군 대표팀 · 체력 강화","desc":"국가대표 후보군과 함께 훈련하며 새로운 자극을 받았습니다.","type":"scout"},{"id":"sangmu_092","title":"군 대표팀 · 경기 감각","desc":"체력 훈련이 강해지면서 피지컬이 한 단계 올라갈 기회가 생겼습니다.","type":"fame"},{"id":"sangmu_093","title":"군 대표팀 · 복귀 준비","desc":"원소속팀 코치진이 현재 성장 상태를 꾸준히 확인하고 있습니다.","type":"role"},{"id":"sangmu_094","title":"군 대표팀 · 투타 폼 점검","desc":"부상 없이 전역하는 것이 최우선 과제로 떠올랐습니다.","type":"media"},{"id":"sangmu_095","title":"군 대표팀 · 팀 리더십","desc":"상무 내 경쟁도 만만치 않아 주전 자리를 지키는 노력이 필요합니다.","type":"growth"},{"id":"sangmu_096","title":"군 대표팀 · 부상 관리","desc":"상무에서 꾸준한 출장 기회를 얻으며 경기 감각을 유지하고 있습니다.","type":"confidence"},{"id":"sangmu_097","title":"군 대표팀 · 기술 재정비","desc":"복귀 시즌을 대비해 기술적인 세부 조정이 시작됐습니다.","type":"choice_risk"},{"id":"sangmu_098","title":"군 대표팀 · 원소속팀 연락","desc":"군 생활의 규칙적인 루틴이 오히려 경기 준비에 도움이 되고 있습니다.","type":"injury"},{"id":"sangmu_099","title":"군 대표팀 · 국가대표 경쟁","desc":"전역 후 역할을 두고 원소속팀과 이야기가 오가기 시작했습니다.","type":"competition"},{"id":"sangmu_100","title":"군 대표팀 · 멘탈 관리","desc":"군 복무와 선수 생활을 병행하며 새로운 루틴에 적응하고 있습니다.","type":"growth"}],"minors":[{"id":"minors_001","title":"2군 원정 · 콜업 경쟁","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"growth"},{"id":"minors_002","title":"2군 원정 · 타격감 회복","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"scout"},{"id":"minors_003","title":"2군 원정 · 구속 회복","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"fame"},{"id":"minors_004","title":"2군 원정 · 수비 안정","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"role"},{"id":"minors_005","title":"2군 원정 · 체력 관리","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"media"},{"id":"minors_006","title":"2군 원정 · 멘탈 회복","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"growth"},{"id":"minors_007","title":"2군 원정 · 역할 변경","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"confidence"},{"id":"minors_008","title":"2군 원정 · 유망주 경쟁","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"choice_risk"},{"id":"minors_009","title":"2군 원정 · 베테랑 조언","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"injury"},{"id":"minors_010","title":"2군 원정 · 구단 평가","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"competition"},{"id":"minors_011","title":"퓨처스리그 · 콜업 경쟁","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"trust"},{"id":"minors_012","title":"퓨처스리그 · 타격감 회복","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"choice_safe"},{"id":"minors_013","title":"퓨처스리그 · 구속 회복","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"mentor"},{"id":"minors_014","title":"퓨처스리그 · 수비 안정","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"growth"},{"id":"minors_015","title":"퓨처스리그 · 체력 관리","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"scout"},{"id":"minors_016","title":"퓨처스리그 · 멘탈 회복","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"fame"},{"id":"minors_017","title":"퓨처스리그 · 역할 변경","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"role"},{"id":"minors_018","title":"퓨처스리그 · 유망주 경쟁","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"media"},{"id":"minors_019","title":"퓨처스리그 · 베테랑 조언","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"growth"},{"id":"minors_020","title":"퓨처스리그 · 구단 평가","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"confidence"},{"id":"minors_021","title":"잔류군 훈련 · 콜업 경쟁","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"injury"},{"id":"minors_022","title":"잔류군 훈련 · 타격감 회복","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"competition"},{"id":"minors_023","title":"잔류군 훈련 · 구속 회복","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"growth"},{"id":"minors_024","title":"잔류군 훈련 · 수비 안정","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"trust"},{"id":"minors_025","title":"잔류군 훈련 · 체력 관리","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"choice_safe"},{"id":"minors_026","title":"잔류군 훈련 · 멘탈 회복","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"mentor"},{"id":"minors_027","title":"잔류군 훈련 · 역할 변경","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"growth"},{"id":"minors_028","title":"잔류군 훈련 · 유망주 경쟁","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"scout"},{"id":"minors_029","title":"잔류군 훈련 · 베테랑 조언","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"fame"},{"id":"minors_030","title":"잔류군 훈련 · 구단 평가","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"role"},{"id":"minors_031","title":"1군 콜업 대기 · 콜업 경쟁","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"growth"},{"id":"minors_032","title":"1군 콜업 대기 · 타격감 회복","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"confidence"},{"id":"minors_033","title":"1군 콜업 대기 · 구속 회복","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"choice_risk"},{"id":"minors_034","title":"1군 콜업 대기 · 수비 안정","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"injury"},{"id":"minors_035","title":"1군 콜업 대기 · 체력 관리","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"competition"},{"id":"minors_036","title":"1군 콜업 대기 · 멘탈 회복","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"growth"},{"id":"minors_037","title":"1군 콜업 대기 · 역할 변경","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"trust"},{"id":"minors_038","title":"1군 콜업 대기 · 유망주 경쟁","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"choice_safe"},{"id":"minors_039","title":"1군 콜업 대기 · 베테랑 조언","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"mentor"},{"id":"minors_040","title":"1군 콜업 대기 · 구단 평가","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"growth"},{"id":"minors_041","title":"재활 경기 · 콜업 경쟁","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"fame"},{"id":"minors_042","title":"재활 경기 · 타격감 회복","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"role"},{"id":"minors_043","title":"재활 경기 · 구속 회복","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"media"},{"id":"minors_044","title":"재활 경기 · 수비 안정","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"growth"},{"id":"minors_045","title":"재활 경기 · 체력 관리","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"confidence"},{"id":"minors_046","title":"재활 경기 · 멘탈 회복","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"choice_risk"},{"id":"minors_047","title":"재활 경기 · 역할 변경","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"injury"},{"id":"minors_048","title":"재활 경기 · 유망주 경쟁","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"competition"},{"id":"minors_049","title":"재활 경기 · 베테랑 조언","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"growth"},{"id":"minors_050","title":"재활 경기 · 구단 평가","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"trust"},{"id":"minors_051","title":"야간 특훈 · 콜업 경쟁","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"mentor"},{"id":"minors_052","title":"야간 특훈 · 타격감 회복","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"growth"},{"id":"minors_053","title":"야간 특훈 · 구속 회복","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"scout"},{"id":"minors_054","title":"야간 특훈 · 수비 안정","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"fame"},{"id":"minors_055","title":"야간 특훈 · 체력 관리","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"role"},{"id":"minors_056","title":"야간 특훈 · 멘탈 회복","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"media"},{"id":"minors_057","title":"야간 특훈 · 역할 변경","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"growth"},{"id":"minors_058","title":"야간 특훈 · 유망주 경쟁","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"confidence"},{"id":"minors_059","title":"야간 특훈 · 베테랑 조언","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"choice_risk"},{"id":"minors_060","title":"야간 특훈 · 구단 평가","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"injury"},{"id":"minors_061","title":"코치 면담 · 콜업 경쟁","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"growth"},{"id":"minors_062","title":"코치 면담 · 타격감 회복","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"trust"},{"id":"minors_063","title":"코치 면담 · 구속 회복","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"choice_safe"},{"id":"minors_064","title":"코치 면담 · 수비 안정","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"mentor"},{"id":"minors_065","title":"코치 면담 · 체력 관리","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"growth"},{"id":"minors_066","title":"코치 면담 · 멘탈 회복","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"scout"},{"id":"minors_067","title":"코치 면담 · 역할 변경","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"fame"},{"id":"minors_068","title":"코치 면담 · 유망주 경쟁","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"role"},{"id":"minors_069","title":"코치 면담 · 베테랑 조언","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"media"},{"id":"minors_070","title":"코치 면담 · 구단 평가","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"growth"},{"id":"minors_071","title":"포지션 경쟁 · 콜업 경쟁","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"choice_risk"},{"id":"minors_072","title":"포지션 경쟁 · 타격감 회복","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"injury"},{"id":"minors_073","title":"포지션 경쟁 · 구속 회복","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"competition"},{"id":"minors_074","title":"포지션 경쟁 · 수비 안정","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"growth"},{"id":"minors_075","title":"포지션 경쟁 · 체력 관리","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"trust"},{"id":"minors_076","title":"포지션 경쟁 · 멘탈 회복","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"choice_safe"},{"id":"minors_077","title":"포지션 경쟁 · 역할 변경","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"mentor"},{"id":"minors_078","title":"포지션 경쟁 · 유망주 경쟁","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"growth"},{"id":"minors_079","title":"포지션 경쟁 · 베테랑 조언","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"scout"},{"id":"minors_080","title":"포지션 경쟁 · 구단 평가","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"fame"},{"id":"minors_081","title":"구단 평가전 · 콜업 경쟁","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"media"},{"id":"minors_082","title":"구단 평가전 · 타격감 회복","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"growth"},{"id":"minors_083","title":"구단 평가전 · 구속 회복","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"confidence"},{"id":"minors_084","title":"구단 평가전 · 수비 안정","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"choice_risk"},{"id":"minors_085","title":"구단 평가전 · 체력 관리","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"injury"},{"id":"minors_086","title":"구단 평가전 · 멘탈 회복","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"competition"},{"id":"minors_087","title":"구단 평가전 · 역할 변경","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"growth"},{"id":"minors_088","title":"구단 평가전 · 유망주 경쟁","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"trust"},{"id":"minors_089","title":"구단 평가전 · 베테랑 조언","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"choice_safe"},{"id":"minors_090","title":"구단 평가전 · 구단 평가","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"mentor"},{"id":"minors_091","title":"신인 캠프 · 콜업 경쟁","desc":"다른 포지션을 익히면 1군 진입 가능성이 높아질 수 있습니다.","type":"scout"},{"id":"minors_092","title":"신인 캠프 · 타격감 회복","desc":"성적보다도 준비 과정과 태도를 보는 시선이 많아지고 있습니다.","type":"fame"},{"id":"minors_093","title":"신인 캠프 · 구속 회복","desc":"퓨처스리그에서 꾸준한 출전이 성장의 발판이 되고 있습니다.","type":"role"},{"id":"minors_094","title":"신인 캠프 · 수비 안정","desc":"꾸준한 훈련이 능력치보다 먼저 코치의 신뢰를 바꾸고 있습니다.","type":"media"},{"id":"minors_095","title":"신인 캠프 · 체력 관리","desc":"1군 콜업 후보 명단에 이름이 올랐다는 이야기가 들려왔습니다.","type":"growth"},{"id":"minors_096","title":"신인 캠프 · 멘탈 회복","desc":"코치진이 1군에서 통할 수 있는 한 가지 무기를 더 요구했습니다.","type":"confidence"},{"id":"minors_097","title":"신인 캠프 · 역할 변경","desc":"방출 경쟁을 피하려면 이번 시즌 안에 확실한 변화가 필요합니다.","type":"choice_risk"},{"id":"minors_098","title":"신인 캠프 · 유망주 경쟁","desc":"재활 선수의 복귀로 출전 기회가 줄어들 가능성이 생겼습니다.","type":"injury"},{"id":"minors_099","title":"신인 캠프 · 베테랑 조언","desc":"비슷한 포지션의 유망주가 좋은 활약을 보여 경쟁이 치열해졌습니다.","type":"competition"},{"id":"minors_100","title":"신인 캠프 · 구단 평가","desc":"1군의 빈자리가 생길 수 있다는 소식에 경쟁이 달아오르고 있습니다.","type":"growth"}],"pro":[{"id":"pro_001","title":"홈 6연전 · 주전 경쟁","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"growth"},{"id":"pro_002","title":"홈 6연전 · 타순 조정","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"scout"},{"id":"pro_003","title":"홈 6연전 · 보직 변경","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"fame"},{"id":"pro_004","title":"홈 6연전 · FA 평가","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"role"},{"id":"pro_005","title":"홈 6연전 · 장기계약","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"media"},{"id":"pro_006","title":"홈 6연전 · 부상 관리","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"growth"},{"id":"pro_007","title":"홈 6연전 · 멘탈 관리","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"confidence"},{"id":"pro_008","title":"홈 6연전 · 대표팀 경쟁","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"choice_risk"},{"id":"pro_009","title":"홈 6연전 · 리더십","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"injury"},{"id":"pro_010","title":"홈 6연전 · 슬럼프 탈출","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"competition"},{"id":"pro_011","title":"원정 시리즈 · 주전 경쟁","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"trust"},{"id":"pro_012","title":"원정 시리즈 · 타순 조정","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"choice_safe"},{"id":"pro_013","title":"원정 시리즈 · 보직 변경","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"mentor"},{"id":"pro_014","title":"원정 시리즈 · FA 평가","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"growth"},{"id":"pro_015","title":"원정 시리즈 · 장기계약","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"scout"},{"id":"pro_016","title":"원정 시리즈 · 부상 관리","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"fame"},{"id":"pro_017","title":"원정 시리즈 · 멘탈 관리","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"role"},{"id":"pro_018","title":"원정 시리즈 · 대표팀 경쟁","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"media"},{"id":"pro_019","title":"원정 시리즈 · 리더십","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"growth"},{"id":"pro_020","title":"원정 시리즈 · 슬럼프 탈출","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"confidence"},{"id":"pro_021","title":"올스타 경쟁 · 주전 경쟁","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"injury"},{"id":"pro_022","title":"올스타 경쟁 · 타순 조정","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"competition"},{"id":"pro_023","title":"올스타 경쟁 · 보직 변경","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"growth"},{"id":"pro_024","title":"올스타 경쟁 · FA 평가","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"trust"},{"id":"pro_025","title":"올스타 경쟁 · 장기계약","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"choice_safe"},{"id":"pro_026","title":"올스타 경쟁 · 부상 관리","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"mentor"},{"id":"pro_027","title":"올스타 경쟁 · 멘탈 관리","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"growth"},{"id":"pro_028","title":"올스타 경쟁 · 대표팀 경쟁","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"scout"},{"id":"pro_029","title":"올스타 경쟁 · 리더십","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"fame"},{"id":"pro_030","title":"올스타 경쟁 · 슬럼프 탈출","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"role"},{"id":"pro_031","title":"구단 프런트 · 주전 경쟁","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"growth"},{"id":"pro_032","title":"구단 프런트 · 타순 조정","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"confidence"},{"id":"pro_033","title":"구단 프런트 · 보직 변경","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"choice_risk"},{"id":"pro_034","title":"구단 프런트 · FA 평가","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"injury"},{"id":"pro_035","title":"구단 프런트 · 장기계약","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"competition"},{"id":"pro_036","title":"구단 프런트 · 부상 관리","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"growth"},{"id":"pro_037","title":"구단 프런트 · 멘탈 관리","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"trust"},{"id":"pro_038","title":"구단 프런트 · 대표팀 경쟁","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"choice_safe"},{"id":"pro_039","title":"구단 프런트 · 리더십","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"mentor"},{"id":"pro_040","title":"구단 프런트 · 슬럼프 탈출","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"growth"},{"id":"pro_041","title":"라이벌전 · 주전 경쟁","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"fame"},{"id":"pro_042","title":"라이벌전 · 타순 조정","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"role"},{"id":"pro_043","title":"라이벌전 · 보직 변경","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"media"},{"id":"pro_044","title":"라이벌전 · FA 평가","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"growth"},{"id":"pro_045","title":"라이벌전 · 장기계약","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"confidence"},{"id":"pro_046","title":"라이벌전 · 부상 관리","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"choice_risk"},{"id":"pro_047","title":"라이벌전 · 멘탈 관리","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"injury"},{"id":"pro_048","title":"라이벌전 · 대표팀 경쟁","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"competition"},{"id":"pro_049","title":"라이벌전 · 리더십","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"growth"},{"id":"pro_050","title":"라이벌전 · 슬럼프 탈출","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"trust"},{"id":"pro_051","title":"미디어 데이 · 주전 경쟁","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"mentor"},{"id":"pro_052","title":"미디어 데이 · 타순 조정","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"growth"},{"id":"pro_053","title":"미디어 데이 · 보직 변경","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"scout"},{"id":"pro_054","title":"미디어 데이 · FA 평가","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"fame"},{"id":"pro_055","title":"미디어 데이 · 장기계약","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"role"},{"id":"pro_056","title":"미디어 데이 · 부상 관리","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"media"},{"id":"pro_057","title":"미디어 데이 · 멘탈 관리","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"growth"},{"id":"pro_058","title":"미디어 데이 · 대표팀 경쟁","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"confidence"},{"id":"pro_059","title":"미디어 데이 · 리더십","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"choice_risk"},{"id":"pro_060","title":"미디어 데이 · 슬럼프 탈출","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"injury"},{"id":"pro_061","title":"팬 사인회 · 주전 경쟁","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"growth"},{"id":"pro_062","title":"팬 사인회 · 타순 조정","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"trust"},{"id":"pro_063","title":"팬 사인회 · 보직 변경","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"choice_safe"},{"id":"pro_064","title":"팬 사인회 · FA 평가","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"mentor"},{"id":"pro_065","title":"팬 사인회 · 장기계약","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"growth"},{"id":"pro_066","title":"팬 사인회 · 부상 관리","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"scout"},{"id":"pro_067","title":"팬 사인회 · 멘탈 관리","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"fame"},{"id":"pro_068","title":"팬 사인회 · 대표팀 경쟁","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"role"},{"id":"pro_069","title":"팬 사인회 · 리더십","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"media"},{"id":"pro_070","title":"팬 사인회 · 슬럼프 탈출","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"growth"},{"id":"pro_071","title":"트레이드 마감일 · 주전 경쟁","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"choice_risk"},{"id":"pro_072","title":"트레이드 마감일 · 타순 조정","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"injury"},{"id":"pro_073","title":"트레이드 마감일 · 보직 변경","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"competition"},{"id":"pro_074","title":"트레이드 마감일 · FA 평가","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"growth"},{"id":"pro_075","title":"트레이드 마감일 · 장기계약","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"trust"},{"id":"pro_076","title":"트레이드 마감일 · 부상 관리","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"choice_safe"},{"id":"pro_077","title":"트레이드 마감일 · 멘탈 관리","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"mentor"},{"id":"pro_078","title":"트레이드 마감일 · 대표팀 경쟁","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"growth"},{"id":"pro_079","title":"트레이드 마감일 · 리더십","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"scout"},{"id":"pro_080","title":"트레이드 마감일 · 슬럼프 탈출","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"fame"},{"id":"pro_081","title":"포스트시즌 경쟁 · 주전 경쟁","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"media"},{"id":"pro_082","title":"포스트시즌 경쟁 · 타순 조정","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"growth"},{"id":"pro_083","title":"포스트시즌 경쟁 · 보직 변경","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"confidence"},{"id":"pro_084","title":"포스트시즌 경쟁 · FA 평가","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"choice_risk"},{"id":"pro_085","title":"포스트시즌 경쟁 · 장기계약","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"injury"},{"id":"pro_086","title":"포스트시즌 경쟁 · 부상 관리","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"competition"},{"id":"pro_087","title":"포스트시즌 경쟁 · 멘탈 관리","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"growth"},{"id":"pro_088","title":"포스트시즌 경쟁 · 대표팀 경쟁","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"trust"},{"id":"pro_089","title":"포스트시즌 경쟁 · 리더십","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"choice_safe"},{"id":"pro_090","title":"포스트시즌 경쟁 · 슬럼프 탈출","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"mentor"},{"id":"pro_091","title":"개인 훈련 · 주전 경쟁","desc":"부상 방지를 위해 출전 시간을 조절하자는 의견이 나왔습니다.","type":"scout"},{"id":"pro_092","title":"개인 훈련 · 타순 조정","desc":"포스트시즌 경쟁이 치열해지며 한 경기의 무게가 커지고 있습니다.","type":"fame"},{"id":"pro_093","title":"개인 훈련 · 보직 변경","desc":"팬과 언론의 기대가 커지면서 경기 외적인 부담도 생기고 있습니다.","type":"role"},{"id":"pro_094","title":"개인 훈련 · FA 평가","desc":"성적은 비슷하지만 세부 지표에서 다른 평가가 나오고 있습니다.","type":"media"},{"id":"pro_095","title":"개인 훈련 · 장기계약","desc":"대표팀 관계자가 경기장을 찾아 최근 경기력을 확인했습니다.","type":"growth"},{"id":"pro_096","title":"개인 훈련 · 부상 관리","desc":"구단이 장기적인 전력 구상 속에서 선수의 역할을 다시 검토했습니다.","type":"confidence"},{"id":"pro_097","title":"개인 훈련 · 멘탈 관리","desc":"FA와 연봉 협상을 앞두고 에이전트가 새로운 전략을 제안했습니다.","type":"choice_risk"},{"id":"pro_098","title":"개인 훈련 · 대표팀 경쟁","desc":"팀 내 베테랑과의 대화가 커리어 방향에 작은 변화를 만들 수 있습니다.","type":"injury"},{"id":"pro_099","title":"개인 훈련 · 리더십","desc":"중요한 시리즈를 앞두고 코치진이 특별 훈련을 제안했습니다.","type":"competition"},{"id":"pro_100","title":"개인 훈련 · 슬럼프 탈출","desc":"최근 성적에 따라 팀 내 역할이 미묘하게 달라지고 있습니다.","type":"growth"}],"international":[{"id":"international_001","title":"대표팀 소집 · 엔트리 경쟁","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"growth"},{"id":"international_002","title":"대표팀 소집 · 타선 역할","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"scout"},{"id":"international_003","title":"대표팀 소집 · 불펜 보직","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"international_004","title":"대표팀 소집 · 선발 경쟁","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"role"},{"id":"international_005","title":"대표팀 소집 · 컨디션 관리","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"media"},{"id":"international_006","title":"대표팀 소집 · 국제구 적응","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"growth"},{"id":"international_007","title":"대표팀 소집 · 낯선 투수 대응","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"confidence"},{"id":"international_008","title":"대표팀 소집 · 멘탈 관리","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"choice_risk"},{"id":"international_009","title":"대표팀 소집 · 병역 이슈","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"injury"},{"id":"international_010","title":"대표팀 소집 · 팀워크","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"competition"},{"id":"international_011","title":"아시안게임 · 엔트리 경쟁","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"trust"},{"id":"international_012","title":"아시안게임 · 타선 역할","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"choice_safe"},{"id":"international_013","title":"아시안게임 · 불펜 보직","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"mentor"},{"id":"international_014","title":"아시안게임 · 선발 경쟁","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"growth"},{"id":"international_015","title":"아시안게임 · 컨디션 관리","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"scout"},{"id":"international_016","title":"아시안게임 · 국제구 적응","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"fame"},{"id":"international_017","title":"아시안게임 · 낯선 투수 대응","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"role"},{"id":"international_018","title":"아시안게임 · 멘탈 관리","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"media"},{"id":"international_019","title":"아시안게임 · 병역 이슈","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"growth"},{"id":"international_020","title":"아시안게임 · 팀워크","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"confidence"},{"id":"international_021","title":"WBC 캠프 · 엔트리 경쟁","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"injury"},{"id":"international_022","title":"WBC 캠프 · 타선 역할","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"competition"},{"id":"international_023","title":"WBC 캠프 · 불펜 보직","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"growth"},{"id":"international_024","title":"WBC 캠프 · 선발 경쟁","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"trust"},{"id":"international_025","title":"WBC 캠프 · 컨디션 관리","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"choice_safe"},{"id":"international_026","title":"WBC 캠프 · 국제구 적응","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"mentor"},{"id":"international_027","title":"WBC 캠프 · 낯선 투수 대응","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"growth"},{"id":"international_028","title":"WBC 캠프 · 멘탈 관리","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"scout"},{"id":"international_029","title":"WBC 캠프 · 병역 이슈","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"fame"},{"id":"international_030","title":"WBC 캠프 · 팀워크","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"role"},{"id":"international_031","title":"올림픽 예선 · 엔트리 경쟁","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"growth"},{"id":"international_032","title":"올림픽 예선 · 타선 역할","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"confidence"},{"id":"international_033","title":"올림픽 예선 · 불펜 보직","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"choice_risk"},{"id":"international_034","title":"올림픽 예선 · 선발 경쟁","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"injury"},{"id":"international_035","title":"올림픽 예선 · 컨디션 관리","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"competition"},{"id":"international_036","title":"올림픽 예선 · 국제구 적응","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"growth"},{"id":"international_037","title":"올림픽 예선 · 낯선 투수 대응","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"trust"},{"id":"international_038","title":"올림픽 예선 · 멘탈 관리","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"choice_safe"},{"id":"international_039","title":"올림픽 예선 · 병역 이슈","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"mentor"},{"id":"international_040","title":"올림픽 예선 · 팀워크","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"growth"},{"id":"international_041","title":"프리미어12 · 엔트리 경쟁","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"fame"},{"id":"international_042","title":"프리미어12 · 타선 역할","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"role"},{"id":"international_043","title":"프리미어12 · 불펜 보직","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"media"},{"id":"international_044","title":"프리미어12 · 선발 경쟁","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"growth"},{"id":"international_045","title":"프리미어12 · 컨디션 관리","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"confidence"},{"id":"international_046","title":"프리미어12 · 국제구 적응","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"choice_risk"},{"id":"international_047","title":"프리미어12 · 낯선 투수 대응","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"injury"},{"id":"international_048","title":"프리미어12 · 멘탈 관리","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"competition"},{"id":"international_049","title":"프리미어12 · 병역 이슈","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"growth"},{"id":"international_050","title":"프리미어12 · 팀워크","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"trust"},{"id":"international_051","title":"국가대표 평가전 · 엔트리 경쟁","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"mentor"},{"id":"international_052","title":"국가대표 평가전 · 타선 역할","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"growth"},{"id":"international_053","title":"국가대표 평가전 · 불펜 보직","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"scout"},{"id":"international_054","title":"국가대표 평가전 · 선발 경쟁","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"fame"},{"id":"international_055","title":"국가대표 평가전 · 컨디션 관리","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"role"},{"id":"international_056","title":"국가대표 평가전 · 국제구 적응","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"media"},{"id":"international_057","title":"국가대표 평가전 · 낯선 투수 대응","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"growth"},{"id":"international_058","title":"국가대표 평가전 · 멘탈 관리","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"confidence"},{"id":"international_059","title":"국가대표 평가전 · 병역 이슈","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"choice_risk"},{"id":"international_060","title":"국가대표 평가전 · 팀워크","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"injury"},{"id":"international_061","title":"대표팀 합숙 · 엔트리 경쟁","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"growth"},{"id":"international_062","title":"대표팀 합숙 · 타선 역할","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"trust"},{"id":"international_063","title":"대표팀 합숙 · 불펜 보직","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"choice_safe"},{"id":"international_064","title":"대표팀 합숙 · 선발 경쟁","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"mentor"},{"id":"international_065","title":"대표팀 합숙 · 컨디션 관리","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"growth"},{"id":"international_066","title":"대표팀 합숙 · 국제구 적응","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"scout"},{"id":"international_067","title":"대표팀 합숙 · 낯선 투수 대응","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"fame"},{"id":"international_068","title":"대표팀 합숙 · 멘탈 관리","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"role"},{"id":"international_069","title":"대표팀 합숙 · 병역 이슈","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"media"},{"id":"international_070","title":"대표팀 합숙 · 팀워크","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"growth"},{"id":"international_071","title":"한일전 · 엔트리 경쟁","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"choice_risk"},{"id":"international_072","title":"한일전 · 타선 역할","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"injury"},{"id":"international_073","title":"한일전 · 불펜 보직","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"competition"},{"id":"international_074","title":"한일전 · 선발 경쟁","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"growth"},{"id":"international_075","title":"한일전 · 컨디션 관리","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"trust"},{"id":"international_076","title":"한일전 · 국제구 적응","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"choice_safe"},{"id":"international_077","title":"한일전 · 낯선 투수 대응","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"mentor"},{"id":"international_078","title":"한일전 · 멘탈 관리","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"growth"},{"id":"international_079","title":"한일전 · 병역 이슈","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"scout"},{"id":"international_080","title":"한일전 · 팀워크","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"international_081","title":"결승 토너먼트 · 엔트리 경쟁","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"media"},{"id":"international_082","title":"결승 토너먼트 · 타선 역할","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"growth"},{"id":"international_083","title":"결승 토너먼트 · 불펜 보직","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"confidence"},{"id":"international_084","title":"결승 토너먼트 · 선발 경쟁","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"choice_risk"},{"id":"international_085","title":"결승 토너먼트 · 컨디션 관리","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"injury"},{"id":"international_086","title":"결승 토너먼트 · 국제구 적응","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"competition"},{"id":"international_087","title":"결승 토너먼트 · 낯선 투수 대응","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"growth"},{"id":"international_088","title":"결승 토너먼트 · 멘탈 관리","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"trust"},{"id":"international_089","title":"결승 토너먼트 · 병역 이슈","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"choice_safe"},{"id":"international_090","title":"결승 토너먼트 · 팀워크","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"mentor"},{"id":"international_091","title":"대표팀 귀국 · 엔트리 경쟁","desc":"대표팀 코치진이 소속팀과 다른 훈련 방식을 제안했습니다.","type":"scout"},{"id":"international_092","title":"대표팀 귀국 · 타선 역할","desc":"국가대표 경험은 커리어 평판과 향후 계약에도 영향을 줄 수 있습니다.","type":"fame"},{"id":"international_093","title":"대표팀 귀국 · 불펜 보직","desc":"짧은 대회 특성상 한 경기의 활약이 평가를 크게 바꿀 수 있습니다.","type":"role"},{"id":"international_094","title":"대표팀 귀국 · 선발 경쟁","desc":"강한 상대와의 경기에서 자신의 현재 수준을 확인할 기회가 왔습니다.","type":"media"},{"id":"international_095","title":"대표팀 귀국 · 컨디션 관리","desc":"중요한 경기에서의 선택이 대표팀 내 입지를 크게 바꿀 수 있습니다.","type":"growth"},{"id":"international_096","title":"대표팀 귀국 · 국제구 적응","desc":"대표팀 내 경쟁이 치열해 최종 엔트리까지 긴장을 놓기 어렵습니다.","type":"confidence"},{"id":"international_097","title":"대표팀 귀국 · 낯선 투수 대응","desc":"대회가 끝난 뒤 소속팀 복귀 일정까지 함께 관리해야 합니다.","type":"choice_risk"},{"id":"international_098","title":"대표팀 귀국 · 멘탈 관리","desc":"국제대회 성적이 병역과 커리어 계획에 직접 연결될 수 있습니다.","type":"injury"},{"id":"international_099","title":"대표팀 귀국 · 병역 이슈","desc":"낯선 환경과 공인구에 얼마나 빨리 적응하느냐가 중요해졌습니다.","type":"competition"},{"id":"international_100","title":"대표팀 귀국 · 팀워크","desc":"국제무대에서는 소속팀과 전혀 다른 역할을 맡을 가능성이 있습니다.","type":"growth"}]};
+const AM_EVENTS=[
+ {id:"showcase",min:16,max:22,w:10},
+ {id:"slump",min:16,max:22,w:8},
+ {id:"mechanics",min:16,max:22,w:9},
+ {id:"national",min:17,max:22,w:8},
+ {id:"rival",min:16,max:22,w:8},
+ {id:"captain",min:17,max:22,w:5},
+ {id:"scout_visit",min:17,max:22,w:9},
+ {id:"injury_scare",min:16,max:22,w:5},
+ {id:"late_growth",min:18,max:22,w:5},
+ {id:"coach_conflict",min:17,max:22,w:5},
+ {id:"position_test",min:17,max:22,w:4},
+ {id:"media",min:17,max:22,w:5},
+ {id:"special_training",min:16,max:22,w:9},
+ {id:"tournament",min:16,max:22,w:10}
+];
+function eventCooldown(id){return (G.eventMem?.[id]??-99)}
+function rememberAm(id){G.eventMem??={};G.eventMem[id]=G.age*10+G.year}
+function chooseAmEvent(){
+ let key=G.age*10+G.year;
+ let pool=AM_EVENTS.filter(e=>G.age>=e.min&&G.age<=e.max&&(key-eventCooldown(e.id))>=2);
+ if(!pool.length)pool=AM_EVENTS.filter(e=>G.age>=e.min&&G.age<=e.max);
+ let total=pool.reduce((s,e)=>s+e.w,0),r=Math.random()*total;
+ for(let e of pool){r-=e.w;if(r<=0)return e}return pool[0]
+}
 function runAmateurEvent(done){
   let college=G.stage==="college";
   let keys=G.type==="hitter"?H:P;
-  let r=Math.random();
 
-  // Guaranteed meaningful choice roughly once per season.
-  let choiceBlock=(G.block===1 && Math.random()<.72);
-
-  if(choiceBlock){
+  // One major player-choice development event each season.
+  if(G.block===1){
     if(G.type==="hitter"){
-      amateurChoice(
-        college?"대학 코치의 훈련 제안":"감독의 집중 훈련 제안",
-        "이번 기간 어떤 부분을 가장 집중해서 다듬을지 정합니다.",
-        [
-          ["컨택과 선구안",()=>{let a=addAttr("contact",.7),b=addAttr("discipline",.45);G.scout+=1.5;G.logs.push(`${G.age}세 · 타격 정확도 훈련에 집중했습니다.`);return [["컨택",a],["선구안",b],["스카우트",1.5]]}],
-          ["장타와 피지컬",()=>{let a=addAttr("power",.75),b=addAttr("speed",.25);G.scout+=1;G.logs.push(`${G.age}세 · 장타 훈련에 집중했습니다.`);return [["파워",a],["주력",b],["스카우트",1]]}],
-          ["수비 기본기",()=>{let a=addAttr("fielding",.7),b=addAttr("arm",.45);G.logs.push(`${G.age}세 · 수비 훈련에 집중했습니다.`);return [["수비",a],["송구",b]]}]
-        ],done
-      );
+      amateurChoice("이번 기간의 훈련 방향","성장 폭은 현재 재능, 프로 의식, 선택한 훈련이 함께 결정합니다.",[
+        ["정교한 타격",()=>{let a=addAttr("contact",1.45),b=addAttr("discipline",1.05);G.scout+=2;G.momentum=.8;return [["컨택",a],["선구안",b],["스카우트",2]]}],
+        ["장타 생산",()=>{let a=addAttr("power",1.65),b=addAttr("speed",.55);G.scout+=1.5;G.momentum=.6;return [["파워",a],["주력",b],["스카우트",1.5]]}],
+        ["수비 완성도",()=>{let a=addAttr("fielding",1.4),b=addAttr("arm",.9);G.momentum=.5;return [["수비",a],["송구",b]]}]
+      ],done);
     }else{
-      amateurChoice(
-        college?"투수코치의 집중 프로그램":"투수코치의 집중 프로그램",
-        "이번 기간 투구의 어떤 부분을 가장 많이 다듬을지 선택합니다.",
-        [
-          ["구속과 구위",()=>{let a=addAttr("velocity",.7),b=addAttr("stuff",.55);G.scout+=1.5;G.logs.push(`${G.age}세 · 빠른 공 훈련에 집중했습니다.`);return [["구속",a],["구위",b],["스카우트",1.5]]}],
-          ["제구와 커맨드",()=>{let a=addAttr("control",.7),b=addAttr("command",.55);G.scout+=1;G.logs.push(`${G.age}세 · 제구 훈련에 집중했습니다.`);return [["제구",a],["커맨드",b],["스카우트",1]]}],
-          ["변화구와 체력",()=>{let a=addAttr("breaking",.7),b=addAttr("stamina",.45);G.logs.push(`${G.age}세 · 변화구와 체력 훈련을 병행했습니다.`);return [["변화구",a],["체력",b]]}]
-        ],done
-      );
+      amateurChoice("이번 기간의 투구 개발","어떤 부분을 선택하느냐에 따라 스카우트가 보는 선수 유형도 달라집니다.",[
+        ["구속과 구위",()=>{let a=addAttr("velocity",1.45),b=addAttr("stuff",1.15);G.scout+=2;G.momentum=.8;return [["구속",a],["구위",b],["스카우트",2]]}],
+        ["제구와 커맨드",()=>{let a=addAttr("control",1.45),b=addAttr("command",1.1);G.scout+=1.5;G.momentum=.6;return [["제구",a],["커맨드",b],["스카우트",1.5]]}],
+        ["변화구와 체력",()=>{let a=addAttr("breaking",1.45),b=addAttr("stamina",.9);G.momentum=.5;return [["변화구",a],["체력",b]]}]
+      ],done);
     }
     return;
   }
 
-  let effects=[],msg="";
-  if(r<.20){
-    let k=pick(keys),g=addAttr(k,rand(.35,.65));G.scout=clamp(G.scout+rand(1,2.5),0,100);
-    msg=`${LAB[k]} 훈련에서 눈에 띄는 성과가 있었습니다.`;
-    effects=[[LAB[k],g],["스카우트",1.5]];
-  }else if(r<.40){
-    let s=rand(2,5);G.scout=clamp(G.scout+s,0,100);G.fame=clamp(G.fame+rand(1,3),0,100);
-    msg=college?"전국 대학리그 경기에서 프로 스카우트의 주목을 받았습니다.":"전국대회에서 좋은 활약으로 스카우트 평가가 올랐습니다.";
-    effects=[["스카우트",s],["인지도",2]];
-  }else if(r<.56){
-    let k=pick(keys),g=addAttr(k,.3);
-    msg="주전 경쟁이 치열해졌지만 훈련에서 좋은 평가를 받았습니다.";
-    effects=[[LAB[k],g],["감독평가",1]];
-  }else if(r<.72){
-    let k=pick(keys),g=addAttr(k,rand(.25,.45));
-    msg="코치의 개인 지도를 통해 기본기가 조금 더 단단해졌습니다.";
-    effects=[[LAB[k],g]];
-  }else if(r<.87){
-    let f=rand(2,5);G.fame=clamp(G.fame+f,0,100);G.scout=clamp(G.scout+1,0,100);
-    msg="라이벌전에서 결정적인 장면을 만들며 이름을 알렸습니다.";
-    effects=[["인지도",f],["스카우트",1]];
-  }else{
-    msg="몸 상태가 좋지 않아 훈련 강도를 조절했습니다. 큰 부상 없이 회복했습니다.";
-    effects=[["컨디션",0]];
+  if(Math.random()<.68){
+    runContextualEvent(G.stage==="college"?"college":"high",done);
+    return;
   }
 
+  let e=chooseAmEvent();rememberAm(e.id);
+  let effects=[],msg="",choice=null;
+
+  if(e.id==="showcase"){
+    let s=rand(3,7);G.scout+=s;G.fame+=rand(2,5);msg="전국 쇼케이스에서 여러 구단 스카우트 앞에 섰습니다.";effects=[["스카우트",s],["인지도",3]];
+  }else if(e.id==="slump"){
+    G.confidence-=5;G.momentum=-.4;msg="최근 타격·투구 밸런스가 무너지며 짧은 슬럼프에 빠졌습니다.";effects=[["자신감",-5]];
+  }else if(e.id==="mechanics"){
+    choice=["폼 수정 제안","코치가 동작을 크게 바꿔보자고 제안했습니다.",[
+      ["과감히 바꾼다",()=>{let k=pick(keys),g=addAttr(k,Math.random()<.65?2.1:.45);G.adaptability+=1;return [[LAB[k],g],["적응력",1]]}],
+      ["조금만 수정한다",()=>{let k=pick(keys),g=addAttr(k,1.0);return [[LAB[k],g]]}],
+      ["현재 폼 유지",()=>{G.confidence+=2;return [["자신감",2]]}]
+    ]];
+  }else if(e.id==="national"){
+    let s=rand(2,5);G.scout+=s;msg="청소년 대표 후보 캠프에 초청됐습니다.";effects=[["스카우트",s]];
+  }else if(e.id==="rival"){
+    let f=rand(2,5);G.fame+=f;G.confidence+=2;msg="라이벌 학교와의 경기에서 결정적인 활약을 펼쳤습니다.";effects=[["인지도",f],["자신감",2]];
+  }else if(e.id==="captain"){
+    G.workEthic=clamp(G.workEthic+2,0,100);msg="주장단에 합류하며 훈련 태도와 책임감이 좋아졌습니다.";effects=[["프로의식",2]];
+  }else if(e.id==="scout_visit"){
+    let s=rand(1,5)+(ovr()-55)*.08;G.scout+=s;msg="프로 스카우트가 학교를 직접 방문해 훈련을 지켜봤습니다.";effects=[["스카우트",s]];
+  }else if(e.id==="injury_scare"){
+    choice=["통증이 느껴졌습니다","큰 부상은 아니지만 무리하면 위험할 수 있습니다.",[
+      ["확실히 쉰다",()=>{G.durability+=1;G.momentum=-.2;return [["내구성",1]]}],
+      ["테이핑 후 계속 뛴다",()=>{if(Math.random()<.35){G.momentum=-1;G.confidence-=4;return [["자신감",-4]]}let s=2;G.scout+=s;return [["스카우트",2]]}]
+    ]];
+  }else if(e.id==="late_growth"){
+    let k=pick(keys),g=addAttr(k,2.2);G.potential=clamp(G.potential+1.5,55,99);msg="신체 성장과 함께 예상보다 큰 성장 폭이 나타났습니다.";effects=[[LAB[k],g],["잠재력",1.5]];
+  }else if(e.id==="coach_conflict"){
+    choice=["코치와 의견 충돌","훈련 방식에 대한 생각이 다릅니다.",[
+      ["코치 의견을 따른다",()=>{G.workEthic+=1;let k=pick(keys),g=addAttr(k,.8);return [["프로의식",1],[LAB[k],g]]}],
+      ["내 방식을 고수한다",()=>{G.confidence+=3;G.workEthic-=1;return [["자신감",3],["프로의식",-1]]}]
+    ]];
+  }else if(e.id==="position_test"){
+    let k=G.type==="hitter"?"fielding":"command",g=addAttr(k,1.0);msg="다른 역할을 시험하며 경기 이해도가 높아졌습니다.";effects=[[LAB[k],g]];
+  }else if(e.id==="media"){
+    G.fame+=4;G.confidence+=Math.random()<.6?2:-2;msg="지역 언론이 유망주로 집중 조명했습니다.";effects=[["인지도",4],["자신감",G.confidence>=55?2:-2]];
+  }else if(e.id==="special_training"){
+    let k=pick(keys),g=addAttr(k,1.35);msg="전문 코치의 단기 지도를 받았습니다.";effects=[[LAB[k],g]];
+  }else{
+    let s=rand(2,6);G.scout+=s;G.fame+=rand(1,4);msg=college?"대학 전국대회에서 큰 경기를 치렀습니다.":"전국대회에서 강팀을 상대로 좋은 모습을 보였습니다.";effects=[["스카우트",s],["인지도",2]];
+  }
+
+  if(choice){
+    amateurChoice(choice[0],choice[1],choice[2],done);return;
+  }
+  G.scout=clamp(G.scout,0,100);G.fame=clamp(G.fame,0,100);
   G.logs.push(`${G.age}세 · ${msg}`);
-  $("amEvent").innerHTML=`<div class="event-card"><b>${msg}</b><div class="effects">${effects.map(e=>effectChip(e[0],typeof e[1]==="number"?e[1]:0)).join("")}</div></div>`;
+  $("amEvent").innerHTML=`<div class="event-card growth-flash"><div class="event-title">${msg}</div><div class="effects">${effects.map(e=>effectChip(e[0],typeof e[1]==="number"?e[1]:0)).join("")}</div></div>`;
   showGrowth(effects.filter(e=>typeof e[1]==="number"));
-  renderAm();
-  setTimeout(done,900);
+  renderAm();setTimeout(done,950);
 }
 
 function amStep(){
@@ -413,7 +679,14 @@ function college(){
   show("amateur");renderAm();
   setTimeout(startAm,700);
 }
-function draftChance(origin){return clamp(.18+(ovr()-56)*.055+G.scout*.006+G.fame*.002+(origin==="college"?.09:0),.12,.97)}
+function draftChance(origin){
+  let talent=(ovr()-50)*.045;
+  let scout=(G.scout||20)*.008;
+  let fame=(G.fame||8)*.0025;
+  let pot=((G.potential||75)-70)*.006;
+  let college=origin==="college"?.12:0;
+  return clamp(.38+talent+scout+fame+pot+college,.28,.985)
+}
 function draftStart(origin){
  pauseAm();G.origin=origin;show("draft");$("draftResult").innerHTML="";$("roll").innerHTML=TEAMS.map(t=>`<div class="roll-card" id="d${t.id}"><div class="mini" style="margin:auto;background:${t.c1}">${t.abbr}</div></div>`).join("");
  let order=[...TEAMS].sort(()=>Math.random()-.5),success=Math.random()<draftChance(origin),idx=0,count=10;
@@ -428,10 +701,10 @@ function testAgain(){closeM();G.scout+=5;draftStart("college")}
 function enterPro(){show("pro");newStandings();renderPro();setTimeout(startPro,700)}
 function newStandings(){G.standings=TEAMS.map(t=>({id:t.id,s:t.power+rand(-10,10)})).sort((a,b)=>b.s-a.s)}
 function renderPro(){
- $("pname").textContent=G.name;$("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]}`;$("age").textContent=G.age;$("ovr").textContent=ovr().toFixed(1);$("club").textContent=G.stage==="sangmu"?"상무 야구단":team(G.club).name;$("salary").textContent=G.salary.toLocaleString()+"만";
- let rank=G.stage==="sangmu"?"-":G.standings.findIndex(x=>x.id===G.club)+1;$("pBoard").textContent=["SPRING CAMP","OPENING","FIRST HALF","ALL STAR","SECOND HALF","FINAL"][G.block]||"SEASON";$("pBoard2").textContent=G.stage==="sangmu"?`상무 · 군 복무 시즌`:`${team(G.club).abbr} · ${rank}위`;$("pBoard3").textContent=`신뢰 ${Math.round(G.trust)} · OVR ${ovr().toFixed(1)}`;$("pBanner").textContent=["CAMP","OPEN","JUNE","BREAK","AUG","FINAL"][G.block]||"SEASON";
+ $("pname").textContent=G.name;$("meta").textContent=`${G.throws==="R"?"우투":"좌투"}${{R:"우타",L:"좌타",S:"스위치"}[G.bats]} · ${G.type==="hitter"?POS[G.position]:ROLES[G.role]} · ${G.proLevel||"2군"}`;$("age").textContent=G.age;$("ovr").textContent=ovr().toFixed(1);$("club").textContent=G.stage==="sangmu"?"상무 야구단":team(G.club).name;$("salary").textContent=G.salary.toLocaleString()+"만";
+ let rank=G.stage==="sangmu"?"-":G.standings.findIndex(x=>x.id===G.club)+1;$("pTimeLabel").textContent=`${G.age}세 시즌 · ${["캠프","개막","전반기","올스타","후반기","막판"][G.block]||"종료"}`;$("pTimePct").textContent=`${Math.round((G.block/5)*100)}%`;$("pTimeFill").style.width=`${Math.min(100,(G.block/5)*100)}%`;$("pBoard").textContent=["SPRING CAMP","OPENING","FIRST HALF","ALL STAR","SECOND HALF","FINAL"][G.block]||"SEASON";$("pBoard2").textContent=G.stage==="sangmu"?`상무 · 군 복무 시즌`:`${team(G.club).abbr} · ${rank}위`;$("pBoard3").textContent=`신뢰 ${Math.round(G.trust)} · OVR ${ovr().toFixed(1)}`;$("pBanner").textContent=["CAMP","OPEN","JUNE","BREAK","AUG","FINAL"][G.block]||"SEASON";
  renderAttrs("pAttrs");$("history").innerHTML=G.history.slice(-8).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 프로 시즌입니다.</div>';
- $("standings").innerHTML=G.standings.map((x,i)=>`<tr><td>${i+1}</td><td>${team(x.id).name}</td><td>${Math.round(x.s)}</td></tr>`).join("");$("nat").innerHTML=`<div class="review-row"><span>병역</span><b>${G.military}</b></div><div class="review-row"><span>대표팀</span><b>${G.caps}회</b></div>`;
+ $("standings").innerHTML=G.standings.map((x,i)=>`<tr><td>${i+1}</td><td>${team(x.id).name}<div class="tiny">${team(x.id).style}</div></td><td>${Math.round(x.s)}</td></tr>`).join("");$("nat").innerHTML=`<div class="review-row"><span>병역</span><b>${G.military}</b></div><div class="review-row"><span>대표팀</span><b>${G.caps}회</b></div>`;
  $("pDot").classList.toggle("on",proRun);$("pStatus").textContent=proRun?"시즌이 자동으로 흐르고 있습니다":"시즌이 멈춰 있습니다";animateField("p")
 }
 function startPro(){if(proRun||G.retired)return;proRun=true;renderPro();proTimer=setTimeout(proStep,1000)}function pausePro(){proRun=false;clearTimeout(proTimer);renderPro()}function togglePro(){proRun?pausePro():startPro()}
@@ -473,108 +746,247 @@ function finishSangmuIfNeeded(){
 }
 function playInternational(ev){
   closeM();
+  let e=uniqueContextEvent("international");
+  let preEffects=stageEventEffect(e,"international");
   G.caps++;
-  let strength=ovr()+rand(-8,10)+G.trust*.08;
-  let result=strength>78?"우승":strength>72?"준우승":strength>66?"4강":"예선 탈락";
+
+  let strength=ovr()+rand(-8,10)+G.trust*.08+(G.confidence||55)*.04;
+  let result=strength>80?"우승":strength>74?"준우승":strength>68?"4강":"예선 탈락";
   let militarySolved=false;
   if(!G.resolved){
     if(ev==="아시안게임" && result==="우승"){G.resolved=true;G.military="병역 해결";militarySolved=true}
-    if(ev==="올림픽" && ["우승","준우승","4강"].includes(result) && strength>74){G.resolved=true;G.military="병역 해결";militarySolved=true}
+    if(ev==="올림픽" && ["우승","준우승"].includes(result)){G.resolved=true;G.military="병역 해결";militarySolved=true}
   }
-  modal(`<h2>${ev} ${result}</h2><div class="sub">대표팀 경력이 추가됐습니다.${militarySolved?" 병역 문제도 해결됐습니다.":""}</div><button class="btn green" onclick="closeM();renderPro();setTimeout(startPro,550)">소속팀 복귀</button>`);
+  modal(`<h2>${ev} · ${e.title}</h2><div class="sub">${e.desc}</div>
+    <div class="event-card"><div class="effects">${preEffects.map(x=>effectChip(x[0],x[1])).join("")}</div></div>
+    <h3 style="margin-top:12px">${result}</h3><div class="sub">대표팀 경력이 추가됐습니다.${militarySolved?" 병역 문제도 해결됐습니다.":""}</div>
+    <button class="btn green" onclick="closeM();renderPro();setTimeout(startPro,550)">소속팀 복귀</button>`);
 }
 
+const PRO_EVENTS=["training","competition","manager","trade_rumor","mentor","media","slump","hot","position","contract","fan","injury","national","military","team_rebuild","captain","mechanics"];
+function pickProEvent(){
+  G.eventMem??={};let pool=PRO_EVENTS.filter(id=>(G.service-(G.eventMem[id]??-99))>=2);
+  if(!pool.length)pool=PRO_EVENTS;
+  let id=pick(pool);G.eventMem[id]=G.service;return id;
+}
 function proEvent(){
-  let r=Math.random();
+  let id=pickProEvent();
 
-  // Player-development choice event
-  if(r<.22){
+  if(id==="training"){
     pausePro();
     let choices=G.type==="hitter"?[
-      ["타격 훈련",()=>{let a=addAttr("contact",.45),b=addAttr("discipline",.25);return [["컨택",a],["선구안",b]]}],
-      ["장타 훈련",()=>{let a=addAttr("power",.5);return [["파워",a]]}],
-      ["수비 훈련",()=>{let a=addAttr("fielding",.45),b=addAttr("arm",.25);return [["수비",a],["송구",b]]}]
+      ["컨택 훈련",()=>[["컨택",addAttr("contact",1.0)],["선구안",addAttr("discipline",.55)]]],
+      ["장타 훈련",()=>[["파워",addAttr("power",1.15)]]],
+      ["수비 훈련",()=>[["수비",addAttr("fielding",.95)],["송구",addAttr("arm",.45)]]]
     ]:[
-      ["빠른 공",()=>{let a=addAttr("velocity",.4),b=addAttr("stuff",.35);return [["구속",a],["구위",b]]}],
-      ["제구",()=>{let a=addAttr("control",.45),b=addAttr("command",.35);return [["제구",a],["커맨드",b]]}],
-      ["변화구",()=>{let a=addAttr("breaking",.5);return [["변화구",a]]}]
+      ["구속·구위",()=>[["구속",addAttr("velocity",.95)],["구위",addAttr("stuff",.7)]]],
+      ["제구",()=>[["제구",addAttr("control",1.0)],["커맨드",addAttr("command",.7)]]],
+      ["변화구",()=>[["변화구",addAttr("breaking",1.1)]]]
     ];
     window._proChoices=choices;
-    modal(`<h2>이번 달 개인 훈련</h2><div class="sub">현재 역할과 시즌 상황을 고려해 집중 훈련을 선택합니다.</div>${choices.map((c,i)=>`<button class="btn ${i===0?"green":"blue"}" onclick="proChoicePick(${i})">${c[0]}</button>`).join("")}`);
-    return;
+    modal(`<h2>개인 훈련</h2><div class="sub">이번 달 가장 많은 시간을 투자할 부분을 고릅니다.</div>${choices.map((c,i)=>`<button class="btn ${i===0?"green":"blue"}" onclick="proChoicePick(${i})">${c[0]}</button>`).join("")}`);return;
+  }
+  if(id==="mechanics"){
+    pausePro();window._proChoices=[
+      ["폼을 크게 바꾼다",()=>{let k=pick(G.type==="hitter"?H:P);return [[LAB[k],addAttr(k,Math.random()<.62?1.8:.25)]]}],
+      ["미세 조정만 한다",()=>{let k=pick(G.type==="hitter"?H:P);return [[LAB[k],addAttr(k,.8)]]}]
+    ];
+    modal(`<h2>폼 수정 제안</h2><div class="sub">코치가 새로운 동작을 제안했습니다. 성공하면 큰 성장도 가능하지만 적응 실패 가능성도 있습니다.</div>${window._proChoices.map((c,i)=>`<button class="btn ${i?"blue":"green"}" onclick="proChoicePick(${i})">${c[0]}</button>`).join("")}`);return;
+  }
+  if(id==="military"&&G.age>=22&&G.age<=28&&!G.resolved&&G.military==="미필"){
+    pausePro();modal(`<h2>병역 계획</h2><div class="sub">커리어의 중요한 갈림길입니다.</div><button class="btn green" onclick="applySangmu()">상무 지원</button><button class="btn blue" onclick="closeM();setTimeout(startPro,500)">국제대회를 노린다</button>`);return;
+  }
+  if(id==="national"&&G.age>=20&&G.age<=35){
+    pausePro();let ev=pick(["아시안게임","WBC","프리미어12","올림픽"]);modal(`<h2>대한민국 대표팀</h2><div class="sub">${ev} 후보 명단에 포함됐습니다.</div><button class="btn green" onclick="playInternational('${ev}')">대표팀 합류</button><button class="btn dark" onclick="closeM();setTimeout(startPro,500)">고사</button>`);return;
   }
 
-  // Military / Sangmu
-  if(r<.36 && G.age>=22 && G.age<=28 && !G.resolved && G.military==="미필"){
-    pausePro();
-    modal(`<h2>병역 계획</h2><div class="sub">선수 생활을 이어가면서 병역 문제를 해결할 시점이 다가왔습니다.</div>
-      <button class="btn green" onclick="applySangmu()">상무 지원</button>
-      <button class="btn blue" onclick="closeM();setTimeout(startPro,500)">대표팀 기회를 기다린다</button>`);
-    return;
-  }
-
-  // International tournament
-  if(r<.52 && G.age>=20 && G.age<=34 && Math.random()<.48){
-    pausePro();
-    let events=["아시안게임","WBC","프리미어12","올림픽"];
-    let ev=pick(events);
-    modal(`<h2>대한민국 대표팀</h2><div class="sub">${ev} 대표팀 후보 명단에 포함됐습니다.</div>
-      <button class="btn green" onclick="playInternational('${ev}')">대표팀 합류</button>
-      <button class="btn dark" onclick="closeM();setTimeout(startPro,500)">이번에는 고사</button>`);
-    return;
-  }
-
-  let msg="";
-  if(r<.66){G.trust=clamp(G.trust+2,0,100);msg="감독이 최근 경기 태도와 준비 과정을 긍정적으로 평가했습니다."}
-  else if(r<.79){msg="팀 내 주전 경쟁이 다시 치열해졌습니다. 다음 몇 주의 활약이 중요합니다."}
-  else if(r<.9){G.pref[G.club]=clamp((G.pref[G.club]||50)+3,0,100);msg="지역 팬 행사에 참가하며 소속팀과의 유대가 깊어졌습니다."}
-  else{msg="언론이 최근 활약을 집중 조명하면서 리그 내 인지도가 높아졌습니다."}
-  $("proEvent").innerHTML=`<div class="event-card"><b>${msg}</b></div>`;
+  let msg="",effects=[];
+  if(id==="competition"){G.trust-=1;msg="팀 내 경쟁자의 페이스가 올라오며 출전 경쟁이 치열해졌습니다.";effects=[["감독 신뢰",-1]]}
+  else if(id==="manager"){G.trust+=3;msg="감독이 최근 준비 과정을 높게 평가했습니다.";effects=[["감독 신뢰",3]]}
+  else if(id==="mentor"){let k=pick(G.type==="hitter"?H:P),g=addAttr(k,.75);msg="베테랑 선배의 조언으로 경기 운영이 좋아졌습니다.";effects=[[LAB[k],g]]}
+  else if(id==="media"){G.fame+=3;msg="최근 활약이 언론의 주목을 받았습니다.";effects=[["인지도",3]]}
+  else if(id==="slump"){G.confidence-=4;G.momentum=-.5;msg="짧은 슬럼프가 찾아왔습니다.";effects=[["자신감",-4]]}
+  else if(id==="hot"){G.confidence+=4;G.momentum=.8;msg="최근 몇 주간 좋은 흐름이 이어지고 있습니다.";effects=[["자신감",4]]}
+  else if(id==="injury"){let bad=Math.random()>(G.durability/100);if(bad){G.momentum=-1;msg="작은 부상으로 몇 주간 컨디션 관리가 필요해졌습니다.";effects=[["컨디션",-3]]}else{msg="몸에 불편함이 있었지만 큰 문제 없이 지나갔습니다.";effects=[["내구성",1]]}}
+  else if(id==="team_rebuild"){msg="구단이 리빌딩을 선언하면서 젊은 선수들에게 더 많은 기회가 열렸습니다.";G.trust+=2;effects=[["감독 신뢰",2]]}
+  else if(id==="captain"&&G.age>=28){G.workEthic+=2;msg="주장단에 합류하며 팀 내 영향력이 커졌습니다.";effects=[["프로의식",2]]}
+  else if(id==="fan"){G.pref[G.club]=clamp((G.pref[G.club]||50)+4,0,100);msg="팬들과의 관계가 깊어지며 구단에 대한 애착도 커졌습니다.";effects=[["구단 선호",4]]}
+  else if(id==="position"){let k=G.type==="hitter"?"fielding":"command",g=addAttr(k,.65);msg="코치진이 역할 변화를 시험하며 경기 이해도가 높아졌습니다.";effects=[[LAB[k],g]]}
+  else {msg="구단 내부 평가 회의에서 현재 역할과 향후 계획이 논의됐습니다.";effects=[]}
+  $("proEvent").innerHTML=`<div class="event-card growth-flash"><div class="event-title">${msg}</div><div class="effects">${effects.map(e=>effectChip(e[0],typeof e[1]==="number"?e[1]:0)).join("")}</div></div>`;
 }
 function proStep(){
- if(!proRun)return;G.block++;if(Math.random()<.55)proEvent();renderPro();
+ if(!proRun)return;
+ G.block++;
+
+ let force=(G.block===2||G.block===4);
+ let stage=contextualStage();
+
+ // Most season events now come from the 100-event stage pool.
+ if(force||Math.random()<.56){
+   if(Math.random()<.72){
+     runContextualEvent(stage);
+   }else{
+     proEvent();
+   }
+ }
+ renderPro();
  if(!proRun)return;
  if(G.block>=5){pausePro();finishSeason();return}
- proTimer=setTimeout(proStep,1350)
+ proTimer=setTimeout(proStep,1450)
 }
+
+function maybeTradeDeadline(){
+  if(G.stage!=="pro"||G.service<2||G.retired)return false;
+  let current=team(G.club);
+  let value=playerMarketValue();
+  let tradeChance=.025;
+  if(current.style==="리빌딩"&&G.age>=27)tradeChance+=.08;
+  if(current.power<65&&value>72)tradeChance+=.06;
+  if(G.proLevel==="1군 백업"||G.proLevel==="1군/2군")tradeChance+=.035;
+  if(Math.random()>tradeChance)return false;
+
+  let dest=TEAMS.filter(t=>t.id!==G.club).map(t=>({t,fit:teamFit(t)})).sort((a,b)=>b.fit-a.fit)[0].t;
+  pausePro();
+  modal(`<h2>트레이드 통보</h2>
+    <div class="sub">${current.name}과 ${dest.name}이 트레이드에 합의했습니다.</div>
+    <div class="event-card"><b>${dest.name}</b><div class="tiny">${transactionReason(dest)}</div>
+    <div class="effects"><span class="effect">팀 전력 ${dest.power}</span><span class="effect">포지션 수요 ${teamNeed(dest.id)}</span><span class="effect">선호도 ${Math.round(G.pref[dest.id]||50)}</span></div></div>
+    <button class="btn green" onclick="completeTrade('${dest.id}')">새 팀에 합류</button>`);
+  return true;
+}
+function completeTrade(id){
+  G.club=id;G.trust=52;G.pref[id]=clamp((G.pref[id]||50)+7,0,100);theme(id);closeM();newStandings();renderPro();setTimeout(startPro,600)
+}
+function maybeSecondaryDraft(){
+  // Game adaptation of a secondary-draft style roster reshuffle.
+  if(G.stage!=="pro"||G.retired||G.service<2)return false;
+  let exposed=G.proLevel==="2군"||G.proLevel==="1군/2군"||(G.proLevel==="1군 백업"&&G.trust<42);
+  if(!exposed)return false;
+  if(Math.random()>.085)return false;
+
+  let candidates=TEAMS.filter(t=>t.id!==G.club).map(t=>({t,fit:teamFit(t)+t.youth*.08})).sort((a,b)=>b.fit-a.fit);
+  let dest=candidates[0].t;
+  pausePro();
+  modal(`<h2>2차 드래프트</h2><div class="sub">보호선수 명단에서 제외된 뒤 ${dest.name}의 선택을 받았습니다.</div>
+    <div class="event-card"><b>${dest.name}</b><div class="tiny">${transactionReason(dest)}</div>
+    <div class="effects"><span class="effect">포지션 수요 ${teamNeed(dest.id)}</span><span class="effect">육성 ${dest.dev}</span></div></div>
+    <button class="btn green" onclick="secondaryMove('${dest.id}')">이적</button>`);
+  return true;
+}
+function secondaryMove(id){
+  G.club=id;G.trust=48;G.proLevel="1군/2군";G.pref[id]=clamp((G.pref[id]||50)+5,0,100);theme(id);closeM();newStandings();renderPro();setTimeout(startPro,650)
+}
+function releaseRisk(){
+  if(G.stage!=="pro"||G.retired)return false;
+  let t=team(G.club), value=playerMarketValue();
+  let risk=0;
+  if(G.age>=27&&G.proLevel==="2군")risk+=.07;
+  if(G.age>=30&&G.proLevel==="1군/2군")risk+=.035;
+  if(ovr()<58)risk+=.06;
+  if(G.trust<30)risk+=.04;
+  // patient/development teams give more chances
+  risk*=clamp(1.35-t.patience/140,.55,1.05);
+  if(Math.random()>risk)return false;
+
+  pausePro();
+  modal(`<h2>보류선수 명단 제외</h2><div class="sub">${t.name}이 선수단 정리 과정에서 재계약하지 않기로 했습니다.</div>
+    <div class="event-card"><div class="tiny">현재 평가 ${ovr().toFixed(1)} · ${G.proLevel} · 감독 신뢰 ${Math.round(G.trust)}</div></div>
+    <button class="btn green" onclick="freeAgentTryout()">새 팀 테스트 도전</button>
+    <button class="btn dark" onclick="endReleasedCareer()">현역 은퇴</button>`);
+  return true;
+}
+function freeAgentTryout(){
+  let suitors=TEAMS.filter(t=>t.id!==G.club).map(t=>({t,fit:teamFit(t)})).filter(x=>x.fit>58).sort((a,b)=>b.fit-a.fit).slice(0,3);
+  if(!suitors.length){endReleasedCareer();return}
+  $("modalBody").innerHTML=`<h2>입단 테스트 제안</h2><div class="sub">몇몇 구단이 테스트 기회를 제시했습니다.</div>${suitors.map(x=>`
+    <div class="offer"><b>${x.t.name}</b><div class="tiny">${transactionReason(x.t)}</div><button class="btn blue" onclick="signTryout('${x.t.id}')">테스트 참가</button></div>`).join("")}`;
+}
+function signTryout(id){
+  let t=team(id);let pass=Math.random()<clamp(.42+(teamNeed(id)-65)*.012+(ovr()-58)*.035,.25,.9);
+  if(!pass){
+    $("modalBody").innerHTML=`<h2>${t.name} 테스트 불합격</h2><div class="sub">다른 기회를 찾아야 합니다.</div><button class="btn dark" onclick="endReleasedCareer()">커리어 정리</button>`;
+    return;
+  }
+  G.club=id;G.trust=38;G.proLevel="2군";G.salary=3000;theme(id);closeM();newStandings();renderPro();setTimeout(startPro,650)
+}
+function endReleasedCareer(){
+  G.retired=true;closeM();pausePro();$("proEvent").innerHTML=`<div class="event-card"><b>현역 생활 종료</b><div class="event-sub">프로 무대에서의 커리어를 마쳤습니다.</div></div>`;
+}
+
 function finishSeason(){
-  let a=G.attrs,summary;
+  let a=G.attrs,summary,performance=0;
   if(G.type==="hitter"){
-    let avg=clamp(.235+(a.contact-55)*.002+rand(-.02,.02),.19,.36);
-    let ops=avg+.35+(a.power-55)*.005+(a.discipline-55)*.001+rand(-.04,.04);
-    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · OPS ${ops.toFixed(3)} · ${Math.max(1,Math.round(8+(a.power-55)*.75+rand(-4,5)))} HR`;
+    let avg=clamp(.205+(a.contact-48)*.0021+rand(-.025,.03),.16,.37);
+    let ops=avg+.31+(a.power-50)*.0052+(a.discipline-50)*.0014+G.confidence*.0005+rand(-.05,.05);
+    let hr=Math.max(0,Math.round(3+(a.power-50)*.72+rand(-5,6)));
+    performance=(ops-.68)*100;
+    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · ${G.proLevel||"2군"} · OPS ${ops.toFixed(3)} · ${hr} HR`;
   }else{
-    let era=clamp(5.2-(a.stuff-55)*.045-(a.control-55)*.025+rand(-.45,.45),1.8,6.7);
-    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · ERA ${era.toFixed(2)}`;
+    let era=clamp(5.6-(a.stuff-50)*.05-(a.control-50)*.027-(a.command-50)*.015+rand(-.55,.55),1.7,7.2);
+    performance=(4.4-era)*9;
+    summary=`${G.age}세 · ${G.stage==="sangmu"?"상무":team(G.club).abbr} · ${G.proLevel||"2군"} · ERA ${era.toFixed(2)}`;
   }
   G.history.push(summary);
 
   if(G.stage!=="sangmu"){
     G.service++;
-    G.salary=Math.round((3000+Math.max(0,ovr()-60)*600+G.service*450)/100)*100;
+    G.trust=clamp(G.trust+performance*.25+rand(-2,2),5,95);
+    let evalScore=ovr()*.72+G.trust*.18+performance*.55+rand(-5,5);
+    if(evalScore>=76)G.proLevel="1군 주전";
+    else if(evalScore>=68)G.proLevel="1군 백업";
+    else if(evalScore>=60)G.proLevel="1군/2군";
+    else G.proLevel="2군";
+    G.salary=Math.round((2800+Math.max(0,ovr()-55)*650+G.service*420+(G.proLevel==="1군 주전"?4500:G.proLevel==="1군 백업"?1800:0))/100)*100;
   }else{
-    // Sangmu seasons emphasize development
-    let keys=G.type==="hitter"?H:P;
-    addAttr(pick(keys),.4);addAttr(pick(keys),.35);
+    let keys=G.type==="hitter"?H:P;addAttr(pick(keys),.8);addAttr(pick(keys),.65);
   }
 
-  G.age++;G.block=0;newStandings();
+  G.age++;G.block=0;G.momentum*=.4;newStandings();
 
   if(G.stage==="sangmu"){
     if(finishSangmuIfNeeded())return;
     renderPro();setTimeout(startPro,850);return;
   }
-
+  // Offseason transaction order: release risk -> secondary draft -> trade -> FA
+  if(releaseRisk())return;
+  if(maybeSecondaryDraft())return;
+  if(maybeTradeDeadline())return;
   if(G.service>=7&&((G.service-7)%4===0)){fa();return}
+
+  // Fringe players can disappear from pro baseball.
+  if(G.age>=26 && G.proLevel==="2군" && ovr()<58 && Math.random()<.14){
+    G.retired=true;
+    modal(`<h2>방출 통보</h2><div class="sub">프로 무대에서 끝내 자리를 잡지 못했습니다. 커리어는 여기서 끝났습니다.</div><button class="btn dark" onclick="closeM()">커리어 기록 보기</button>`);
+    return;
+  }
+
   renderPro();setTimeout(startPro,900);
 }
 function fa(){
- let offers=[...TEAMS].map(t=>({t,score:t.budget*.3+t.power*.2+(G.pref[t.id]||50)*.25+rand(-10,10),money:Math.round((1.5+ovr()/50+t.budget/100)*10000/100)*100})).sort((a,b)=>b.score-a.score).slice(0,4);
- modal(`<h2>FA 시장</h2><div class="sub">여러 구단이 서로 다른 조건으로 손을 내밀었습니다.</div>${offers.map(o=>`<div class="offer"><b>${o.t.name}</b><div class="tiny">팀 전력 ${o.t.power} · 선호도 ${G.pref[o.t.id]}</div><div style="color:var(--gold);margin:5px 0">연 ${o.money.toLocaleString()}만</div><button class="btn blue" onclick="sign('${o.t.id}',${o.money})">계약</button></div>`).join("")}`)
+  pausePro();
+  let current=team(G.club);
+  let offers=TEAMS.map(t=>{
+    let need=teamNeed(t.id),pref=G.pref[t.id]||50,fit=teamFit(t);
+    let years=Math.max(1,Math.min(6,Math.round(2+(ovr()-65)/8+t.winNow/70+rand(-1,1))));
+    let annual=Math.max(3200,Math.round((.55+ovr()/46+t.budget/100+need/130+(G.proLevel==="1군 주전"?.6:0)+rand(-.18,.22))*10000/100)*100);
+    let role=need>=82?"핵심 전력 보장":need>=73?"주전 경쟁 우위":need>=65?"주전 경쟁":"백업/뎁스";
+    return {t,fit,years,annual,role,pref,need}
+  }).sort((a,b)=>b.fit-a.fit).slice(0,5);
+
+  modal(`<h2>FA 시장</h2><div class="sub">구단마다 재정, 팀 전력, 포지션 수요와 선수에 대한 평가가 다릅니다.</div>
+    ${offers.map(o=>`<div class="offer">
+      <b>${o.t.name}</b><div class="tiny">${o.t.style} · ${o.role}</div>
+      <div class="effects"><span class="effect">전력 ${o.t.power}</span><span class="effect">수요 ${o.need}</span><span class="effect">선호 ${Math.round(o.pref)}</span></div>
+      <div style="color:var(--gold);font-weight:900;margin:7px 0">${o.years}년 · 연 ${o.annual.toLocaleString()}만</div>
+      <button class="btn blue" onclick="signFA('${o.t.id}',${o.annual},${o.years})">계약 선택</button>
+    </div>`).join("")}
+    <button class="btn dark" onclick="stayFA(${Math.round((G.salary||3000)*1.08)})">${current.name} 잔류 협상</button>`)
 }
-function sign(id,m){G.club=id;G.salary=m;G.trust=55;theme(id);closeM();newStandings();renderPro();setTimeout(startPro,700)}
-function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife17",JSON.stringify(G));alert("저장했습니다.")}
-function load(){let s=localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
+function signFA(id,m,years){G.club=id;G.salary=m;G.contractYears=years;G.trust=55;G.proLevel=teamNeed(id)>=75?"1군 주전":"1군 백업";G.pref[id]=clamp((G.pref[id]||50)+10,0,100);theme(id);closeM();newStandings();renderPro();setTimeout(startPro,700)}
+function stayFA(m){G.salary=m;G.contractYears=2;G.trust+=4;closeM();renderPro();setTimeout(startPro,650)}
+function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife20",JSON.stringify(G));alert("저장했습니다.")}
+function load(){let s=localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
 creator();
 </script>
 </body>
