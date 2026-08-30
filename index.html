@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Diamond Life 21</title>
+<title>Diamond Life 22</title>
 <style>
 :root{
   --team:#3f6fff;--team2:#dbe6ff;--bg:#0e1116;--panel:#1a2028;--panel2:#232b35;
@@ -89,7 +89,7 @@ h2,h3{margin:0 0 10px}.sub{color:var(--muted);font-size:12px;line-height:1.55}.t
   .top .actions .btn{padding:6px;font-size:9px}.brand h1{font-size:16px}
 }
 
-/* Diamond Life 21 — mobile safety */
+/* Diamond Life 22 — mobile safety */
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 img,svg,canvas{max-width:100%}
 .panel,.two,.creator-layout,.grid2,.grid4,.club-grid,.attrs,.offer{min-width:0}
@@ -136,7 +136,7 @@ img,svg,canvas{max-width:100%}
 .effect{border:2px solid #000;background:#0b1015;padding:4px 6px;font-size:9px}
 
 
-/* Diamond Life 21 — visible progression */
+/* Diamond Life 22 — visible progression */
 .season-track{margin-top:10px;border:3px solid #000;background:#0b1015;padding:8px}
 .season-track-head{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
 .season-track-bar{height:12px;background:#050709;border:3px solid #000;margin-top:6px}
@@ -152,7 +152,7 @@ img,svg,canvas{max-width:100%}
 .timeline-note{margin-top:7px;font-size:10px;color:var(--muted)}
 
 
-/* Diamond Life 21 — mobile audit fixes */
+/* Diamond Life 22 — mobile audit fixes */
 .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .table{min-width:0;width:100%;table-layout:fixed}
 .table td,.table th{word-break:keep-all;overflow-wrap:anywhere}
@@ -177,7 +177,7 @@ img,svg,canvas{max-width:100%}
 }
 
 
-/* Diamond Life 21 — event-first career flow */
+/* Diamond Life 22 — event-first career flow */
 .story-card{
   border:4px solid #000;background:#10161d;padding:14px;margin-top:10px;
   box-shadow:5px 5px 0 rgba(0,0,0,.35);min-height:128px
@@ -220,7 +220,7 @@ img,svg,canvas{max-width:100%}
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 21</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
+    <div class="brand"><div id="topBadge" class="badge">DL</div><div><h1>DIAMOND LIFE 22</h1><small id="topSub">고교야구에서 시작되는 커리어</small></div></div>
     <div class="actions"><button class="btn dark" onclick="save()">저장</button><button class="btn dark" onclick="load()">불러오기</button></div>
   </header>
 
@@ -479,7 +479,7 @@ function renderAm(){
  renderAttrs("amAttrs");$("amLog").innerHTML=G.logs.slice(-10).reverse().map(x=>`<div class="log-item">${x}</div>`).join("")||'<div class="sub">첫 시즌이 시작됩니다.</div>';
  $("amDot").classList.toggle("on",amRun);$("amStatus").textContent=amRun?`${(college?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌 종료"} 진행 중`:"시즌이 멈춰 있습니다";animateField("a")
 }
-function startAm(){if(amRun)return;amRun=true;renderAm();amTimer=setTimeout(amStep,Math.round(900/amSpeed))}function pauseAm(){amRun=false;clearTimeout(amTimer);renderAm()}function toggleAm(){amRun?pauseAm():startAm()}
+function startAm(){if($("modal").classList.contains("show"))return;if(amRun)return;amRun=true;if(amTimer)clearTimeout(amTimer);renderAm();amTimer=setTimeout(amStep,Math.round(900/amSpeed))}function pauseAm(){amRun=false;clearTimeout(amTimer);renderAm()}function toggleAm(){amRun?pauseAm():startAm()}
 
 
 function contextualStage(){
@@ -492,6 +492,107 @@ function contextualStage(){
   }
   return "pro";
 }
+
+function eventChoiceTemplate(e,stage){
+  let keys=G.type==="hitter"?H:P;
+  let primary=pick(keys), secondary=pick(keys.filter(k=>k!==primary));
+
+  const templates={
+    injury:()=>[
+      [(stage==="high"?"감독에게 말하고 며칠 쉰다":stage==="college"?"트레이너에게 맡기고 회복한다":"엔트리에서 빠져 회복한다"),()=>{G.durability=clamp((G.durability||65)+1,0,100);G.confidence=clamp((G.confidence||55)+1,0,100);return [["내구성",1],["자신감",1]]}],
+      [(stage==="high"?"테이핑하고 중요한 경기만 뛴다":stage==="college"?"통증을 관리하며 출전한다":"출전 시간을 줄이고 뛴다"),()=>{if(Math.random()<.35){G.confidence-=3;G.momentum=-.8;return [["자신감",-3],["컨디션",-2]]}let g=addAttr(primary,.55);return [[LAB[primary],g],["경험",1]]}],
+      ["검사를 받고 상태를 확인한다",()=>{G.workEthic=clamp((G.workEthic||60)+1,0,100);return [["프로의식",1]]}]
+    ],
+    scout:()=>[
+      [(stage==="high"?"스카우트 앞에서 장점을 확실히 보여준다":stage==="college"?"프로에서 통할 무기를 보여준다":"내 강점을 경기에서 밀어붙인다"),()=>{let s=rand(2.5,5);G.scout=clamp((G.scout||20)+s,0,100);G.confidence+=1;return [["스카우트",s],["자신감",1]]}],
+      ["약점을 보완하는 데 집중한다",()=>{let g=addAttr(secondary,1.0);return [[LAB[secondary],g]]}],
+      ["평소 루틴을 유지한다",()=>{G.workEthic+=1;return [["프로의식",1]]}]
+    ],
+    coach:()=>[
+      [(stage==="high"?"감독의 지도를 그대로 따른다":stage==="college"?"대학 코치의 수정안을 따른다":"코치진의 수정안을 받아들인다"),()=>{let g=addAttr(primary,.9);G.workEthic+=1;return [[LAB[primary],g],["프로의식",1]]}],
+      ["내 방식과 절충한다",()=>{let g=addAttr(secondary,.65);G.confidence+=1;return [[LAB[secondary],g],["자신감",1]]}],
+      ["내 방식을 고수한다",()=>{G.confidence+=3;G.workEthic-=1;return [["자신감",3],["프로의식",-1]]}]
+    ],
+    media:()=>[
+      [(stage==="high"?"학교와 동료에게 공을 돌린다":stage==="college"?"팀 성적을 먼저 이야기한다":"팀 승리를 먼저 이야기한다"),()=>{G.trust=clamp((G.trust||45)+2,0,100);G.fame=clamp((G.fame||8)+1,0,100);return [["감독 신뢰",2],["인지도",1]]}],
+      ["자신 있게 목표를 밝힌다",()=>{G.fame=clamp((G.fame||8)+4,0,100);G.confidence+=2;return [["인지도",4],["자신감",2]]}],
+      ["인터뷰를 짧게 끝낸다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
+    competition:()=>[
+      [(stage==="high"?"방과 후 추가 훈련을 한다":stage==="college"?"개인 훈련 시간을 늘린다":"경기 후 추가 훈련을 한다"),()=>{let g=addAttr(primary,1.05);G.workEthic+=1;return [[LAB[primary],g],["프로의식",1]]}],
+      ["코치와 역할을 상담한다",()=>{G.trust=clamp((G.trust||45)+3,0,100);return [["감독 신뢰",3]]}],
+      ["경기에서 결과로 증명한다",()=>{if(Math.random()<.55){G.confidence+=3;G.trust+=2;return [["자신감",3],["감독 신뢰",2]]}G.confidence-=2;return [["자신감",-2]]}]
+    ],
+    mentor:()=>[
+      ["선배의 루틴을 따라본다",()=>{let g=addAttr(primary,.85);G.workEthic+=1;return [[LAB[primary],g],["프로의식",1]]}],
+      ["기술적인 질문만 한다",()=>{let g=addAttr(secondary,.65);return [[LAB[secondary],g]]}],
+      ["내 루틴을 유지한다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
+    role:()=>[
+      ["새 역할을 적극적으로 받아들인다",()=>{let k=G.type==="hitter"?"fielding":"command",g=addAttr(k,1.05);G.trust+=2;return [[LAB[k],g],["감독 신뢰",2]]}],
+      ["기존 역할을 우선한다",()=>{G.confidence+=2;return [["자신감",2]]}],
+      ["일단 제한적으로 시험한다",()=>{let k=G.type==="hitter"?"fielding":"command",g=addAttr(k,.55);return [[LAB[k],g]]}]
+    ],
+    confidence:()=>[
+      ["멘탈 루틴을 바꾼다",()=>{G.confidence=clamp((G.confidence||55)+4,0,100);return [["자신감",4]]}],
+      ["훈련량을 늘린다",()=>{let g=addAttr(primary,.75);G.workEthic+=1;return [[LAB[primary],g],["프로의식",1]]}],
+      ["흐름이 돌아오길 기다린다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ],
+    growth:()=>[
+      [`${LAB[primary]} 집중 훈련`,()=>{let g=addAttr(primary,1.25);return [[LAB[primary],g]]}],
+      [`${LAB[secondary]} 보완 훈련`,()=>{let g=addAttr(secondary,.95);return [[LAB[secondary],g]]}],
+      ["컨디션을 우선한다",()=>{G.durability=clamp((G.durability||65)+.5,0,100);return [["내구성",.5]]}]
+    ],
+    risk:()=>[
+      ["큰 변화를 선택한다",()=>{if(Math.random()<.58){let g=addAttr(primary,1.8);G.momentum=.8;return [[LAB[primary],g],["흐름",2]]}G.confidence-=3;return [["자신감",-3]]}],
+      ["안정적인 선택을 한다",()=>{let g=addAttr(secondary,.7);return [[LAB[secondary],g]]}],
+      ["이번에는 움직이지 않는다",()=>{G.confidence+=1;return [["자신감",1]]}]
+    ]
+  };
+
+  let key="growth";
+  let txt=(e.title+" "+e.desc).toLowerCase();
+  if(e.type==="injury"||txt.includes("부상")||txt.includes("몸 상태")||txt.includes("재활"))key="injury";
+  else if(e.type==="scout"||txt.includes("스카우트")||txt.includes("드래프트 평가"))key="scout";
+  else if(txt.includes("코치")||txt.includes("폼")||txt.includes("훈련 방식"))key="coach";
+  else if(e.type==="media"||txt.includes("언론")||txt.includes("미디어")||txt.includes("중계"))key="media";
+  else if(e.type==="competition"||txt.includes("경쟁")||txt.includes("주전"))key="competition";
+  else if(e.type==="mentor"||txt.includes("선배")||txt.includes("베테랑"))key="mentor";
+  else if(e.type==="role"||txt.includes("역할")||txt.includes("포지션")||txt.includes("보직"))key="role";
+  else if(e.type==="confidence"||txt.includes("멘탈")||txt.includes("슬럼프"))key="confidence";
+  else if(e.type==="choice_risk")key="risk";
+  return (templates[key]||templates.growth)();
+}
+
+function runEventChoice(e,stage,onDone){
+  pauseAm();pausePro();
+  let choices=eventChoiceTemplate(e,stage);
+  window._eventChoice={e,stage,onDone,choices};
+  $("modalBody").innerHTML=`<div class="choice-modal-title">${e.title}</div>
+    <div class="choice-note">${e.desc}</div>
+    ${choices.map((c,i)=>`<button class="btn ${i===0?"green":i===1?"blue":"dark"}" onclick="resolveEventChoice(${i})">${c[0]}</button>`).join("")}`;
+  $("modal").classList.add("show");
+}
+function resolveEventChoice(i){
+  let c=window._eventChoice;
+  let effects=c.choices[i][1]();
+  let month=c.stage==="high"||c.stage==="college"?
+    ((c.stage==="college"?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌"):
+    (PRO_MONTHS[G.block]||"시즌");
+  let target=(c.stage==="high"||c.stage==="college")?"amEvent":"proEvent";
+  $(target).innerHTML=storyHTML(month,c.e.title,c.e.desc,effects);
+  closeM();
+  if(c.stage==="high"||c.stage==="college"){
+    G.logs.push(`${G.age}세 ${month} · ${c.e.title}`);
+  }else{
+    G.historyEvents??=[];G.historyEvents.push(`${G.age}세 ${month} · ${c.e.title}`);
+  }
+  if(c.onDone)c.onDone();
+  if((c.stage==="high"||c.stage==="college") && !$("modal").classList.contains("show")){
+    setTimeout(()=>{if($("amateur").classList.contains("active")&&!amRun)startAm()},Math.round(800/amSpeed));
+  }
+}
+
 function uniqueContextEvent(stage){
   G.bigEventMem??={};
   let pool=EVENT_LIBRARY[stage]||[];
@@ -625,65 +726,49 @@ function chooseAmEvent(){
 function runAmateurEvent(done){
   let stage=G.stage==="college"?"college":"high";
   let e=uniqueContextEvent(stage);
+  let month=(stage==="college"?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌";
 
-  // Most months are readable story events. Only ~22% require a decision.
-  let becomesChoice=["choice_risk","choice_safe"].includes(e.type) || Math.random()<.18;
-  if(becomesChoice){
-    pauseAm();
-    let keys=G.type==="hitter"?H:P;
-    let k1=pick(keys),k2=pick(keys.filter(k=>k!==k1));
-    modal(`<div class="choice-modal-title">${e.title}</div>
-      <div class="choice-note">${e.desc}</div>
-      <button class="btn green" onclick="amStoryChoice('${stage}','${k1}',1)">${LAB[k1]} 쪽으로 대응한다</button>
-      <button class="btn blue" onclick="amStoryChoice('${stage}','${k2}',2)">${LAB[k2]}를 보완한다</button>
-      <button class="btn dark" onclick="amStoryChoice('${stage}','',3)">현재 방식을 유지한다</button>`);
-    window._amStoryDone=done;window._amStoryEvent=e;return;
+  // Exactly one event per month.
+  let choiceRequired=["choice_risk","choice_safe","injury","role"].includes(e.type) || Math.random()<.24;
+  if(choiceRequired){
+    runEventChoice(e,stage,done);
+    return;
   }
 
   let effects=stageEventEffect(e,stage);
-  let month=(stage==="college"?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌";
   $("amEvent").innerHTML=storyHTML(month,e.title,e.desc,effects);
   G.logs.push(`${G.age}세 ${month} · ${e.title}`);
   renderAm();
-  setTimeout(done,Math.round(2600/amSpeed));
+
+  // Do not fire any second event in this month.
+  setTimeout(done,Math.round(2900/amSpeed));
 }
-function amStoryChoice(stage,key,opt){
-  let effects=[];
-  if(opt===1&&key){effects.push([LAB[key],addAttr(key,rand(.9,1.7))]);G.momentum=.7}
-  if(opt===2&&key){effects.push([LAB[key],addAttr(key,rand(.6,1.2))]);G.workEthic=clamp(G.workEthic+1,0,100);effects.push(["프로의식",1])}
-  if(opt===3){G.confidence=clamp(G.confidence+1,0,100);effects.push(["자신감",1])}
-  let month=(stage==="college"?AM_MONTHS_COLLEGE:AM_MONTHS_HIGH)[G.block]||"시즌";
-  $("amEvent").innerHTML=storyHTML(month,window._amStoryEvent.title,window._amStoryEvent.desc,effects);
-  G.logs.push(`${G.age}세 ${month} · ${window._amStoryEvent.title}`);
-  closeM();
-  if(window._amStoryDone)window._amStoryDone();
-  setTimeout(startAm,Math.round(650/amSpeed));
-}
+function amStoryChoice(stage,key,opt){}
 
 function amStep(){
   if(!amRun)return;
   runAmateurEvent(()=>{
-    if(!amRun)return;
     G.block++;
     renderAm();
+
     if(G.block>=8){
       G.block=0;pauseAm();
       if(G.stage==="high"){
         if(G.year<3){
           G.year++;G.age++;
           G.logs.push(`${G.age}세 · 고교 ${G.year}학년이 시작됐습니다.`);
-          renderAm();setTimeout(startAm,Math.round(1200/amSpeed));
+          renderAm();setTimeout(startAm,Math.round(1300/amSpeed));
         }else decision("high");
       }else{
         if(G.year<4){
           G.year++;G.age++;G.scout=clamp(G.scout+2,0,100);
           G.logs.push(`${G.age}세 · 대학 ${G.year}학년이 시작됐습니다.`);
-          renderAm();setTimeout(startAm,Math.round(1200/amSpeed));
+          renderAm();setTimeout(startAm,Math.round(1300/amSpeed));
         }else decision("college");
       }
-    }else{
-      amTimer=setTimeout(amStep,Math.round(500/amSpeed));
+      return;
     }
+    setTimeout(()=>{if(!$("modal").classList.contains("show")&&$("amateur").classList.contains("active"))startAm()},Math.round(650/amSpeed));
   });
 }
 function modal(html){$("modalBody").innerHTML=html;$("modal").classList.add("show")}function closeM(){$("modal").classList.remove("show")}
@@ -726,7 +811,7 @@ function renderPro(){
  $("standings").innerHTML=G.standings.map((x,i)=>`<tr><td>${i+1}</td><td>${team(x.id).name}<div class="tiny">${team(x.id).style}</div></td><td>${Math.round(x.s)}</td></tr>`).join("");$("nat").innerHTML=`<div class="review-row"><span>병역</span><b>${G.military}</b></div><div class="review-row"><span>대표팀</span><b>${G.caps}회</b></div>`;
  $("pDot").classList.toggle("on",proRun);$("pStatus").textContent=proRun?`${PRO_MONTHS[G.block]||"시즌 종료"} 진행 중`:"시즌이 멈춰 있습니다";animateField("p")
 }
-function startPro(){if(proRun||G.retired)return;proRun=true;renderPro();proTimer=setTimeout(proStep,Math.round(1000/proSpeed))}function pausePro(){proRun=false;clearTimeout(proTimer);renderPro()}function togglePro(){proRun?pausePro():startPro()}
+function startPro(){if($("modal").classList.contains("show"))return;if(proRun||G.retired)return;proRun=true;if(proTimer)clearTimeout(proTimer);renderPro();proTimer=setTimeout(proStep,Math.round(1000/proSpeed))}function pausePro(){proRun=false;clearTimeout(proTimer);renderPro()}function togglePro(){proRun?pausePro():startPro()}
 
 function proChoicePick(i){
   let effects=window._proChoices[i][1]();
@@ -840,38 +925,28 @@ function proStep(){
   let e=uniqueContextEvent(stage);
   let month=PRO_MONTHS[G.block]||"시즌";
 
-  let choice=["choice_risk","choice_safe"].includes(e.type)||Math.random()<.20;
-  if(choice){
-    pausePro();
-    let keys=G.type==="hitter"?H:P;
-    let k1=pick(keys),k2=pick(keys.filter(k=>k!==k1));
-    window._proStoryEvent=e;
-    modal(`<div class="choice-modal-title">${e.title}</div><div class="choice-note">${e.desc}</div>
-      <button class="btn green" onclick="proStoryChoice('${stage}','${k1}',1)">${LAB[k1]} 쪽으로 대응한다</button>
-      <button class="btn blue" onclick="proStoryChoice('${stage}','${k2}',2)">${LAB[k2]}를 보완한다</button>
-      <button class="btn dark" onclick="proStoryChoice('${stage}','',3)">현재 역할을 유지한다</button>`);
+  // Exactly one event per month. No proEvent() call on top of this.
+  let choiceRequired=["choice_risk","choice_safe","injury","role"].includes(e.type) || Math.random()<.24;
+  if(choiceRequired){
+    runEventChoice(e,stage,()=>{
+      G.block++;
+      renderPro();
+      if(G.block>=8){pausePro();setTimeout(finishSeason,550)}
+      else setTimeout(startPro,Math.round(700/proSpeed));
+    });
     return;
   }
 
   let effects=stageEventEffect(e,stage);
   $("proEvent").innerHTML=storyHTML(month,e.title,e.desc,effects);
   G.historyEvents??=[];G.historyEvents.push(`${G.age}세 ${month} · ${e.title}`);
+
   G.block++;
   renderPro();
   if(G.block>=8){pausePro();finishSeason();return}
-  proTimer=setTimeout(proStep,Math.round(2700/proSpeed));
+  proTimer=setTimeout(proStep,Math.round(3000/proSpeed));
 }
-function proStoryChoice(stage,key,opt){
-  let effects=[];
-  if(opt===1&&key){effects.push([LAB[key],addAttr(key,rand(.75,1.45))]);G.momentum=.6}
-  if(opt===2&&key){effects.push([LAB[key],addAttr(key,rand(.5,1.0))]);G.workEthic=clamp(G.workEthic+1,0,100);effects.push(["프로의식",1])}
-  if(opt===3){G.confidence=clamp(G.confidence+1,0,100);effects.push(["자신감",1])}
-  let month=PRO_MONTHS[G.block]||"시즌";
-  $("proEvent").innerHTML=storyHTML(month,window._proStoryEvent.title,window._proStoryEvent.desc,effects);
-  closeM();G.block++;renderPro();
-  if(G.block>=8){setTimeout(finishSeason,500);return}
-  setTimeout(startPro,Math.round(750/proSpeed));
-}
+function proStoryChoice(stage,key,opt){}
 
 function maybeTradeDeadline(){
   if(G.stage!=="pro"||G.service<2||G.retired)return false;
@@ -1022,8 +1097,8 @@ function fa(){
 }
 function signFA(id,m,years){G.club=id;G.salary=m;G.contractYears=years;G.trust=55;G.proLevel=teamNeed(id)>=75?"1군 주전":"1군 백업";G.pref[id]=clamp((G.pref[id]||50)+10,0,100);theme(id);closeM();newStandings();renderPro();setTimeout(startPro,700)}
 function stayFA(m){G.salary=m;G.contractYears=2;G.trust+=4;closeM();renderPro();setTimeout(startPro,650)}
-function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife21",JSON.stringify(G));alert("저장했습니다.")}
-function load(){let s=localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
+function save(){if(!G)return alert("진행 중인 커리어가 없습니다.");localStorage.setItem("diamondLife22",JSON.stringify(G));alert("저장했습니다.")}
+function load(){let s=localStorage.getItem("diamondLife22")||localStorage.getItem("diamondLife21")||localStorage.getItem("diamondLife20")||localStorage.getItem("diamondLife19")||localStorage.getItem("diamondLife18")||localStorage.getItem("diamondLife17")||localStorage.getItem("diamondLife16");if(!s)return alert("저장된 커리어가 없습니다.");G=JSON.parse(s);theme(G.club||G.fav);if(G.stage==="high"||G.stage==="college"){show("amateur");renderAm();setTimeout(startAm,500)}else{show("pro");newStandings();renderPro();setTimeout(startPro,500)}}
 creator();
 </script>
 </body>
